@@ -1,6 +1,8 @@
 # KraxbotOSS
 Open source and cross platform Steam bot
 
+![](http://orig11.deviantart.net/ffbe/f/2016/309/6/c/sombra_by_witchtaunter-danekeh.gif)
+
 ## Current version is 0.1.0
 
 # About
