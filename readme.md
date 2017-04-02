@@ -1,4 +1,5 @@
-# KraxbotOSS
+![KraxbotOSS](https://vgy.me/UIbkti.png)
+
 Open source and cross platform Steam bot
 
 ![](http://orig11.deviantart.net/ffbe/f/2016/309/6/c/sombra_by_witchtaunter-danekeh.gif)
