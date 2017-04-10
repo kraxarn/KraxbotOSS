@@ -15,6 +15,9 @@ namespace KraxbotOSS
         public Form1()
         {
             InitializeComponent();
+
+            lbChatrooms.Items.Add("Test");
+            log.AppendText("Welcome to KraxBotOSS 0.1.0!");
         }
     }
 }
