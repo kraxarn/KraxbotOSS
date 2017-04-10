@@ -30,5 +30,11 @@ namespace KraxbotOSS
             Form settings = new FormSettings();
             settings.Show();
         }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            Form login = new FormLogin();
+            login.Show();
+        }
     }
 }

@@ -37,7 +37,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.log = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
@@ -131,14 +131,15 @@
             this.button4.Text = "Bot Settings";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btnLogin
             // 
-            this.button5.Location = new System.Drawing.Point(203, 112);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(150, 23);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "Log in";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnLogin.Location = new System.Drawing.Point(203, 112);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(150, 23);
+            this.btnLogin.TabIndex = 6;
+            this.btnLogin.Text = "Log in";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // groupBox3
             // 
@@ -167,7 +168,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(572, 320);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.button2);
@@ -195,7 +196,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RichTextBox log;
     }
