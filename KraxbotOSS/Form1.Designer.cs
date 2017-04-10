@@ -31,8 +31,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbChatrooms = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lStatus = new System.Windows.Forms.Label();
+            this.lConnected = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
@@ -65,8 +65,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.lStatus);
+            this.groupBox2.Controls.Add(this.lConnected);
             this.groupBox2.Location = new System.Drawing.Point(203, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(150, 65);
@@ -74,23 +74,23 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Status";
             // 
-            // label1
+            // lStatus
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "State: Disconnected";
+            this.lStatus.AutoSize = true;
+            this.lStatus.Location = new System.Drawing.Point(8, 40);
+            this.lStatus.Name = "lStatus";
+            this.lStatus.Size = new System.Drawing.Size(97, 13);
+            this.lStatus.TabIndex = 1;
+            this.lStatus.Text = "Status: Logged out";
             // 
-            // label2
+            // lConnected
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Status: Logged out";
+            this.lConnected.AutoSize = true;
+            this.lConnected.Location = new System.Drawing.Point(8, 20);
+            this.lConnected.Name = "lConnected";
+            this.lConnected.Size = new System.Drawing.Size(104, 13);
+            this.lConnected.TabIndex = 0;
+            this.lConnected.Text = "State: Disconnected";
             // 
             // button1
             // 
@@ -133,6 +133,7 @@
             // 
             // btnLogin
             // 
+            this.btnLogin.Enabled = false;
             this.btnLogin.Location = new System.Drawing.Point(203, 112);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(150, 23);
@@ -157,7 +158,6 @@
             this.log.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.log.Location = new System.Drawing.Point(6, 19);
             this.log.Name = "log";
-            this.log.ReadOnly = true;
             this.log.Size = new System.Drawing.Size(188, 270);
             this.log.TabIndex = 0;
             this.log.Text = "";
@@ -190,8 +190,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListBox lbChatrooms;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lConnected;
+        private System.Windows.Forms.Label lStatus;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnSettings;
@@ -199,6 +199,7 @@
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RichTextBox log;
+        //private System.Windows.Forms.RichTextBox log;
     }
 }
 
