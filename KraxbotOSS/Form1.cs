@@ -12,12 +12,14 @@ namespace KraxbotOSS
 {
     public partial class Form1 : Form
     {
+        string version = "0.1.0";
+
         public Form1()
         {
             InitializeComponent();
 
             lbChatrooms.Items.Add("Test");
-            log.AppendText("Welcome to KraxBotOSS 0.1.0!");
+            log.AppendText("Welcome to KraxBotOSS " + version);
         }
     }
 }
