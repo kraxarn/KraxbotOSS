@@ -17,6 +17,7 @@ namespace KraxbotOSS
         // Some variables
         string version = "0.1.0";
         bool running;
+        System.Timers.Timer runner;
 
         // Steam variables
         static SteamClient client;
@@ -70,6 +71,13 @@ namespace KraxbotOSS
             while (running)
                 manager.RunWaitCallbacks(TimeSpan.FromSeconds(1));
             */
+
+            // Run loop check in a seperate thread
+            Task.Run(() => { while (running) { manager.RunWaitCallbacks(TimeSpan.FromSeconds(1)); } });
+        }
+        private void WaitCallbacks(object source)
+        {
+            manager.RunWaitCallbacks(TimeSpan.FromSeconds(1));
         }
 
         // -- Steam functions -- //
@@ -91,9 +99,12 @@ namespace KraxbotOSS
                 this.Close();
                 return;
             }
-            log.AppendText("Connected");
-            btnLogin.Enabled = true;
-            lStatus.Text = "State: Connected";
+            Log("Connected");
+            this.Invoke((MethodInvoker)delegate
+            {
+                btnLogin.Enabled = true;
+                lStatus.Text = "State: Connected";
+            });
         }
         void OnDisconnected(SteamClient.DisconnectedCallback callback)
         {
@@ -157,7 +168,17 @@ namespace KraxbotOSS
             log.AppendText(string.Format("\n{1}: {2}", friends.GetFriendPersonaName(callback.ChatterID), callback.Message));
         }
 
-        // -- Buttons and stuff -- //
+        // -- Other stuffs -- //
+
+        void Log(string text)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                log.AppendText(text);
+            });
+        }
+
+        // -- Buttons and ui stuff -- //
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
