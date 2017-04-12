@@ -65,14 +65,7 @@ namespace KraxbotOSS
             log.AppendText("\nConnecting to Steam...");
             client.Connect();
 
-            // Main loop
-            // TODO: Maybe remake this to not freeze ui
-            /*
-            while (running)
-                manager.RunWaitCallbacks(TimeSpan.FromSeconds(1));
-            */
-
-            // Run loop check in a seperate thread
+            // Run main loop in a seperate thread
             Task.Run(() => { while (running) { manager.RunWaitCallbacks(TimeSpan.FromSeconds(1)); } });
         }
         private void WaitCallbacks(object source)
