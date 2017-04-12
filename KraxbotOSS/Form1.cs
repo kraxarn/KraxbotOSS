@@ -80,7 +80,7 @@ namespace KraxbotOSS
         // Some variables
         string version = "0.1.0";
         bool running;
-        string configPath;
+        static string configPath;
         Settings[] CR;
 
         // Steam variables
@@ -129,6 +129,7 @@ namespace KraxbotOSS
             manager.Subscribe<SteamFriends.ChatEnterCallback>(OnChatEnter);           // We entered a chat
             //manager.Subscribe<SteamFriends.ChatActionResultCallback>(OnChatAction); // ?
             manager.Subscribe<SteamFriends.ChatMemberInfoCallback>(OnChatMemberInfo); // A user has left or entered a chat
+            manager.Subscribe<SteamUser.UpdateMachineAuthCallback>(OnMachineAuth);    // We logged in and can store it
 
             // Tell the main Steam loop we are running
             running = true;
@@ -225,6 +226,35 @@ namespace KraxbotOSS
         void OnLoggedOff(SteamUser.LoggedOffCallback callback)
         {
             Log("\nLogged out");
+        }
+        static void OnMachineAuth(SteamUser.UpdateMachineAuthCallback callback)
+        {
+            // Writes sentry file
+            int fileSize;
+            byte[] sentryHash;
+            using (var fs = File.Open(Path.Combine(configPath, "sentry"), FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                fs.Seek(callback.Offset, SeekOrigin.Begin);
+                fs.Write(callback.Data, 0, callback.BytesToWrite);
+                fileSize = (int)fs.Length;
+                fs.Seek(0, SeekOrigin.Begin);
+                using (var sha = new System.Security.Cryptography.SHA1CryptoServiceProvider())
+                    sentryHash = sha.ComputeHash(fs);
+            }
+            // Inform Steam what we're accepting this sentry file
+            user.SendMachineAuthResponse(new SteamUser.MachineAuthDetails
+            {
+                JobID = callback.JobID,
+                FileName = callback.FileName,
+                BytesWritten = callback.BytesToWrite,
+                FileSize = fileSize,
+                Offset = callback.Offset,
+
+                Result = EResult.OK,
+                LastError = 0,
+                OneTimePassword = callback.OneTimePassword,
+                SentryFileHash = sentryHash
+            });
         }
         void OnFriendMsg(SteamFriends.FriendMsgCallback callback)
         {
