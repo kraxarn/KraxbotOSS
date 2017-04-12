@@ -118,6 +118,7 @@ namespace KraxbotOSS
             Invoke((MethodInvoker)delegate
             {
                 btnLogin.Enabled = false;
+                btnBotSettings.Enabled = true;
                 lStatus.Text = "State: Logged in";
             });
 
