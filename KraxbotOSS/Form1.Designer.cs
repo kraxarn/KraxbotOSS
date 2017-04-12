@@ -32,7 +32,7 @@
             this.lbChatrooms = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lStatus = new System.Windows.Forms.Label();
-            this.lConnected = new System.Windows.Forms.Label();
+            this.lState = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
@@ -66,7 +66,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lStatus);
-            this.groupBox2.Controls.Add(this.lConnected);
+            this.groupBox2.Controls.Add(this.lState);
             this.groupBox2.Location = new System.Drawing.Point(203, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(150, 65);
@@ -83,14 +83,14 @@
             this.lStatus.TabIndex = 1;
             this.lStatus.Text = "Status: Logged out";
             // 
-            // lConnected
+            // lState
             // 
-            this.lConnected.AutoSize = true;
-            this.lConnected.Location = new System.Drawing.Point(8, 20);
-            this.lConnected.Name = "lConnected";
-            this.lConnected.Size = new System.Drawing.Size(104, 13);
-            this.lConnected.TabIndex = 0;
-            this.lConnected.Text = "State: Disconnected";
+            this.lState.AutoSize = true;
+            this.lState.Location = new System.Drawing.Point(8, 20);
+            this.lState.Name = "lState";
+            this.lState.Size = new System.Drawing.Size(104, 13);
+            this.lState.TabIndex = 0;
+            this.lState.Text = "State: Disconnected";
             // 
             // button1
             // 
@@ -191,7 +191,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListBox lbChatrooms;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label lConnected;
+        private System.Windows.Forms.Label lState;
         private System.Windows.Forms.Label lStatus;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;

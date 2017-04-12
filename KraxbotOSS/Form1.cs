@@ -91,7 +91,7 @@ namespace KraxbotOSS
             this.Invoke((MethodInvoker)delegate
             {
                 btnLogin.Enabled = true;
-                lStatus.Text = "State: Connected";
+                lState.Text = "State: Connected";
             });
         }
         void OnDisconnected(SteamClient.DisconnectedCallback callback)
