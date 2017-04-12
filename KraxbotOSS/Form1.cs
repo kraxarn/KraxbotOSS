@@ -69,10 +69,6 @@ namespace KraxbotOSS
             Task.Run(() => { while (running) { manager.RunWaitCallbacks(TimeSpan.FromSeconds(1)); } });
             
         }
-        private void WaitCallbacks(object source)
-        {
-            manager.RunWaitCallbacks(TimeSpan.FromSeconds(1));
-        }
 
         // -- Steam functions -- //
 
