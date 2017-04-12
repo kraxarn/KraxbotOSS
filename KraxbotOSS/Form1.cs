@@ -97,7 +97,7 @@ namespace KraxbotOSS
         void OnDisconnected(SteamClient.DisconnectedCallback callback)
         {
             // TODO: Only show the message once
-            log.AppendText("\nDisconnected, attempting to reconnect...");
+            Log("\nDisconnected, attempting to reconnect...");
             client.Connect();
         }
         void OnLoggedOn(SteamUser.LoggedOnCallback callback)
