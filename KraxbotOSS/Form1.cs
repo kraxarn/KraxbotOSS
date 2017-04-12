@@ -160,7 +160,7 @@ namespace KraxbotOSS
 
         void Log(string text)
         {
-            this.Invoke((MethodInvoker)delegate
+            Invoke((MethodInvoker)delegate
             {
                 log.AppendText(text);
             });
