@@ -67,6 +67,7 @@ namespace KraxbotOSS
 
             // Run main loop in a seperate thread
             Task.Run(() => { while (running) { manager.RunWaitCallbacks(TimeSpan.FromSeconds(1)); } });
+            
         }
         private void WaitCallbacks(object source)
         {

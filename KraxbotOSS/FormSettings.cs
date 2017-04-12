@@ -18,6 +18,9 @@ namespace KraxbotOSS
 
             // TODO: For now, default to all, but get from settings later
             cbUpdates.SelectedIndex = 2;
+            cbFriendRequest.SelectedIndex = 0;
+            cbChatRequest.SelectedIndex = 0;
+            cbLoginAs.SelectedIndex = 0;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
