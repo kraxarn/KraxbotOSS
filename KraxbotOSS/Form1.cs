@@ -66,7 +66,6 @@ namespace KraxbotOSS
 
             // Run main loop in a seperate thread
             Task.Run(() => { while (running) { manager.RunWaitCallbacks(TimeSpan.FromSeconds(1)); } });
-            
         }
 
         // -- Steam functions -- //
@@ -182,9 +181,8 @@ namespace KraxbotOSS
             login.Show();
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Console.WriteLine("Closing...");
             running = false;
         }
     }
