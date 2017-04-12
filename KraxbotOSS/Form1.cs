@@ -62,7 +62,7 @@ namespace KraxbotOSS
             running = true;
 
             // Connect
-            log.AppendText("\nConnecting to Steam...");
+            log.AppendText("\nConnecting to Steam... ");
             client.Connect();
 
             // Run main loop in a seperate thread
@@ -89,7 +89,7 @@ namespace KraxbotOSS
                 this.Close();
                 return;
             }
-            Log("Connected");
+            Log("OK");
             this.Invoke((MethodInvoker)delegate
             {
                 btnLogin.Enabled = true;
