@@ -17,7 +17,6 @@ namespace KraxbotOSS
         // Some variables
         string version = "0.1.0";
         bool running;
-        System.Timers.Timer runner;
 
         // Steam variables
         static SteamClient client;
