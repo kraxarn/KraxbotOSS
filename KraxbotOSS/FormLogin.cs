@@ -16,5 +16,10 @@ namespace KraxbotOSS
         {
             InitializeComponent();
         }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            Form1.Login(tbUsername.Text, tbPassword.Text);
+        }
     }
 }

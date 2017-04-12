@@ -70,9 +70,13 @@ namespace KraxbotOSS
 
         // -- Steam functions -- //
 
-        public void Login(string username, string password)
+        public static void Login(string username, string password)
         {
-
+            user.LogOn(new SteamUser.LogOnDetails
+            {
+                Username = username,
+                Password = password,
+            });
         }
 
         // -- Steam callbacks -- //
