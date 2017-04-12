@@ -209,7 +209,7 @@ namespace KraxbotOSS
         void OnChatInvite(SteamFriends.ChatInviteCallback callback)
         {
             // TODO: For now, just log it
-            Log(string.Format("\nGot invite to {0} from {1}", callback.ChatRoomName, friends.GetFriendPersonaName(callback.InvitedID)));
+            Log(string.Format("\nGot invite to {0} from {1}", callback.ChatRoomName, friends.GetFriendPersonaName(callback.PatronID)));
         }
         void OnChatEnter(SteamFriends.ChatEnterCallback callback)
         {
