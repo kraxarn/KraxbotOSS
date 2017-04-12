@@ -128,7 +128,7 @@ namespace KraxbotOSS
             manager.Subscribe<SteamFriends.ChatInviteCallback>(OnChatInvite);         // We got invited to a chat
             manager.Subscribe<SteamFriends.ChatEnterCallback>(OnChatEnter);           // We entered a chat
             //manager.Subscribe<SteamFriends.ChatActionResultCallback>(OnChatAction); // ?
-            manager.Subscribe<SteamFriends.ChatMemberInfoCallback>(OnChatMemberInfo); // ?
+            manager.Subscribe<SteamFriends.ChatMemberInfoCallback>(OnChatMemberInfo); // A user has left or entered a chat
 
             // Tell the main Steam loop we are running
             running = true;
