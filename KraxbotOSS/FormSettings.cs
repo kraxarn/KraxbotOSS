@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.IO;
+using Newtonsoft.Json;
+
 namespace KraxbotOSS
 {
     public partial class FormSettings : Form
@@ -26,7 +29,27 @@ namespace KraxbotOSS
         private void btnSave_Click(object sender, EventArgs e)
         {
             // Save, close and show main form again
-            // TODO: Actually save and stuff
+            // TODO: We don't save chatrooms to join yet
+            StringBuilder sb = new StringBuilder();
+            StringWriter sw = new StringWriter(sb);
+            using (JsonWriter w = new JsonTextWriter(sw))
+            {
+                w.Formatting = Formatting.Indented;
+                w.WriteStartObject();
+                w.WritePropertyName("Updates");
+                w.WriteValue(cbUpdates.SelectedIndex);
+                w.WritePropertyName("Superadmin");
+                w.WriteValue(tbSuperadmin.Text);
+                w.WritePropertyName("FriendRequest");
+                w.WriteValue(cbFriendRequest.SelectedIndex);
+                w.WritePropertyName("ChatRequest");
+                w.WriteValue(cbChatRequest.SelectedIndex);
+                w.WritePropertyName("LoginAs");
+                w.WriteValue(cbLoginAs.SelectedIndex);
+            }
+            // This is bad
+            File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS", "settings"), sb.ToString());
+
             this.Close();
         }
     }

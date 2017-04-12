@@ -32,10 +32,10 @@
             this.cbUpdates = new System.Windows.Forms.ComboBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tbSuperadmin = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.tbSuperAdmin = new System.Windows.Forms.TextBox();
             this.cbFriendRequest = new System.Windows.Forms.ComboBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cbChatRequest = new System.Windows.Forms.ComboBox();
             this.cbLoginAs = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -84,13 +84,20 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.tbSuperAdmin);
+            this.groupBox2.Controls.Add(this.tbSuperadmin);
             this.groupBox2.Location = new System.Drawing.Point(13, 70);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(180, 50);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Superadmin";
+            // 
+            // tbSuperadmin
+            // 
+            this.tbSuperadmin.Location = new System.Drawing.Point(7, 20);
+            this.tbSuperadmin.Name = "tbSuperadmin";
+            this.tbSuperadmin.Size = new System.Drawing.Size(167, 20);
+            this.tbSuperadmin.TabIndex = 0;
             // 
             // groupBox3
             // 
@@ -101,23 +108,6 @@
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Friend requests";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.cbChatRequest);
-            this.groupBox4.Location = new System.Drawing.Point(12, 182);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(183, 50);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Chat requests";
-            // 
-            // tbSuperAdmin
-            // 
-            this.tbSuperAdmin.Location = new System.Drawing.Point(7, 20);
-            this.tbSuperAdmin.Name = "tbSuperAdmin";
-            this.tbSuperAdmin.Size = new System.Drawing.Size(167, 20);
-            this.tbSuperAdmin.TabIndex = 0;
             // 
             // cbFriendRequest
             // 
@@ -130,6 +120,16 @@
             this.cbFriendRequest.Name = "cbFriendRequest";
             this.cbFriendRequest.Size = new System.Drawing.Size(167, 21);
             this.cbFriendRequest.TabIndex = 0;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.cbChatRequest);
+            this.groupBox4.Location = new System.Drawing.Point(12, 182);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(183, 50);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Chat requests";
             // 
             // cbChatRequest
             // 
@@ -222,7 +222,7 @@
         private System.Windows.Forms.ComboBox cbUpdates;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox tbSuperAdmin;
+        private System.Windows.Forms.TextBox tbSuperadmin;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox cbFriendRequest;
         private System.Windows.Forms.GroupBox groupBox4;
