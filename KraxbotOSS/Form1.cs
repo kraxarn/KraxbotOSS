@@ -204,27 +204,27 @@ namespace KraxbotOSS
         }
         void OnFriendAdded(SteamFriends.FriendAddedCallback callback)
         {
-            log.AppendText(callback.PersonaName + " is now my friend");
+            Log(callback.PersonaName + " is now my friend");
         }
         void OnChatInvite(SteamFriends.ChatInviteCallback callback)
         {
             // TODO: For now, just log it
-            log.AppendText(string.Format("\nGot invite to {0} from {1}", callback.ChatRoomName, friends.GetFriendPersonaName(callback.InvitedID)));
+            Log(string.Format("\nGot invite to {0} from {1}", callback.ChatRoomName, friends.GetFriendPersonaName(callback.InvitedID)));
         }
         void OnChatEnter(SteamFriends.ChatEnterCallback callback)
         {
             // TODO: Just log here as well, check for chatroom settings and stuff later
-            log.AppendText(string.Format("\nJoined {0}", callback.ChatRoomName));
+            Log(string.Format("\nJoined {0}", callback.ChatRoomName));
         }
         void OnChatMemberInfo(SteamFriends.ChatMemberInfoCallback callback)
         {
             // When a user enters or leaves a chat
             // TODO: Add more to this
-            log.AppendText(string.Format("\n{0} {1} ({2})", friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn), callback.StateChangeInfo.StateChange, callback.Type));
+            Log(string.Format("\n{0} {1} ({2})", friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn), callback.StateChangeInfo.StateChange, callback.Type));
         }
         void OnLoggedOff(SteamUser.LoggedOffCallback callback)
         {
-            log.AppendText("\nLogged out");
+            Log("\nLogged out");
         }
         void OnFriendMsg(SteamFriends.FriendMsgCallback callback)
         {
