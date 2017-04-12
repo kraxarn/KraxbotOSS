@@ -184,7 +184,6 @@ namespace KraxbotOSS
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             running = false;
-            client.Disconnect();
         }
     }
 }
