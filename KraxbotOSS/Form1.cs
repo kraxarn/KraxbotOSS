@@ -182,5 +182,11 @@ namespace KraxbotOSS
             Form login = new FormLogin();
             login.Show();
         }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Console.WriteLine("Closing...");
+            running = false;
+        }
     }
 }
