@@ -115,6 +115,11 @@ namespace KraxbotOSS
                     MessageBox.Show("Unable to login to Steam: " + callback.Result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             Log("\nLogged in");
+            Invoke((MethodInvoker)delegate
+            {
+                btnLogin.Enabled = false;
+                lStatus.Text = "State: Logged in";
+            });
 
             // To other stuff here after logging in (like joining chatrooms)
         }
