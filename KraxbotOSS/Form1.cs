@@ -20,7 +20,7 @@ namespace KraxbotOSS
         internal int Version = 0;
         internal string ChatName = "NoName";
         internal SteamID InvitedID;
-        internal string InvitedName;
+        internal string InvitedName = "NoName";
 
         internal string Spam = "Kick";
         internal string WelcomeMsg = "Welcome";
