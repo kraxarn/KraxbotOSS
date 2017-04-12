@@ -156,7 +156,11 @@ namespace KraxbotOSS
         void OnFriendMsg(SteamFriends.FriendMsgCallback callback)
         {
             // TODO: Commands and/or Cleverbot
-            log.AppendText(string.Format("\n{0}: {1}", friends.GetFriendPersonaName(callback.Sender), callback.Message));
+            string message = callback.Message;
+            if (!string.IsNullOrEmpty(message))
+            {
+                Log(string.Format("\n{0}: {1}", friends.GetFriendPersonaName(callback.Sender), message));
+            }
         }
         void OnChatMsg(SteamFriends.ChatMsgCallback callback)
         {
