@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.IO;
+
 using SteamKit2;
 
 namespace KraxbotOSS
@@ -17,6 +19,7 @@ namespace KraxbotOSS
         // Some variables
         string version = "0.1.0";
         bool running;
+        string configPath;
 
         // Steam variables
         static SteamClient client;
@@ -30,6 +33,14 @@ namespace KraxbotOSS
 
             // Testing stuff
             //lbChatrooms.Items.Add("Test");
+
+            // Check config dir
+            configPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS");
+            if (!Directory.Exists(configPath))
+            {
+                // User is prob running for the first time
+                Directory.CreateDirectory(configPath);
+            }
 
             // Welcome the user :)
             log.AppendText("Welcome to KraxBot " + version);
