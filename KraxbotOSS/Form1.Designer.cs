@@ -158,6 +158,7 @@
             this.log.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.log.Location = new System.Drawing.Point(6, 19);
             this.log.Name = "log";
+            this.log.ReadOnly = true;
             this.log.Size = new System.Drawing.Size(188, 270);
             this.log.TabIndex = 0;
             this.log.Text = "";
