@@ -34,9 +34,9 @@
             this.lStatus = new System.Windows.Forms.Label();
             this.lState = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAdvSettings = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnBotSettings = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.log = new System.Windows.Forms.RichTextBox();
@@ -102,14 +102,14 @@
             this.button1.Text = "Chatroom Info";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnAdvSettings
             // 
-            this.button2.Location = new System.Drawing.Point(203, 284);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(150, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Advanced Settings";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnAdvSettings.Location = new System.Drawing.Point(203, 284);
+            this.btnAdvSettings.Name = "btnAdvSettings";
+            this.btnAdvSettings.Size = new System.Drawing.Size(150, 23);
+            this.btnAdvSettings.TabIndex = 3;
+            this.btnAdvSettings.Text = "Advanced Settings";
+            this.btnAdvSettings.UseVisualStyleBackColor = true;
             // 
             // btnSettings
             // 
@@ -121,15 +121,15 @@
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
-            // button4
+            // btnBotSettings
             // 
-            this.button4.Enabled = false;
-            this.button4.Location = new System.Drawing.Point(203, 226);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(150, 23);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Bot Settings";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnBotSettings.Enabled = false;
+            this.btnBotSettings.Location = new System.Drawing.Point(203, 226);
+            this.btnBotSettings.Name = "btnBotSettings";
+            this.btnBotSettings.Size = new System.Drawing.Size(150, 23);
+            this.btnBotSettings.TabIndex = 5;
+            this.btnBotSettings.Text = "Bot Settings";
+            this.btnBotSettings.UseVisualStyleBackColor = true;
             // 
             // btnLogin
             // 
@@ -169,9 +169,9 @@
             this.ClientSize = new System.Drawing.Size(572, 320);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnLogin);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.btnBotSettings);
             this.Controls.Add(this.btnSettings);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnAdvSettings);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -194,9 +194,9 @@
         private System.Windows.Forms.Label lState;
         private System.Windows.Forms.Label lStatus;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAdvSettings;
         private System.Windows.Forms.Button btnSettings;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnBotSettings;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RichTextBox log;
