@@ -81,6 +81,7 @@ namespace KraxbotOSS
         string version = "0.1.0";
         bool running;
         string configPath;
+        Settings[] CR;
 
         // Steam variables
         static SteamClient client;
@@ -250,6 +251,12 @@ namespace KraxbotOSS
             {
                 log.AppendText(text);
             });
+        }
+
+        void CreateSettings(SteamID ChatRoomID)
+        {
+            // TODO: This may or may not work lol
+            CR[ChatRoomID.ConvertToUInt64()] = new Settings();
         }
 
         // -- Buttons and ui stuff -- //
