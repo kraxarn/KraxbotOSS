@@ -187,6 +187,7 @@ namespace KraxbotOSS
                     MessageBox.Show("Denied login to Steam: " + callback.Result, "Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 else
                     MessageBox.Show("Unable to login to Steam: " + callback.Result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             Log("\nLogged in");
             Invoke((MethodInvoker)delegate
