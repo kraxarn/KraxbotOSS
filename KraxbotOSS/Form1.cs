@@ -289,9 +289,68 @@ namespace KraxbotOSS
         void OnChatMsg(SteamFriends.ChatMsgCallback callback)
         {
             // TODO: Commands and maybe Cleverbot
+
             // TODO: Log this different than friend messages
             // TODO: Does this assume we are friends with the user?
             Log(string.Format("\n{0}: {1}", friends.GetFriendPersonaName(callback.ChatterID), callback.Message));
+
+            // Variables
+            // TODO: Get rank of user and bot here
+            string message = callback.Message;
+            SteamID userID = callback.ChatterID;
+            SteamID chatRoomID = callback.ChatRoomID;
+
+            string name = friends.GetFriendPersonaName(callback.ChatterID);
+            string game = friends.GetFriendGamePlayedName(callback.ChatterID);
+
+            // TODO: Fix this
+            bool isMod = true;
+
+            // TODO: Spam protection
+            // TODO: Cleverbot
+            // TODO: Link resolving
+
+            // Always on commands
+            if (message == "!leave")
+            {
+                if (isMod || userID == CR[chatRoomID].InvitedID)
+                {
+                    Log(string.Format("Left {0} with request from {1}", CR[chatRoomID].ChatName, name));
+                    friends.LeaveChat(chatRoomID);
+                }
+            }
+
+            // Superadmin commands
+            // TODO: actually check for superadmin
+            if (message == "!info")
+            {
+                // Get if we are using Mono
+                string runtime;
+                if (Type.GetType("Mono.Runtime") != null) runtime = "Mono";
+                else runtime = ".NET";
+                // Get if system is 32 or 64 bit
+                string arch;
+                if (Environment.Is64BitOperatingSystem) arch = "x64";
+                else arch = "x86";
+
+                // TODO: Maybe use WMI to get more info or find cross platform version of it
+                SendChatMessage(chatRoomID, string.Format("\nOS: {0} {1} \nRuntime: {2} {3}", Environment.OSVersion.ToString(), arch, runtime, Environment.Version.ToString()));
+            }
+
+            // Admin commands
+            if (isMod)
+            {
+                if (message == "!nodelay")
+                {
+                    // TODO: Maybe there's a better way to do this?
+                    CR[chatRoomID].DelayDefine  = 0;
+                    CR[chatRoomID].DelayGames   = 0;
+                    CR[chatRoomID].DelayRandom  = 0;
+                    CR[chatRoomID].DelayRecents = 0;
+                    CR[chatRoomID].DelayYT      = 0;
+                    SendChatMessage(chatRoomID, "All delays reset");
+                }
+            }
         }
 
         // -- Other stuffs -- //
@@ -302,6 +361,15 @@ namespace KraxbotOSS
             {
                 log.AppendText(text);
             });
+        }
+
+        void SendChatMessage(SteamID chatRoomID, string message)
+        {
+            friends.SendChatRoomMessage(chatRoomID, EChatEntryType.ChatMsg, message);
+        }
+        void SendMessage(SteamID userID, string message)
+        {
+            friends.SendChatMessage(userID, EChatEntryType.ChatMsg, message);
         }
 
         void CreateSettings(SteamID ChatRoomID)
