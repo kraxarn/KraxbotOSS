@@ -286,7 +286,7 @@ namespace KraxbotOSS
             // TODO: Commands and maybe Cleverbot
             // TODO: Log this different than friend messages
             // TODO: Does this assume we are friends with the user?
-            log.AppendText(string.Format("\n{0}: {1}", friends.GetFriendPersonaName(callback.ChatterID), callback.Message));
+            Log(string.Format("\n{0}: {1}", friends.GetFriendPersonaName(callback.ChatterID), callback.Message));
         }
 
         // -- Other stuffs -- //
