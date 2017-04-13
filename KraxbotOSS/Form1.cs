@@ -165,7 +165,7 @@ namespace KraxbotOSS
                 this.Close();
                 return;
             }
-            Log("OK");
+            Log("Ok");
             this.Invoke((MethodInvoker)delegate
             {
                 btnLogin.Enabled = true;
@@ -175,7 +175,7 @@ namespace KraxbotOSS
         void OnDisconnected(SteamClient.DisconnectedCallback callback)
         {
             // TODO: Only show the message once
-            Log("\nDisconnected, attempting to reconnect...");
+            Log("\nDisconnected, attempting to reconnect... ");
             client.Connect();
         }
         void OnLoggedOn(SteamUser.LoggedOnCallback callback)
