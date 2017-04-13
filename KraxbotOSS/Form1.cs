@@ -14,67 +14,6 @@ using SteamKit2;
 
 namespace KraxbotOSS
 {
-    // Chat settings
-    internal class Settings
-    {
-        internal int Version = 0;
-        internal string ChatName = "NoName";
-        internal SteamID InvitedID;
-        internal string InvitedName = "NoName";
-
-        internal string Spam = "Kick";
-        internal string WelcomeMsg = "Welcome";
-        internal string WelcomeEnd = "!";
-        internal SteamID LastPoke;
-        internal string DCKick = "Kick";
-
-        internal bool Cleverbot = false;
-        internal bool Translate = false;
-        internal bool Commands  = true;
-
-        internal bool Welcome     = true;
-        internal bool Games       = true;
-        internal bool Define      = true;
-        internal bool Wiki        = true;
-        internal bool Search      = true;
-        internal bool Weather     = true;
-        internal bool Store       = true;
-        internal bool Responses   = true;
-        internal bool Links       = true;
-        internal bool Rules       = true;
-        internal bool Poke        = true;
-        internal bool AllStates   = false;
-        internal bool AllPoke     = false;
-        internal bool AutoWelcome = false;
-
-        internal int DCLimit      = 5;
-        internal int DelayRandom  = 120;
-        internal int DelayDefine  = 300;
-        internal int DelayGames   = 120;
-        internal int DelayRecents = 120;
-        internal int DelaySearch  = 120;
-        internal int DelayYT      = 120;
-
-        internal int DCKickLimit = 3;
-        internal int DCBanLimit  = 5;
-
-        internal int TimeoutRandom  = 0;
-        internal int TimeoutDefine  = 0;
-        internal int TimeoutGames   = 0;
-        internal int TimeoutRecents = 0;
-        internal int TimeoutSearch  = 0;
-        internal int TimeoutYT      = 0;
-
-        internal bool CustomEnabled = false;
-        internal bool CustomModOnly = false;
-        internal int CustomDelay = 5;
-        internal string CustomCommand = "!custom";
-        internal string CustomResponse = "Custom response";
-
-        internal string AutokickMode = "None";
-        internal SteamID AutokickUser;
-    }
-
     public partial class Form1 : Form
     {
         // Some variables
@@ -140,6 +79,69 @@ namespace KraxbotOSS
 
             // Run main loop in a seperate thread
             Task.Run(() => { while (running) { manager.RunWaitCallbacks(TimeSpan.FromSeconds(1)); } });
+        }
+
+        // -- Classes -- //
+
+        // Chat settings
+        internal class Settings
+        {
+            internal int Version = 0;
+            internal string ChatName = "NoName";
+            internal SteamID InvitedID;
+            internal string InvitedName = "NoName";
+
+            internal string Spam = "Kick";
+            internal string WelcomeMsg = "Welcome";
+            internal string WelcomeEnd = "!";
+            internal SteamID LastPoke;
+            internal string DCKick = "Kick";
+
+            internal bool Cleverbot = false;
+            internal bool Translate = false;
+            internal bool Commands = true;
+
+            internal bool Welcome = true;
+            internal bool Games = true;
+            internal bool Define = true;
+            internal bool Wiki = true;
+            internal bool Search = true;
+            internal bool Weather = true;
+            internal bool Store = true;
+            internal bool Responses = true;
+            internal bool Links = true;
+            internal bool Rules = true;
+            internal bool Poke = true;
+            internal bool AllStates = false;
+            internal bool AllPoke = false;
+            internal bool AutoWelcome = false;
+
+            internal int DCLimit = 5;
+            internal int DelayRandom = 120;
+            internal int DelayDefine = 300;
+            internal int DelayGames = 120;
+            internal int DelayRecents = 120;
+            internal int DelaySearch = 120;
+            internal int DelayYT = 120;
+
+            internal int DCKickLimit = 3;
+            internal int DCBanLimit = 5;
+
+            internal int TimeoutRandom = 0;
+            internal int TimeoutDefine = 0;
+            internal int TimeoutGames = 0;
+            internal int TimeoutRecents = 0;
+            internal int TimeoutSearch = 0;
+            internal int TimeoutYT = 0;
+
+            internal bool CustomEnabled = false;
+            internal bool CustomModOnly = false;
+            internal int CustomDelay = 5;
+            internal string CustomCommand = "!custom";
+            internal string CustomResponse = "Custom response";
+
+            internal string AutokickMode = "None";
+            internal SteamID AutokickUser;
         }
 
         // -- Steam functions -- //
