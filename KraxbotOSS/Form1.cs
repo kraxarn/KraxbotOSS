@@ -224,7 +224,7 @@ namespace KraxbotOSS
             // TODO: Just log here as well, check for chatroom settings and stuff later
             SteamFriends.ChatMemberInfo result = callback.ChatMembers.Single(s => s.SteamID == client.SteamID);
 
-            Log(string.Format("\nJoined {0} as {1}", callback.ChatRoomName, result.Permissions));
+            Log(string.Format("\nJoined {0} as {1}", callback.ChatRoomName, result.Details));
 
             // Add to chatrooms list
             Invoke((MethodInvoker)delegate
