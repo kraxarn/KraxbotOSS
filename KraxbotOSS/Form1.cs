@@ -225,7 +225,10 @@ namespace KraxbotOSS
             Log(string.Format("\nJoined {0}", callback.ChatRoomName));
 
             // Add to chatrooms list
-            lbChatrooms.Items.Add(callback.ChatRoomName);
+            Invoke((MethodInvoker)delegate
+            {
+                lbChatrooms.Items.Add(callback.ChatRoomName);
+            });
         }
         void OnChatMemberInfo(SteamFriends.ChatMemberInfoCallback callback)
         {
