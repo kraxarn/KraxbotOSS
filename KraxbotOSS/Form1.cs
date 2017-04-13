@@ -148,10 +148,16 @@ namespace KraxbotOSS
 
         public static void Login(string username, string password)
         {
+            // Use sentry hash if we have one
+            byte[] sentryHash = null;
+            if (File.Exists(Path.Combine(configPath, "sentry")))
+                sentryHash = CryptoHelper.SHAHash(File.ReadAllBytes(Path.Combine(configPath, "sentry")));
+
             user.LogOn(new SteamUser.LogOnDetails
             {
                 Username = username,
                 Password = password,
+                SentryFileHash = sentryHash
             });
         }
 
