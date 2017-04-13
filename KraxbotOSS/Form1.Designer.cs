@@ -32,7 +32,7 @@
             this.lbChatrooms = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lStatus = new System.Windows.Forms.Label();
-            this.lState = new System.Windows.Forms.Label();
+            this.lNetwork = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.btnAdvSettings = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
@@ -66,7 +66,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lStatus);
-            this.groupBox2.Controls.Add(this.lState);
+            this.groupBox2.Controls.Add(this.lNetwork);
             this.groupBox2.Location = new System.Drawing.Point(203, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(150, 65);
@@ -83,14 +83,14 @@
             this.lStatus.TabIndex = 1;
             this.lStatus.Text = "Status: Logged out";
             // 
-            // lState
+            // lNetwork
             // 
-            this.lState.AutoSize = true;
-            this.lState.Location = new System.Drawing.Point(8, 20);
-            this.lState.Name = "lState";
-            this.lState.Size = new System.Drawing.Size(104, 13);
-            this.lState.TabIndex = 0;
-            this.lState.Text = "State: Disconnected";
+            this.lNetwork.AutoSize = true;
+            this.lNetwork.Location = new System.Drawing.Point(8, 20);
+            this.lNetwork.Name = "lNetwork";
+            this.lNetwork.Size = new System.Drawing.Size(119, 13);
+            this.lNetwork.TabIndex = 0;
+            this.lNetwork.Text = "Network: Disconnected";
             // 
             // button1
             // 
@@ -195,7 +195,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListBox lbChatrooms;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label lState;
+        private System.Windows.Forms.Label lNetwork;
         private System.Windows.Forms.Label lStatus;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnAdvSettings;
