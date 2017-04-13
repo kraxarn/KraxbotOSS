@@ -40,7 +40,7 @@
             this.cbLoginAs = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.clChats = new System.Windows.Forms.CheckedListBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -170,7 +170,7 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.checkedListBox1);
+            this.groupBox6.Controls.Add(this.clChats);
             this.groupBox6.Location = new System.Drawing.Point(199, 13);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(200, 275);
@@ -178,13 +178,13 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Chats to Auto Join";
             // 
-            // checkedListBox1
+            // clChats
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(6, 19);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(188, 244);
-            this.checkedListBox1.TabIndex = 0;
+            this.clChats.FormattingEnabled = true;
+            this.clChats.Location = new System.Drawing.Point(6, 19);
+            this.clChats.Name = "clChats";
+            this.clChats.Size = new System.Drawing.Size(188, 244);
+            this.clChats.TabIndex = 0;
             // 
             // FormSettings
             // 
@@ -230,6 +230,6 @@
         private System.Windows.Forms.ComboBox cbLoginAs;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox clChats;
     }
 }
