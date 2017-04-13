@@ -215,11 +215,17 @@ namespace KraxbotOSS
         {
             // TODO: For now, just log it
             Log(string.Format("\nGot invite to {0} from {1}", callback.ChatRoomName, friends.GetFriendPersonaName(callback.PatronID)));
+
+            // For now, we join all, but in the future, check what's set in the settings
+            friends.JoinChat(callback.ChatRoomID);
         }
         void OnChatEnter(SteamFriends.ChatEnterCallback callback)
         {
             // TODO: Just log here as well, check for chatroom settings and stuff later
             Log(string.Format("\nJoined {0}", callback.ChatRoomName));
+
+            // Add to chatrooms list
+            lbChatrooms.Items.Add(callback.ChatRoomName);
         }
         void OnChatMemberInfo(SteamFriends.ChatMemberInfoCallback callback)
         {
