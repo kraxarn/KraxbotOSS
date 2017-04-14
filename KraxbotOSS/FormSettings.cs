@@ -38,10 +38,10 @@ namespace KraxbotOSS
             // TODO: We don't save chatrooms to join yet
 
             // Set variables
-            int updates = cbUpdates.SelectedIndex;
+            int updates       = cbUpdates.SelectedIndex;
             int friendRequest = cbFriendRequest.SelectedIndex;
-            int chatRequest = cbChatRequest.SelectedIndex;
-            int loginAs = cbLoginAs.SelectedIndex;
+            int chatRequest   = cbChatRequest.SelectedIndex;
+            int loginAs       = cbLoginAs.SelectedIndex;
 
             switch (updates)
             {
