@@ -36,6 +36,10 @@ namespace KraxbotOSS
         {
             // Save, close and show main form again
             // TODO: We don't save chatrooms to join yet
+
+            // TODO: Remake this into a list or something and use that instead
+
+            /*
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
             using (JsonWriter w = new JsonTextWriter(sw))
@@ -55,6 +59,7 @@ namespace KraxbotOSS
             }
             // This is bad
             File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS", "settings"), sb.ToString());
+            */
 
             this.Close();
         }
