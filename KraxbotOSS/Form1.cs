@@ -301,6 +301,7 @@ namespace KraxbotOSS
             string message = callback.Message;
             SteamID userID = callback.ChatterID;
             SteamID chatRoomID = callback.ChatRoomID;
+            Settings chatRoom = CR.Single(s => s.ChatID == chatRoomID);
 
             string name = friends.GetFriendPersonaName(callback.ChatterID);
             string game = friends.GetFriendGamePlayedName(callback.ChatterID);
@@ -315,9 +316,9 @@ namespace KraxbotOSS
             // Always on commands
             if (message == "!leave")
             {
-                if (isMod || userID == CR[chatRoomID].InvitedID)
+                if (isMod || userID == chatRoom.InvitedID)
                 {
-                    Log(string.Format("Left {0} with request from {1}", CR[chatRoomID].ChatName, name));
+                    Log(string.Format("Left {0} with request from {1}", chatRoom.ChatName, name));
                     friends.LeaveChat(chatRoomID);
                 }
             }
@@ -345,11 +346,12 @@ namespace KraxbotOSS
                 if (message == "!nodelay")
                 {
                     // TODO: Maybe there's a better way to do this?
-                    CR[chatRoomID].DelayDefine  = 0;
-                    CR[chatRoomID].DelayGames   = 0;
-                    CR[chatRoomID].DelayRandom  = 0;
-                    CR[chatRoomID].DelayRecents = 0;
-                    CR[chatRoomID].DelayYT      = 0;
+                    chatRoom.DelayDefine  = 0;
+                    chatRoom.DelayGames   = 0;
+                    chatRoom.DelayRandom  = 0;
+                    chatRoom.DelayRecents = 0;
+                    chatRoom.DelayYT      = 0;
+
                     SendChatMessage(chatRoomID, "All delays reset");
                 }
             }
