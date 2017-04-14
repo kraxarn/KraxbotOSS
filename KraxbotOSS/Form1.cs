@@ -152,10 +152,11 @@ namespace KraxbotOSS
         // Settings
         public class Config
         {
-            internal string Updates;
-            internal string FriendRequest;
-            internal string ChatRequest;
-            internal EPersonaState LoginAs;
+            // For config, we just set default settings at first
+            internal string Updates        = "All";
+            internal string FriendRequest  = "AcceptAll";
+            internal string ChatRequest    = "AcceptAll";
+            internal EPersonaState LoginAs = EPersonaState.Online;
 
             internal string API_Steam;
             internal string API_Google;
