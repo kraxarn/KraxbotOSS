@@ -392,6 +392,28 @@ namespace KraxbotOSS
                         SendChatMessage(chatRoomID, toggle + " is now disabled");
                     // TODO: Save settings here
                 }
+                else if (message.StartsWith("!setdelay "))
+                {
+                    string[] set = message.Split(' ');
+                    int delay;
+                    if (int.TryParse(set[2], out delay))
+                    {
+                        switch(set[1])
+                        {
+                            case "define":  chatRoom.DelayDefine  = delay; break;
+                            case "games":   chatRoom.DelayGames   = delay; break;
+                            case "random":  chatRoom.DelayRandom  = delay; break;
+                            case "recents": chatRoom.DelayRecents = delay; break;
+                            case "search":  chatRoom.DelaySearch  = delay; break;
+                            case "yt":      chatRoom.DelayYT      = delay; break;
+                            default: return;
+                        }
+                        SendChatMessage(chatRoomID, string.Format("Delay of {0} was set to {1} seconds", set[1], set[2]));
+                        // TODO: Save settings here
+                    }
+                    else
+                        SendChatMessage(chatRoomID, "Delay needs to be a number (in seconds)");
+                }
             }
         }
 
