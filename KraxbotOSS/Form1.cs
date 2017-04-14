@@ -527,6 +527,68 @@ namespace KraxbotOSS
                         }
                     }
                 }
+                else if (message.StartsWith("!yt ") && chatRoom.Search)
+                {
+                    // TODO: Same as !games
+                }
+            }
+
+            // User commands
+            if (chatRoom.Commands)
+            {
+                if (message == "!help")
+                    SendChatMessage(chatRoomID, "Check https://github.com/KraXarN/KraxbotOSS/wiki/Commands for all commands and how to use them");
+                else if (message == "!bday")
+                {
+                    // TODO: Make this once we can enter API keys
+                }
+                else if (message == "!users")
+                {
+                    // TODO: Make this once we can get all users in a chatroom
+                }
+                else if (message == "!invited")
+                    SendChatMessage(chatRoomID, chatRoom.InvitedName + " invited me to this chat");
+                else if (message == "!name")
+                {
+                    // TODO: Same as !bday
+                }
+                else if (message == "!ver")
+                    SendChatMessage(chatRoomID, string.Format("KraxbotOSS {0} by Kraxie / KraXarN", version));
+                else if (message == "!id")
+                    SendChatMessage(chatRoomID, string.Format("{0}'s SteamID is {1}", name, userID));
+                else if (message == "!chatid")
+                    SendChatMessage(chatRoomID, "This chat's SteamID is " + chatRoomID);
+                else if (message.StartsWith("!8ball"))
+                {
+                    string[] words = {
+                        "It is certain", "It is decidedly so", "Without a doubt",
+                        "Yes definitely", "You may rely on it", "As I see it, yes",
+                        "Most likely", "Outlook good", "Yes", "Signs point to yes",
+                        "Reply hazy try again", "Ask again later", "Better not tell you now",
+                        "Cannot predict now", "Concentrate and ask again", "Do not count on it",
+                        "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful"
+                    };
+                    SendChatMessage(chatRoomID, words[new Random().Next(words.Length)]);
+                }
+                else if (message == "!time")
+                    SendChatMessage(chatRoomID, "Current time is " + DateTime.Now.ToShortTimeString());
+                else if (message.StartsWith("!roll"))
+                {
+                    int max = 100;
+                    int.TryParse(message.Split(' ')[1], out max);
+                    SendChatMessage(chatRoomID, "Your number is " + new Random().Next(0, max));
+                }
+                else if (message.StartsWith("!math "))
+                    SendChatMessage(chatRoomID, "=" + new DataTable().Compute(message.Substring(6), null).ToString());
+                else if (message.StartsWith("!players "))
+                {
+                    // TODO: Same as !bday
+                    // TODO: Also make !players if user is currently playing a game
+                }
+                else if (message.StartsWith("!weather "))
+                {
+                    // TODO: Same as !bday
+                }
             }
         }
 
