@@ -24,6 +24,9 @@ namespace KraxbotOSS
         //Settings[] CR;
         List<Settings> CR = new List<Settings>();
 
+        public static Config config = new Config();
+        public static AdvConfig advConfig = new AdvConfig();
+
         // Steam variables
         static SteamClient client;
         static CallbackManager manager;
@@ -148,7 +151,7 @@ namespace KraxbotOSS
         }
 
         // Settings
-        internal class Config
+        public class Config
         {
             internal string Updates;
             internal string FriendRequest;
@@ -157,7 +160,7 @@ namespace KraxbotOSS
         }
 
         // Advanced settings
-        internal class AdvConfig
+        public class AdvConfig
         {
             internal string API_Steam;
             internal string API_Google;

@@ -37,6 +37,37 @@ namespace KraxbotOSS
             // Save, close and show main form again
             // TODO: We don't save chatrooms to join yet
 
+            // Set variables
+            int updates = cbUpdates.SelectedIndex;
+            int friendRequest = cbFriendRequest.SelectedIndex;
+            int chatRequest = cbChatRequest.SelectedIndex;
+            int loginAs = cbLoginAs.SelectedIndex;
+
+            switch (updates)
+            {
+                case 0: Form1.config.Updates = "All";       break;
+                case 1: Form1.config.Updates = "OnlyMajor"; break;
+                case 2: Form1.config.Updates = "None";      break;
+            }
+            switch (friendRequest)
+            {
+                case 0: Form1.config.FriendRequest = "AcceptAll"; break;
+                case 1: Form1.config.FriendRequest = "IgnoreAll"; break;
+            }
+            switch (chatRequest)
+            {
+                case 0: Form1.config.ChatRequest = "AcceptAll";      break;
+                case 1: Form1.config.ChatRequest = "SuperadminOnly"; break;
+                case 2: Form1.config.ChatRequest = "IgnoreAll";      break;
+            }
+            switch (loginAs)
+            {
+                case 0: Form1.config.LoginAs = EPersonaState.Online;  break;
+                case 1: Form1.config.LoginAs = EPersonaState.Away;    break;
+                case 2: Form1.config.LoginAs = EPersonaState.Snooze;  break;
+                case 3: Form1.config.LoginAs = EPersonaState.Offline; break;
+            }
+
             // TODO: Remake this into a list or something and use that instead
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
