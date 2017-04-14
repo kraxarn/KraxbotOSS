@@ -150,6 +150,11 @@ namespace KraxbotOSS
 
         public static void Login(string username, string password)
         {
+            bool isUsernameNull = string.IsNullOrEmpty(username);
+            bool isPasswordNull = string.IsNullOrEmpty(password);
+            if ((isUsernameNull && isPasswordNull) || (isUsernameNull || isPasswordNull))
+                return;
+
             // Use sentry hash if we have one
             byte[] sentryHash = null;
             if (File.Exists(Path.Combine(configPath, "sentry")))
