@@ -147,6 +147,18 @@ namespace KraxbotOSS
             internal SteamID AutokickUser;
         }
 
+        // Advanced settings
+        internal class AdvConfig
+        {
+            internal class API
+            {
+                internal string Steam;
+                internal string Google;
+                internal string OpenWeather;
+                internal string CleverbotIO;
+            }
+        }
+
         // -- Steam functions -- //
 
         public static void Login(string username, string password)
