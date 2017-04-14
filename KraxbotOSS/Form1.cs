@@ -163,6 +163,16 @@ namespace KraxbotOSS
             });
         }
 
+        public static List<SteamID> GetFriends()
+        {
+            List<SteamID> friend = new List<SteamID>();
+            for (int i = 0; i < friends.GetFriendCount(); i++)
+            {
+                friend.Add(friends.GetFriendByIndex(i));
+            }
+            return friend;
+        }
+
         // -- Steam callbacks -- //
 
         void OnConnected(SteamClient.ConnectedCallback callback)
