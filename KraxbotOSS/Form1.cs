@@ -239,6 +239,10 @@ namespace KraxbotOSS
             {
                 lbChatrooms.Items.Add(callback.ChatRoomName);
             });
+
+            // Add value to chatroom settings if needed
+            if (CR.SingleOrDefault(s => s.ChatID == callback.ChatID) == null)
+                CreateSettings(callback.ChatID);
         }
         void OnChatMemberInfo(SteamFriends.ChatMemberInfoCallback callback)
         {
