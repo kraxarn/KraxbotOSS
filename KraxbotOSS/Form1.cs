@@ -375,13 +375,13 @@ namespace KraxbotOSS
                         case "poke":      chatRoom.Poke      = state = !chatRoom.Poke;      break;
 
                         // These should have custom messages
-                        case "welcome":     chatRoom.Welcome       = state = !chatRoom.Welcome;      break;
-                        case "games":       chatRoom.Games         = state = !chatRoom.Games;        break; // !games and !recents
-                        case "search":      chatRoom.Search        = state = !chatRoom.Search;       break; // !yt
-                        case "autowelcome": chatRoom.AutoWelcome   = state = !chatRoom.AutoWelcome;  break;
-                        case "allstates":   chatRoom.AllStates     = state = chatRoom.AllStates;     break;
-                        case "allpoke":     chatRoom.AllPoke       = state = chatRoom.AllPoke;       break;
-                        case "custom":      chatRoom.CustomEnabled = state = chatRoom.CustomEnabled; break;
+                        case "welcome":     chatRoom.Welcome       = state = !chatRoom.Welcome;       break;
+                        case "games":       chatRoom.Games         = state = !chatRoom.Games;         break; // !games and !recents
+                        case "search":      chatRoom.Search        = state = !chatRoom.Search;        break; // !yt
+                        case "autowelcome": chatRoom.AutoWelcome   = state = !chatRoom.AutoWelcome;   break;
+                        case "allstates":   chatRoom.AllStates     = state = !chatRoom.AllStates;     break;
+                        case "allpoke":     chatRoom.AllPoke       = state = !chatRoom.AllPoke;       break;
+                        case "custom":      chatRoom.CustomEnabled = state = !chatRoom.CustomEnabled; break;
 
                         default: SendChatMessage(chatRoomID, "Unknown toggle"); return;
                     }
