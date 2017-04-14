@@ -125,5 +125,10 @@ namespace KraxbotOSS
 
             this.Close();
         }
+
+        private void btnMoreInfo_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/KraXarN/KraxbotOSS/wiki/API-Keys");
+        }
     }
 }

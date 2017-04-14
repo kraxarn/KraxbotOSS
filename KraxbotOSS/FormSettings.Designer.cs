@@ -268,6 +268,7 @@
             this.btnMoreInfo.TabIndex = 4;
             this.btnMoreInfo.Text = "More Info";
             this.btnMoreInfo.UseVisualStyleBackColor = true;
+            this.btnMoreInfo.Click += new System.EventHandler(this.btnMoreInfo_Click);
             // 
             // groupBox7
             // 
