@@ -357,6 +357,41 @@ namespace KraxbotOSS
                     chatRoom.DelayYT      = 0;
                     SendChatMessage(chatRoomID, "All delays reset");
                 }
+                else if (message.StartsWith("!toggle "))
+                {
+                    bool state = false;
+                    string toggle = message.Split(' ')[1];
+                    switch (toggle.ToLower())
+                    {
+                        case "cleverbot": chatRoom.Cleverbot = state = !chatRoom.Cleverbot; break;
+                        case "translate": chatRoom.Translate = state = !chatRoom.Translate; break;
+                        case "commands":  chatRoom.Commands  = state = !chatRoom.Commands;  break;
+                        case "define":    chatRoom.Define    = state = !chatRoom.Define;    break;
+                        case "weather":   chatRoom.Weather   = state = !chatRoom.Weather;   break;
+                        case "store":     chatRoom.Store     = state = !chatRoom.Store;     break;
+                        case "responses": chatRoom.Responses = state = !chatRoom.Responses; break;
+                        case "links":     chatRoom.Links     = state = !chatRoom.Links;     break;
+                        case "rules":     chatRoom.Rules     = state = !chatRoom.Rules;     break;
+                        case "poke":      chatRoom.Poke      = state = !chatRoom.Poke;      break;
+
+                        // These should have custom messages
+                        case "welcome":     chatRoom.Welcome       = state = !chatRoom.Welcome;      break;
+                        case "games":       chatRoom.Games         = state = !chatRoom.Games;        break; // !games and !recents
+                        case "search":      chatRoom.Search        = state = !chatRoom.Search;       break; // !yt
+                        case "autowelcome": chatRoom.AutoWelcome   = state = !chatRoom.AutoWelcome;  break;
+                        case "allstates":   chatRoom.AllStates     = state = chatRoom.AllStates;     break;
+                        case "allpoke":     chatRoom.AllPoke       = state = chatRoom.AllPoke;       break;
+                        case "custom":      chatRoom.CustomEnabled = state = chatRoom.CustomEnabled; break;
+
+                        default: SendChatMessage(chatRoomID, "Unknown toggle"); return;
+                    }
+                    toggle = toggle.First().ToString().ToUpper() + toggle.Substring(1);
+                    if (state)
+                        SendChatMessage(chatRoomID, toggle + " is now enabled");
+                    else
+                        SendChatMessage(chatRoomID, toggle + " is now disabled");
+                    // TODO: Save settings here
+                }
             }
         }
 
@@ -383,6 +418,11 @@ namespace KraxbotOSS
         {
             // TODO: This may or may not work lol
             CR.Add(new Settings() { ChatID = ChatRoomID });
+        }
+
+        void ToggleSetting(string setting, string name, Settings chatRoom)
+        {
+            // TODO: Maybe use this?
         }
 
         // -- Buttons and ui stuff -- //
