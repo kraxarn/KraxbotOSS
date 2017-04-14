@@ -170,6 +170,10 @@ namespace KraxbotOSS
                 friend.Add(friends.GetFriendByIndex(i));
             return friend;
         }
+        public static string GetFriendName(SteamID userID)
+        {
+            return friends.GetFriendPersonaName(userID);
+        }
 
         // -- Steam callbacks -- //
 
