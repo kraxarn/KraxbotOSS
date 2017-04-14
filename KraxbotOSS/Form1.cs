@@ -355,7 +355,6 @@ namespace KraxbotOSS
                     chatRoom.DelayRandom  = 0;
                     chatRoom.DelayRecents = 0;
                     chatRoom.DelayYT      = 0;
-
                     SendChatMessage(chatRoomID, "All delays reset");
                 }
             }
