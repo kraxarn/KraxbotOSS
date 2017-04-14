@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.IO;
 
 using SteamKit2;
+using Newtonsoft.Json;
 
 namespace KraxbotOSS
 {
@@ -475,6 +476,58 @@ namespace KraxbotOSS
                     }
                 }
             }
+
+            // User commands with cooldown / Admin commands
+            if (chatRoom.Commands || isMod)
+            {
+                if (message.StartsWith("!poke "))
+                {
+                    // TODO: Add function to search for users in a chat
+                }
+                else if (message.StartsWith("!random"))
+                {
+                    // TODO: Make this once we can get all users in a chatroom
+                }
+                else if (message == "!games" && chatRoom.Games)
+                {
+                    // TODO: Make this once we can enter API keys
+                }
+                else if (message == "!recents" && chatRoom.Games)
+                {
+                    // TODO: Same as !games
+                }
+                else if (message == "!define" && chatRoom.Define)
+                {
+                    // TODO: Add cooldown
+
+                }
+                else if (message.StartsWith("!define"))
+                {
+                    string response = Get("http://api.urbandictionary.com/v0/define?term=" + message.Substring(8));
+                    dynamic result = JsonConvert.DeserializeObject(response);
+                    if (result.result_type == "no_results")
+                        SendChatMessage(chatRoomID, "No results found");
+                    else
+                    {
+                        string def = result.list[0].definition;
+                        def = def.Replace("\n", " ");
+                        if (def.Length < 500)
+                            SendChatMessage(chatRoomID, string.Format("{0} is {1}", result.list[0].word, def));
+                        else
+                            SendChatMessage(chatRoomID, string.Format("{0} is {1}...", result.list[0].word, def.Substring(0, 500)));
+                        if (isMod)
+                        {
+                            if (result.list[0].example != null)
+                                SendChatMessage(chatRoomID, string.Format("Example: \n{0}", result.list[0].example));
+
+                            double thumbsUp = result.list[0].thumbs_up;
+                            double thumbsDown = result.list[0].thumbs_down;
+                            double thumbsTotal = thumbsUp + thumbsDown;
+                            SendChatMessage(chatRoomID, string.Format("Rating: {0}% positive ({1}/{2})", Math.Round((thumbsUp / thumbsTotal) * 100), thumbsUp, thumbsTotal));
+                        }
+                    }
+                }
+            }
         }
 
         // -- Other stuffs -- //
@@ -505,6 +558,16 @@ namespace KraxbotOSS
         void ToggleSetting(string setting, string name, Settings chatRoom)
         {
             // TODO: Maybe use this?
+        }
+
+        string Get(string url)
+        {
+            // TODO: Check if better way to do this
+            // TODO: Handle invalid links
+            using (var client = new System.Net.WebClient())
+            {
+                return client.DownloadString(url);
+            }
         }
 
         // -- Buttons and ui stuff -- //
