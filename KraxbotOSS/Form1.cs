@@ -651,5 +651,10 @@ namespace KraxbotOSS
         {
             running = false;
         }
+        private void btnAdvSettings_Click(object sender, EventArgs e)
+        {
+            Form advSettings = new FormAdvSettings();
+            advSettings.Show();
+        }
     }
 }

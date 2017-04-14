@@ -110,6 +110,7 @@
             this.btnAdvSettings.TabIndex = 3;
             this.btnAdvSettings.Text = "Advanced Settings";
             this.btnAdvSettings.UseVisualStyleBackColor = true;
+            this.btnAdvSettings.Click += new System.EventHandler(this.btnAdvSettings_Click);
             // 
             // btnSettings
             // 
