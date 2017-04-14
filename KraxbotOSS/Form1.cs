@@ -150,13 +150,10 @@ namespace KraxbotOSS
         // Advanced settings
         internal class AdvConfig
         {
-            internal class API
-            {
-                internal string Steam;
-                internal string Google;
-                internal string OpenWeather;
-                internal string CleverbotIO;
-            }
+            internal string API_Steam;
+            internal string API_Google;
+            internal string API_OpenWeather;
+            internal string API_CleverbotIO;
         }
 
         // -- Steam functions -- //
