@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using System.IO;
 using Newtonsoft.Json;
+using SteamKit2;
 
 namespace KraxbotOSS
 {
@@ -24,6 +25,11 @@ namespace KraxbotOSS
             cbFriendRequest.SelectedIndex = 0;
             cbChatRequest.SelectedIndex = 0;
             cbLoginAs.SelectedIndex = 0;
+
+            // Get all our friends and fill the list
+            List<SteamID> friends = Form1.GetFriends();
+            foreach (SteamID userID in friends)
+                cbFriends.Items.Add(userID);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -38,8 +44,8 @@ namespace KraxbotOSS
                 w.WriteStartObject();
                 w.WritePropertyName("Updates");
                 w.WriteValue(cbUpdates.SelectedIndex);
-                w.WritePropertyName("Superadmin");
-                w.WriteValue(tbSuperadmin.Text);
+                //w.WritePropertyName("Superadmin");
+                //w.WriteValue(tbSuperadmin.Text);
                 w.WritePropertyName("FriendRequest");
                 w.WriteValue(cbFriendRequest.SelectedIndex);
                 w.WritePropertyName("ChatRequest");

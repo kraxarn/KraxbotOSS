@@ -32,7 +32,6 @@
             this.cbUpdates = new System.Windows.Forms.ComboBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tbSuperadmin = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbFriendRequest = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -41,6 +40,7 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.clChats = new System.Windows.Forms.CheckedListBox();
+            this.cbFriends = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -84,20 +84,13 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.tbSuperadmin);
+            this.groupBox2.Controls.Add(this.cbFriends);
             this.groupBox2.Location = new System.Drawing.Point(13, 70);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(180, 50);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Superadmin";
-            // 
-            // tbSuperadmin
-            // 
-            this.tbSuperadmin.Location = new System.Drawing.Point(7, 20);
-            this.tbSuperadmin.Name = "tbSuperadmin";
-            this.tbSuperadmin.Size = new System.Drawing.Size(167, 20);
-            this.tbSuperadmin.TabIndex = 0;
             // 
             // groupBox3
             // 
@@ -186,6 +179,15 @@
             this.clChats.Size = new System.Drawing.Size(188, 244);
             this.clChats.TabIndex = 0;
             // 
+            // cbFriends
+            // 
+            this.cbFriends.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFriends.FormattingEnabled = true;
+            this.cbFriends.Location = new System.Drawing.Point(7, 20);
+            this.cbFriends.Name = "cbFriends";
+            this.cbFriends.Size = new System.Drawing.Size(167, 21);
+            this.cbFriends.TabIndex = 0;
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -207,7 +209,6 @@
             this.TopMost = true;
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
@@ -222,7 +223,6 @@
         private System.Windows.Forms.ComboBox cbUpdates;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox tbSuperadmin;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox cbFriendRequest;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -231,5 +231,6 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.CheckedListBox clChats;
+        private System.Windows.Forms.ComboBox cbFriends;
     }
 }
