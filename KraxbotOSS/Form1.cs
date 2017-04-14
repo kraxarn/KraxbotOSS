@@ -414,6 +414,49 @@ namespace KraxbotOSS
                     else
                         SendChatMessage(chatRoomID, "Delay needs to be a number (in seconds)");
                 }
+                else if (message.StartsWith("!set"))
+                {
+                    string[] set = message.Split(' ');
+                    if (set[1] == "spam")
+                    {
+                        switch(set[2])
+                        {
+                            case "ban":
+                                chatRoom.Spam = "Ban";
+                                SendChatMessage(chatRoomID, "Spam will now ban");
+                                break;
+                            case "kick":
+                                chatRoom.Spam = "Kick";
+                                SendChatMessage(chatRoomID, "Spam will now kick");
+                                break;
+                            case "none":
+                                chatRoom.Spam = "None";
+                                SendChatMessage(chatRoomID, "Spam will now be ignored");
+                                break;
+                            default:
+                                SendChatMessage(chatRoomID, "Unknown spam toggle, use ban, kick or none");
+                                break;
+                        }
+                    }
+                    else if (set[1] == "dc")
+                    {
+                        // We make this a switch in case we want to use warnings later
+                        switch (set[2])
+                        {
+                            case "kick":
+                                chatRoom.DCKick = "Kick";
+                                SendChatMessage(chatRoomID, "Will now kick user after 5 disconnections");
+                                break;
+                            case "none":
+                                chatRoom.DCKick = "None";
+                                SendChatMessage(chatRoomID, "Will now ignore disconnections");
+                                break;
+                            default:
+                                SendChatMessage(chatRoomID, "Unknown dc toggle, use kick or none");
+                                break;
+                        }
+                    }
+                }
             }
         }
 
