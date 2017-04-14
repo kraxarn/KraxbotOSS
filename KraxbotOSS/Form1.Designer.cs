@@ -34,7 +34,6 @@
             this.lStatus = new System.Windows.Forms.Label();
             this.lNetwork = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnAdvSettings = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.btnBotSettings = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
@@ -102,19 +101,9 @@
             this.button1.Text = "Chatroom Info";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // btnAdvSettings
-            // 
-            this.btnAdvSettings.Location = new System.Drawing.Point(203, 284);
-            this.btnAdvSettings.Name = "btnAdvSettings";
-            this.btnAdvSettings.Size = new System.Drawing.Size(150, 23);
-            this.btnAdvSettings.TabIndex = 3;
-            this.btnAdvSettings.Text = "Advanced Settings";
-            this.btnAdvSettings.UseVisualStyleBackColor = true;
-            this.btnAdvSettings.Click += new System.EventHandler(this.btnAdvSettings_Click);
-            // 
             // btnSettings
             // 
-            this.btnSettings.Location = new System.Drawing.Point(203, 255);
+            this.btnSettings.Location = new System.Drawing.Point(203, 284);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(150, 23);
             this.btnSettings.TabIndex = 4;
@@ -125,7 +114,7 @@
             // btnBotSettings
             // 
             this.btnBotSettings.Enabled = false;
-            this.btnBotSettings.Location = new System.Drawing.Point(203, 226);
+            this.btnBotSettings.Location = new System.Drawing.Point(203, 255);
             this.btnBotSettings.Name = "btnBotSettings";
             this.btnBotSettings.Size = new System.Drawing.Size(150, 23);
             this.btnBotSettings.TabIndex = 5;
@@ -173,7 +162,6 @@
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.btnBotSettings);
             this.Controls.Add(this.btnSettings);
-            this.Controls.Add(this.btnAdvSettings);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -199,7 +187,6 @@
         private System.Windows.Forms.Label lNetwork;
         private System.Windows.Forms.Label lStatus;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnAdvSettings;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnBotSettings;
         private System.Windows.Forms.Button btnLogin;
