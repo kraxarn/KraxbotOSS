@@ -147,6 +147,15 @@ namespace KraxbotOSS
             internal SteamID AutokickUser;
         }
 
+        // Settings
+        internal class Config
+        {
+            internal string Updates;
+            internal string FriendRequest;
+            internal string ChatRequest;
+            internal EPersonaState LoginAs;
+        }
+
         // Advanced settings
         internal class AdvConfig
         {

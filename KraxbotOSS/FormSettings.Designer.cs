@@ -64,9 +64,9 @@
             this.cbUpdates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbUpdates.FormattingEnabled = true;
             this.cbUpdates.Items.AddRange(new object[] {
-            "None",
+            "All",
             "Only Major",
-            "All"});
+            "None"});
             this.cbUpdates.Location = new System.Drawing.Point(6, 19);
             this.cbUpdates.Name = "cbUpdates";
             this.cbUpdates.Size = new System.Drawing.Size(169, 21);

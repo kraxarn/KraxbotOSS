@@ -21,7 +21,7 @@ namespace KraxbotOSS
             InitializeComponent();
 
             // TODO: For now, default to all, but get from settings later
-            cbUpdates.SelectedIndex = 2;
+            cbUpdates.SelectedIndex = 0;
             cbFriendRequest.SelectedIndex = 0;
             cbChatRequest.SelectedIndex = 0;
             cbLoginAs.SelectedIndex = 0;
@@ -38,8 +38,6 @@ namespace KraxbotOSS
             // TODO: We don't save chatrooms to join yet
 
             // TODO: Remake this into a list or something and use that instead
-
-            /*
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
             using (JsonWriter w = new JsonTextWriter(sw))
@@ -59,6 +57,39 @@ namespace KraxbotOSS
             }
             // This is bad
             File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS", "settings"), sb.ToString());
+
+            // This is if we want to use the class
+            /*
+            Form1.Config config = new Form1.Config();
+            int updates = cbUpdates.SelectedIndex;
+            int friendRequest = cbFriendRequest.SelectedIndex;
+            int chatRequest = cbChatRequest.SelectedIndex;
+            int loginAs = cbLoginAs.SelectedIndex;
+
+            switch(updates)
+            {
+                case 0: config.Updates = "All";       break;
+                case 1: config.Updates = "OnlyMajor"; break;
+                case 2: config.Updates = "None";      break;
+            }
+            switch(friendRequest)
+            {
+                case 0: config.FriendRequest = "AcceptAll"; break;
+                case 1: config.FriendRequest = "IgnoreAll"; break;
+            }
+            switch(chatRequest)
+            {
+                case 0: config.ChatRequest = "AcceptAll"; break;
+                case 1: config.ChatRequest = "SuperadminOnly"; break;
+                case 2: config.ChatRequest = "IgnoreAll"; break;
+            }
+            switch(loginAs)
+            {
+                case 0: config.LoginAs = EPersonaState.Online; break;
+                case 1: config.LoginAs = EPersonaState.Away; break;
+                case 2: config.LoginAs = EPersonaState.Snooze; break;
+                case 3: config.LoginAs = EPersonaState.Offline; break;
+            }
             */
 
             this.Close();
