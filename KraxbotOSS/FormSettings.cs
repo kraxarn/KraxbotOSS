@@ -29,7 +29,7 @@ namespace KraxbotOSS
             // Get all our friends and fill the list
             List<SteamID> friends = Form1.GetFriends();
             foreach (SteamID userID in friends)
-                cbFriends.Items.Add(userID);
+                cbFriends.Items.Add(Form1.GetFriendName(userID));
         }
 
         private void btnSave_Click(object sender, EventArgs e)
