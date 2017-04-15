@@ -90,65 +90,65 @@ namespace KraxbotOSS
         // Chat settings
         public class Settings
         {
-            internal List<UserInfo> Users;
+            public List<UserInfo> Users;
 
-            internal int Version = 0;
-            internal string ChatName = "NoName";
-            internal SteamID ChatID;
-            internal SteamID InvitedID;
-            internal string InvitedName = "NoName";
+            public int Version = 0;
+            public string ChatName = "NoName";
+            public SteamID ChatID;
+            public SteamID InvitedID;
+            public string InvitedName = "NoName";
 
-            internal string Spam = "Kick";
-            internal string WelcomeMsg = "Welcome";
-            internal string WelcomeEnd = "!";
-            internal SteamID LastPoke;
-            internal string DCKick = "Kick";
+            public string Spam = "Kick";
+            public string WelcomeMsg = "Welcome";
+            public string WelcomeEnd = "!";
+            public SteamID LastPoke;
+            public string DCKick = "Kick";
 
-            internal bool Cleverbot = false;
-            internal bool Translate = false;
-            internal bool Commands = true;
+            public bool Cleverbot = false;
+            public bool Translate = false;
+            public bool Commands = true;
 
-            internal bool Welcome = true;
-            internal bool Games = true;
-            internal bool Define = true;
-            internal bool Wiki = true;
-            internal bool Search = true;
-            internal bool Weather = true;
-            internal bool Store = true;
-            internal bool Responses = true;
-            internal bool Links = true;
-            internal bool Rules = true;
-            internal bool Poke = true;
-            internal bool AllStates = false;
-            internal bool AllPoke = false;
-            internal bool AutoWelcome = false;
+            public bool Welcome = true;
+            public bool Games = true;
+            public bool Define = true;
+            public bool Wiki = true;
+            public bool Search = true;
+            public bool Weather = true;
+            public bool Store = true;
+            public bool Responses = true;
+            public bool Links = true;
+            public bool Rules = true;
+            public bool Poke = true;
+            public bool AllStates = false;
+            public bool AllPoke = false;
+            public bool AutoWelcome = false;
 
-            internal int DCLimit = 5;
-            internal int DelayRandom = 120;
-            internal int DelayDefine = 300;
-            internal int DelayGames = 120;
-            internal int DelayRecents = 120;
-            internal int DelaySearch = 120;
-            internal int DelayYT = 120;
+            public int DCLimit = 5;
+            public int DelayRandom = 120;
+            public int DelayDefine = 300;
+            public int DelayGames = 120;
+            public int DelayRecents = 120;
+            public int DelaySearch = 120;
+            public int DelayYT = 120;
 
-            internal int DCKickLimit = 3;
-            internal int DCBanLimit = 5;
+            public int DCKickLimit = 3;
+            public int DCBanLimit = 5;
 
-            internal int TimeoutRandom = 0;
-            internal int TimeoutDefine = 0;
-            internal int TimeoutGames = 0;
-            internal int TimeoutRecents = 0;
-            internal int TimeoutSearch = 0;
-            internal int TimeoutYT = 0;
+            public int TimeoutRandom = 0;
+            public int TimeoutDefine = 0;
+            public int TimeoutGames = 0;
+            public int TimeoutRecents = 0;
+            public int TimeoutSearch = 0;
+            public int TimeoutYT = 0;
 
-            internal bool CustomEnabled = false;
-            internal bool CustomModOnly = false;
-            internal int CustomDelay = 5;
-            internal string CustomCommand = "!custom";
-            internal string CustomResponse = "Custom response";
+            public bool CustomEnabled = false;
+            public bool CustomModOnly = false;
+            public int CustomDelay = 5;
+            public string CustomCommand = "!custom";
+            public string CustomResponse = "Custom response";
 
-            internal string AutokickMode = "None";
-            internal SteamID AutokickUser;
+            public string AutokickMode = "None";
+            public SteamID AutokickUser;
         }
 
         // User info
