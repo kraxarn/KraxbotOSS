@@ -90,7 +90,7 @@ namespace KraxbotOSS
         // Chat settings
         internal class Settings
         {
-            internal List<SteamID> Users;
+            internal List<UserInfo> Users;
 
             internal int Version = 0;
             internal string ChatName = "NoName";
@@ -149,6 +149,14 @@ namespace KraxbotOSS
 
             internal string AutokickMode = "None";
             internal SteamID AutokickUser;
+        }
+
+        // User info
+        public class UserInfo
+        {
+            internal SteamID         SteamID;
+            internal EClanPermission Rank;
+            internal EChatPermission Permission;
         }
 
         // Settings
@@ -276,6 +284,7 @@ namespace KraxbotOSS
         {
             // TODO: Just log here as well, check for chatroom settings and stuff later
             SteamFriends.ChatMemberInfo bot = callback.ChatMembers.Single(s => s.SteamID == client.SteamID);
+            Settings chatRoom = CR.Single(s => s.ChatID == callback.ChatID);
 
             Log(string.Format("\nJoined {0} as {1}", callback.ChatRoomName, bot.Details));
 
@@ -288,12 +297,35 @@ namespace KraxbotOSS
             // Add value to chatroom settings if needed
             if (CR.SingleOrDefault(s => s.ChatID == callback.ChatID) == null)
                 CreateSettings(callback.ChatID);
+
+            // Add all current users to the Users list
+            foreach(SteamFriends.ChatMemberInfo member in callback.ChatMembers)
+            {
+                chatRoom.Users.Add(new UserInfo() {
+                    SteamID = member.SteamID,
+                    Rank = member.Details,
+                    Permission = member.Permissions
+                });
+            }
         }
         void OnChatMemberInfo(SteamFriends.ChatMemberInfoCallback callback)
         {
+            // Vars
+            Settings chatRoom = CR.Single(s => s.ChatID == callback.ChatRoomID);
+
             // When a user enters or leaves a chat
             // TODO: Add more to this
             Log(string.Format("\n{0} {1} ({2})", friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn), callback.StateChangeInfo.StateChange, callback.Type));
+
+            // Add or remove user from Users list
+            // TODO: Fill rest of info
+            if (callback.StateChangeInfo.StateChange == EChatMemberStateChange.Entered)
+            {
+                chatRoom.Users.Add(new UserInfo()
+                {
+                    SteamID = callback.StateChangeInfo.ChatterActedOn.AccountID
+                });
+            }
         }
         void OnLoggedOff(SteamUser.LoggedOffCallback callback)
         {
