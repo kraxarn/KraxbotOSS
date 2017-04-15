@@ -90,6 +90,8 @@ namespace KraxbotOSS
         // Chat settings
         internal class Settings
         {
+            internal List<SteamID> Users;
+
             internal int Version = 0;
             internal string ChatName = "NoName";
             internal SteamID ChatID;
