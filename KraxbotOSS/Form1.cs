@@ -301,11 +301,13 @@ namespace KraxbotOSS
             // Add all current users to the Users list
             foreach (SteamFriends.ChatMemberInfo member in callback.ChatMembers)
             {
+                /*
                 chatRoom.Users.Add(new UserInfo() {
                     SteamID = member.SteamID,
                     Rank = member.Details,
                     Permission = member.Permissions
                 });
+                */
             }
         }
         void OnChatMemberInfo(SteamFriends.ChatMemberInfoCallback callback)
