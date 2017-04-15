@@ -154,9 +154,9 @@ namespace KraxbotOSS
         // User info
         public class UserInfo
         {
-            internal SteamID         SteamID;
-            internal EClanPermission Rank;
-            internal EChatPermission Permission;
+            public SteamID         SteamID;
+            public EClanPermission Rank;
+            public EChatPermission Permission;
         }
 
         // Settings
