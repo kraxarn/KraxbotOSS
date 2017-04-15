@@ -185,6 +185,11 @@ namespace KraxbotOSS
                 SentryFileHash = sentryHash
             });
         }
+        public static void UpdateBotSetttings(string name, EPersonaState state)
+        {
+            friends.SetPersonaName(name);
+            friends.SetPersonaState(state);
+        }
 
         public static List<SteamID> GetFriends()
         {
@@ -671,8 +676,18 @@ namespace KraxbotOSS
 
         private void btnBotSettings_Click(object sender, EventArgs e)
         {
+            /*
+            string name;
+            EPersonaState state;
+            */
+
             Form botSettings = new FormBotSettings();
-            botSettings.ShowDialog();
+            if (botSettings.ShowDialog(this) == DialogResult.OK)
+            {
+                Console.WriteLine("OK");
+            }
+            else
+                Console.WriteLine("Cancel");
         }
     }
 }

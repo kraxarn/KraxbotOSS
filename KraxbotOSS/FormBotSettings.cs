@@ -16,5 +16,10 @@ namespace KraxbotOSS
         {
             InitializeComponent();
         }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            Form1.UpdateBotSetttings(tbName.Text, (SteamKit2.EPersonaState)cbState.SelectedIndex);
+        }
     }
 }

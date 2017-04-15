@@ -30,8 +30,8 @@
         {
             this.gbName = new System.Windows.Forms.GroupBox();
             this.gbState = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.cbState = new System.Windows.Forms.ComboBox();
             this.btnApply = new System.Windows.Forms.Button();
             this.gbName.SuspendLayout();
             this.gbState.SuspendLayout();
@@ -39,7 +39,7 @@
             // 
             // gbName
             // 
-            this.gbName.Controls.Add(this.textBox1);
+            this.gbName.Controls.Add(this.tbName);
             this.gbName.Location = new System.Drawing.Point(12, 12);
             this.gbName.Name = "gbName";
             this.gbName.Size = new System.Drawing.Size(165, 50);
@@ -49,7 +49,7 @@
             // 
             // gbState
             // 
-            this.gbState.Controls.Add(this.comboBox1);
+            this.gbState.Controls.Add(this.cbState);
             this.gbState.Location = new System.Drawing.Point(12, 70);
             this.gbState.Name = "gbState";
             this.gbState.Size = new System.Drawing.Size(165, 50);
@@ -57,18 +57,18 @@
             this.gbState.TabStop = false;
             this.gbState.Text = "Persona State";
             // 
-            // textBox1
+            // tbName
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(150, 20);
-            this.textBox1.TabIndex = 0;
+            this.tbName.Location = new System.Drawing.Point(6, 19);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(150, 20);
+            this.tbName.TabIndex = 0;
             // 
-            // comboBox1
+            // cbState
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cbState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbState.FormattingEnabled = true;
+            this.cbState.Items.AddRange(new object[] {
             "Offline",
             "Online",
             "Busy",
@@ -77,10 +77,10 @@
             "Looking to Trade",
             "Looking to Play",
             "Max"});
-            this.comboBox1.Location = new System.Drawing.Point(7, 20);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(149, 21);
-            this.comboBox1.TabIndex = 0;
+            this.cbState.Location = new System.Drawing.Point(7, 20);
+            this.cbState.Name = "cbState";
+            this.cbState.Size = new System.Drawing.Size(149, 21);
+            this.cbState.TabIndex = 0;
             // 
             // btnApply
             // 
@@ -91,6 +91,7 @@
             this.btnApply.TabIndex = 2;
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // FormBotSettings
             // 
@@ -119,8 +120,8 @@
 
         private System.Windows.Forms.GroupBox gbName;
         private System.Windows.Forms.GroupBox gbState;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.ComboBox cbState;
         private System.Windows.Forms.Button btnApply;
     }
 }
