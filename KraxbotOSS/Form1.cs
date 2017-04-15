@@ -88,7 +88,7 @@ namespace KraxbotOSS
         // -- Classes -- //
 
         // Chat settings
-        internal class Settings
+        public class Settings
         {
             internal List<UserInfo> Users;
 
