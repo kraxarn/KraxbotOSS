@@ -691,7 +691,8 @@ namespace KraxbotOSS
         }
         void LoadSettings(SteamID chatRoomID)
         {
-            // TODO
+            string file = File.ReadAllText(Path.Combine(configPath, "chatrooms", chatRoomID.ConvertToUInt64().ToString()));
+            CR.Add(JsonConvert.DeserializeObject<Settings>(file));
         }
 
         void ToggleSetting(string setting, string name, Settings chatRoom)
