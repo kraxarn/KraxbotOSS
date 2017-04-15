@@ -677,6 +677,8 @@ namespace KraxbotOSS
         private void btnBotSettings_Click(object sender, EventArgs e)
         {
             Form botSettings = new FormBotSettings();
+            botSettings.Tag = friends.GetPersonaName() + (int)friends.GetPersonaState();
+            Console.WriteLine(botSettings.Tag);
             botSettings.ShowDialog(this);
         }
     }

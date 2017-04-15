@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.gbName = new System.Windows.Forms.GroupBox();
-            this.gbState = new System.Windows.Forms.GroupBox();
             this.tbName = new System.Windows.Forms.TextBox();
+            this.gbState = new System.Windows.Forms.GroupBox();
             this.cbState = new System.Windows.Forms.ComboBox();
             this.btnApply = new System.Windows.Forms.Button();
             this.gbName.SuspendLayout();
@@ -47,6 +47,13 @@
             this.gbName.TabStop = false;
             this.gbName.Text = "Persona Name";
             // 
+            // tbName
+            // 
+            this.tbName.Location = new System.Drawing.Point(6, 19);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(150, 20);
+            this.tbName.TabIndex = 0;
+            // 
             // gbState
             // 
             this.gbState.Controls.Add(this.cbState);
@@ -56,13 +63,6 @@
             this.gbState.TabIndex = 1;
             this.gbState.TabStop = false;
             this.gbState.Text = "Persona State";
-            // 
-            // tbName
-            // 
-            this.tbName.Location = new System.Drawing.Point(6, 19);
-            this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(150, 20);
-            this.tbName.TabIndex = 0;
             // 
             // cbState
             // 
@@ -109,6 +109,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bot Settings";
+            this.Shown += new System.EventHandler(this.FormBotSettings_Shown);
             this.gbName.ResumeLayout(false);
             this.gbName.PerformLayout();
             this.gbState.ResumeLayout(false);
