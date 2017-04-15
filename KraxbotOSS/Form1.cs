@@ -284,7 +284,6 @@ namespace KraxbotOSS
         {
             // TODO: Just log here as well, check for chatroom settings and stuff later
             SteamFriends.ChatMemberInfo bot = callback.ChatMembers.Single(s => s.SteamID == client.SteamID);
-            Settings chatRoom = CR.Single(s => s.ChatID == callback.ChatID);
 
             Log(string.Format("\nJoined {0} as {1}", callback.ChatRoomName, bot.Details));
 
@@ -297,9 +296,10 @@ namespace KraxbotOSS
             // Add value to chatroom settings if needed
             if (CR.SingleOrDefault(s => s.ChatID == callback.ChatID) == null)
                 CreateSettings(callback.ChatID);
+            Settings chatRoom = CR.Single(s => s.ChatID == callback.ChatID);
 
             // Add all current users to the Users list
-            foreach(SteamFriends.ChatMemberInfo member in callback.ChatMembers)
+            foreach (SteamFriends.ChatMemberInfo member in callback.ChatMembers)
             {
                 chatRoom.Users.Add(new UserInfo() {
                     SteamID = member.SteamID,
