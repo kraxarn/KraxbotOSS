@@ -647,7 +647,7 @@ namespace KraxbotOSS
                     SendChatMessage(chatRoomID, "Your number is " + new Random().Next(0, max));
                 }
                 else if (message.StartsWith("!math "))
-                    SendChatMessage(chatRoomID, "=" + new DataTable().Compute(message.Substring(6), null).ToString());
+                    SendChatMessage(chatRoomID, "= " + new DataTable().Compute(message.Substring(6), null).ToString());
                 else if (message.StartsWith("!players "))
                 {
                     // TODO: Same as !bday
