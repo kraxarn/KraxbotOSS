@@ -44,7 +44,7 @@ namespace KraxbotOSS
             if (!Directory.Exists(configPath))
             {
                 // User is prob running for the first time
-                Directory.CreateDirectory(configPath);
+                Directory.CreateDirectory(Path.Combine(configPath, "chatrooms"));
             }
 
             // Welcome the user :)
@@ -309,6 +309,9 @@ namespace KraxbotOSS
                 });
                 */
             }
+
+            // Then save settings
+            SaveSettings(chatRoom);
         }
         void OnChatMemberInfo(SteamFriends.ChatMemberInfoCallback callback)
         {
@@ -680,6 +683,15 @@ namespace KraxbotOSS
         {
             // TODO: This may or may not work lol
             CR.Add(new Settings() { ChatID = ChatRoomID });
+        }
+        void SaveSettings(Settings setting)
+        {
+            string file = Path.Combine(configPath, "chatrooms", setting.ChatID.ConvertToUInt64().ToString());
+            File.WriteAllText(file, JsonConvert.SerializeObject(setting));
+        }
+        void LoadSettings(SteamID chatRoomID)
+        {
+            // TODO
         }
 
         void ToggleSetting(string setting, string name, Settings chatRoom)
