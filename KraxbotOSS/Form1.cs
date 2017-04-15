@@ -684,5 +684,10 @@ namespace KraxbotOSS
             Console.WriteLine(botSettings.Tag);
             botSettings.ShowDialog(this);
         }
+
+        private void lbChatrooms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnChatroomInfo.Enabled = true;
+        }
     }
 }

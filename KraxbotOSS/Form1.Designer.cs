@@ -33,7 +33,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lStatus = new System.Windows.Forms.Label();
             this.lNetwork = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnChatroomInfo = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.btnBotSettings = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
@@ -61,6 +61,7 @@
             this.lbChatrooms.Name = "lbChatrooms";
             this.lbChatrooms.Size = new System.Drawing.Size(170, 264);
             this.lbChatrooms.TabIndex = 0;
+            this.lbChatrooms.SelectedIndexChanged += new System.EventHandler(this.lbChatrooms_SelectedIndexChanged);
             // 
             // groupBox2
             // 
@@ -91,15 +92,15 @@
             this.lNetwork.TabIndex = 0;
             this.lNetwork.Text = "Network: Disconnected";
             // 
-            // button1
+            // btnChatroomInfo
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(203, 83);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Chatroom Info";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnChatroomInfo.Enabled = false;
+            this.btnChatroomInfo.Location = new System.Drawing.Point(203, 83);
+            this.btnChatroomInfo.Name = "btnChatroomInfo";
+            this.btnChatroomInfo.Size = new System.Drawing.Size(150, 23);
+            this.btnChatroomInfo.TabIndex = 2;
+            this.btnChatroomInfo.Text = "Chatroom Info";
+            this.btnChatroomInfo.UseVisualStyleBackColor = true;
             // 
             // btnSettings
             // 
@@ -163,7 +164,7 @@
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.btnBotSettings);
             this.Controls.Add(this.btnSettings);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnChatroomInfo);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
@@ -187,7 +188,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label lNetwork;
         private System.Windows.Forms.Label lStatus;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnChatroomInfo;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnBotSettings;
         private System.Windows.Forms.Button btnLogin;
