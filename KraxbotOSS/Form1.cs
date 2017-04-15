@@ -666,7 +666,7 @@ namespace KraxbotOSS
         private void btnLogin_Click(object sender, EventArgs e)
         {
             Form login = new FormLogin();
-            login.Show();
+            login.ShowDialog(this);
         }
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
