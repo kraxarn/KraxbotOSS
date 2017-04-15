@@ -326,6 +326,10 @@ namespace KraxbotOSS
                     SteamID = callback.StateChangeInfo.ChatterActedOn.AccountID
                 });
             }
+            else if (callback.StateChangeInfo.StateChange == EChatMemberStateChange.Left)
+            {
+                chatRoom.Users.Remove(chatRoom.Users.Single(s => s.SteamID == callback.StateChangeInfo.ChatterActedOn.AccountID));
+            }
         }
         void OnLoggedOff(SteamUser.LoggedOffCallback callback)
         {
