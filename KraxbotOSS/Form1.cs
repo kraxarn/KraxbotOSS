@@ -226,7 +226,10 @@ namespace KraxbotOSS
         {
             // TODO: Only show the message once
             Log("\nDisconnected, attempting to reconnect... ");
-            lNetwork.Text = "Network: Disconnected";
+            Invoke((MethodInvoker)delegate
+            {
+                lNetwork.Text = "Network: Disconnected";
+            });
             client.Connect();
         }
         void OnLoggedOn(SteamUser.LoggedOnCallback callback)
