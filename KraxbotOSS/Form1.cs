@@ -676,18 +676,8 @@ namespace KraxbotOSS
 
         private void btnBotSettings_Click(object sender, EventArgs e)
         {
-            /*
-            string name;
-            EPersonaState state;
-            */
-
             Form botSettings = new FormBotSettings();
-            if (botSettings.ShowDialog(this) == DialogResult.OK)
-            {
-                Console.WriteLine("OK");
-            }
-            else
-                Console.WriteLine("Cancel");
+            botSettings.ShowDialog(this);
         }
     }
 }
