@@ -727,5 +727,11 @@ namespace KraxbotOSS
         {
             btnChatroomInfo.Enabled = true;
         }
+
+        private void btnChatroomInfo_Click(object sender, EventArgs e)
+        {
+            Form chatroomInfo = new FormChatroomInfo();
+            chatroomInfo.ShowDialog(this);
+        }
     }
 }

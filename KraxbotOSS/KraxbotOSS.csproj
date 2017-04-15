@@ -66,6 +66,12 @@
     <Compile Include="FormBotSettings.Designer.cs">
       <DependentUpon>FormBotSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormChatroomInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChatroomInfo.Designer.cs">
+      <DependentUpon>FormChatroomInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormBotSettings.resx">
       <DependentUpon>FormBotSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormChatroomInfo.resx">
+      <DependentUpon>FormChatroomInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>

@@ -101,6 +101,7 @@
             this.btnChatroomInfo.TabIndex = 2;
             this.btnChatroomInfo.Text = "Chatroom Info";
             this.btnChatroomInfo.UseVisualStyleBackColor = true;
+            this.btnChatroomInfo.Click += new System.EventHandler(this.btnChatroomInfo_Click);
             // 
             // btnSettings
             // 
