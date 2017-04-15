@@ -16,5 +16,10 @@ namespace KraxbotOSS
         {
             InitializeComponent();
         }
+
+        private void FormChatroomInfo_Shown(object sender, EventArgs e)
+        {
+            // TODO
+        }
     }
 }
