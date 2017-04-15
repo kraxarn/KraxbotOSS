@@ -90,7 +90,7 @@ namespace KraxbotOSS
         // Chat settings
         public class Settings
         {
-            public List<UserInfo> Users;
+            public List<UserInfo> Users = new List<UserInfo>();
 
             public int Version = 0;
             public string ChatName = "NoName";
@@ -301,13 +301,11 @@ namespace KraxbotOSS
             // Add all current users to the Users list
             foreach (SteamFriends.ChatMemberInfo member in callback.ChatMembers)
             {
-                /*
                 chatRoom.Users.Add(new UserInfo() {
                     SteamID = member.SteamID,
                     Rank = member.Details,
                     Permission = member.Permissions
                 });
-                */
             }
 
             // Then save settings
