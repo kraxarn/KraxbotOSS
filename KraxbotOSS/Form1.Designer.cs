@@ -120,6 +120,7 @@
             this.btnBotSettings.TabIndex = 5;
             this.btnBotSettings.Text = "Bot Settings";
             this.btnBotSettings.UseVisualStyleBackColor = true;
+            this.btnBotSettings.Click += new System.EventHandler(this.btnBotSettings_Click);
             // 
             // btnLogin
             // 
