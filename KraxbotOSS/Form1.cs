@@ -685,6 +685,8 @@ namespace KraxbotOSS
         }
         void SaveSettings(Settings setting)
         {
+            // TODO: Check if xml is faster (prob not)
+            // TODO: Maybe we want to save all settings to the same file
             string file = Path.Combine(configPath, "chatrooms", setting.ChatID.ConvertToUInt64().ToString());
             File.WriteAllText(file, JsonConvert.SerializeObject(setting));
         }
