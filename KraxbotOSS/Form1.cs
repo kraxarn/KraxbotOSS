@@ -476,7 +476,7 @@ namespace KraxbotOSS
                         SendChatMessage(chatRoomID, toggle + " is now enabled");
                     else
                         SendChatMessage(chatRoomID, toggle + " is now disabled");
-                    // TODO: Save settings here
+                    SaveSettings(chatRoom);
                 }
                 else if (message.StartsWith("!setdelay "))
                 {
