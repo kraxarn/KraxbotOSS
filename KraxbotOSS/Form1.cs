@@ -709,6 +709,15 @@ namespace KraxbotOSS
             }
         }
 
+        string EncryptDecrypt(string input, string key)
+        {
+            char[] cKey = key.ToArray();
+            char[] output = new char[input.Length];
+            for (int i = 0; i < input.Length; i++)
+                output[i] = (char)(input[i] ^ cKey[i % cKey.Length]);
+            return new string(output);
+        }
+
         // -- Buttons and ui stuff -- //
 
         private void btnSettings_Click(object sender, EventArgs e)
