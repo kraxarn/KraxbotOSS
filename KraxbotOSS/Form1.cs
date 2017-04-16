@@ -174,45 +174,6 @@ namespace KraxbotOSS
             internal string API_CleverbotIO;
         }
 
-        // -- Steam functions -- //
-
-        public static void Login(string username, string password)
-        {
-            bool isUsernameNull = string.IsNullOrEmpty(username);
-            bool isPasswordNull = string.IsNullOrEmpty(password);
-            if ((isUsernameNull && isPasswordNull) || (isUsernameNull || isPasswordNull))
-                return;
-
-            // Use sentry hash if we have one
-            byte[] sentryHash = null;
-            if (File.Exists(Path.Combine(configPath, "sentry")))
-                sentryHash = CryptoHelper.SHAHash(File.ReadAllBytes(Path.Combine(configPath, "sentry")));
-
-            user.LogOn(new SteamUser.LogOnDetails
-            {
-                Username = username,
-                Password = password,
-                SentryFileHash = sentryHash
-            });
-        }
-        public static void UpdateBotSetttings(string name, EPersonaState state)
-        {
-            friends.SetPersonaName(name);
-            friends.SetPersonaState(state);
-        }
-
-        public static List<SteamID> GetFriends()
-        {
-            List<SteamID> friend = new List<SteamID>();
-            for (int i = 0; i < friends.GetFriendCount(); i++)
-                friend.Add(friends.GetFriendByIndex(i));
-            return friend;
-        }
-        public static string GetFriendName(SteamID userID)
-        {
-            return friends.GetFriendPersonaName(userID);
-        }
-
         // -- Steam callbacks -- //
 
         void OnConnected(SteamClient.ConnectedCallback callback)
@@ -656,6 +617,45 @@ namespace KraxbotOSS
                     // TODO: Same as !bday
                 }
             }
+        }
+
+        // -- Steam functions -- //
+
+        public static void Login(string username, string password)
+        {
+            bool isUsernameNull = string.IsNullOrEmpty(username);
+            bool isPasswordNull = string.IsNullOrEmpty(password);
+            if ((isUsernameNull && isPasswordNull) || (isUsernameNull || isPasswordNull))
+                return;
+
+            // Use sentry hash if we have one
+            byte[] sentryHash = null;
+            if (File.Exists(Path.Combine(configPath, "sentry")))
+                sentryHash = CryptoHelper.SHAHash(File.ReadAllBytes(Path.Combine(configPath, "sentry")));
+
+            user.LogOn(new SteamUser.LogOnDetails
+            {
+                Username = username,
+                Password = password,
+                SentryFileHash = sentryHash
+            });
+        }
+        public static void UpdateBotSetttings(string name, EPersonaState state)
+        {
+            friends.SetPersonaName(name);
+            friends.SetPersonaState(state);
+        }
+
+        public static List<SteamID> GetFriends()
+        {
+            List<SteamID> friend = new List<SteamID>();
+            for (int i = 0; i < friends.GetFriendCount(); i++)
+                friend.Add(friends.GetFriendByIndex(i));
+            return friend;
+        }
+        public static string GetFriendName(SteamID userID)
+        {
+            return friends.GetFriendPersonaName(userID);
         }
 
         // -- Other stuffs -- //
