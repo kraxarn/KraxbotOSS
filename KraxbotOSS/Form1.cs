@@ -711,7 +711,7 @@ namespace KraxbotOSS
 
         string EncryptDecrypt(string input, string key)
         {
-            char[] cKey = key.ToArray();
+            char[] cKey = key.ToCharArray();
             char[] output = new char[input.Length];
             for (int i = 0; i < input.Length; i++)
                 output[i] = (char)(input[i] ^ cKey[i % cKey.Length]);
