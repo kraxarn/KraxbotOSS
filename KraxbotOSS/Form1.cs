@@ -704,9 +704,7 @@ namespace KraxbotOSS
             // TODO: Check if better way to do this
             // TODO: Handle invalid links
             using (var client = new System.Net.WebClient())
-            {
                 return client.DownloadString(url);
-            }
         }
 
         string EncryptDecrypt(string input, string key)
