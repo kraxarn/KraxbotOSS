@@ -531,7 +531,6 @@ namespace KraxbotOSS
                             JArray array = result.response.games;
                             JArray games = new JArray(array.OrderByDescending(obj => obj["playtime_forever"]));
                             int total = games.Count;
-                            Console.WriteLine(total);
                             for (int i = 0; i <= 4; i++)
                                 SendChatMessage(chatRoomID, string.Format("{0}: {1} ({2} hours played)", i+1, games[i]["name"], Math.Round((double)games[i]["playtime_forever"] / 60)));
                         }
