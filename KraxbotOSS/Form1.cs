@@ -518,7 +518,22 @@ namespace KraxbotOSS
                 }
                 else if (message == "!games" && chatRoom.Games)
                 {
-                    // TODO: Make this once we can enter API keys
+                    if (string.IsNullOrEmpty(config.API_Steam))
+                        SendChatMessage(chatRoomID, "Steam API isn't set up properly to use this command");
+                    else
+                    {
+                        string response = Get("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + config.API_Steam + "&include_appinfo=1&include_played_free_games=1&steamid=" + userID);
+                        if (!string.IsNullOrEmpty(response))
+                        {
+                            dynamic result = JsonConvert.DeserializeObject(response);
+                            SendChatMessage(chatRoomID, string.Format("You have {0} games", result.response.game_count));
+                            List<dynamic> games = result.response.games;
+                            games = games.OrderBy(o => o.playtime_forever).ToList();
+                            int total = games.Count;
+                            for (int i = 0; i <= 5; i++)
+                                SendChatMessage(chatRoomID, string.Format("{0}: {1} ({2} hours played", i, games[total - i].name, Math.Round(games[total - i].playtime_forever / 60)));
+                        }
+                    }
                 }
                 else if (message == "!recents" && chatRoom.Games)
                 {
