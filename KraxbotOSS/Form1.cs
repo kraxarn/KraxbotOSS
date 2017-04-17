@@ -93,62 +93,62 @@ namespace KraxbotOSS
             public List<UserInfo> Users = new List<UserInfo>();
             public List<String> SetRules = new List<String>();
 
-            public int Version = 0;
-            public string ChatName = "NoName";
+            public int     Version     = 0;
+            public string  ChatName    = "NoName";
+            public string  InvitedName = "NoName";
             public SteamID ChatID;
             public SteamID InvitedID;
-            public string InvitedName = "NoName";
 
-            public string Spam = "Kick";
-            public string WelcomeMsg = "Welcome";
-            public string WelcomeEnd = "!";
+            public string  Spam       = "Kick";
+            public string  WelcomeMsg = "Welcome";
+            public string  WelcomeEnd = "!";
+            public string  DCKick     = "Kick";
             public SteamID LastPoke;
-            public string DCKick = "Kick";
 
             public bool Cleverbot = false;
             public bool Translate = false;
-            public bool Commands = true;
+            public bool Commands  = true;
 
-            public bool Welcome = true;
-            public bool Games = true;
-            public bool Define = true;
-            public bool Wiki = true;
-            public bool Search = true;
-            public bool Weather = true;
-            public bool Store = true;
-            public bool Responses = true;
-            public bool Links = true;
-            public bool Rules = true;
-            public bool Poke = true;
-            public bool AllStates = false;
-            public bool AllPoke = false;
+            public bool Welcome     = true;
+            public bool Games       = true;
+            public bool Define      = true;
+            public bool Wiki        = true;
+            public bool Search      = true;
+            public bool Weather     = true;
+            public bool Store       = true;
+            public bool Responses   = true;
+            public bool Links       = true;
+            public bool Rules       = true;
+            public bool Poke        = true;
+            public bool AllStates   = false;
+            public bool AllPoke     = false;
             public bool AutoWelcome = false;
 
-            public int DCLimit = 5;
-            public int DelayRandom = 120;
-            public int DelayDefine = 300;
-            public int DelayGames = 120;
+            public int DCLimit      = 5;
+            public int DelayRandom  = 120;
+            public int DelayDefine  = 300;
+            public int DelayGames   = 120;
             public int DelayRecents = 120;
-            public int DelaySearch = 120;
-            public int DelayYT = 120;
+            public int DelaySearch  = 120;
+            public int DelayYT      = 120;
 
             public int DCKickLimit = 3;
-            public int DCBanLimit = 5;
+            public int DCBanLimit  = 5;
 
-            public int TimeoutRandom = 0;
-            public int TimeoutDefine = 0;
-            public int TimeoutGames = 0;
+            public int TimeoutRandom  = 0;
+            public int TimeoutDefine  = 0;
+            public int TimeoutGames   = 0;
             public int TimeoutRecents = 0;
-            public int TimeoutSearch = 0;
-            public int TimeoutYT = 0;
+            public int TimeoutSearch  = 0;
+            public int TimeoutYT      = 0;
 
-            public bool CustomEnabled = false;
-            public bool CustomModOnly = false;
-            public int CustomDelay = 5;
-            public string CustomCommand = "!custom";
+            public bool   CustomEnabled  = false;
+            public bool   CustomModOnly  = false;
+            public int    CustomDelay    = 5;
+            public string CustomCommand  = "!custom";
             public string CustomResponse = "Custom response";
 
-            public string AutokickMode = "None";
+            public string  AutokickMode = "None";
             public SteamID AutokickUser;
         }
 
