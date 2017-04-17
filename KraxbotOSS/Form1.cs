@@ -707,7 +707,8 @@ namespace KraxbotOSS
                 try {
                     return client.DownloadString(url);
                 } catch (System.Net.WebException e) {
-                    return e.Message;
+                    Console.WriteLine(e.Message);
+                    return null;
                 }
             }
         }
