@@ -685,12 +685,12 @@ namespace KraxbotOSS
         {
             // TODO: Check if xml is faster (prob not)
             // TODO: Maybe we want to save all settings to the same file
-            string file = Path.Combine(configPath, "chatrooms", setting.ChatID.ConvertToUInt64().ToString());
+            string file = Path.Combine(configPath, "chatrooms", setting.ChatID.ConvertToUInt64().ToString() + ".json");
             File.WriteAllText(file, JsonConvert.SerializeObject(setting));
         }
         void LoadSettings(SteamID chatRoomID)
         {
-            string file = File.ReadAllText(Path.Combine(configPath, "chatrooms", chatRoomID.ConvertToUInt64().ToString()));
+            string file = File.ReadAllText(Path.Combine(configPath, "chatrooms", chatRoomID.ConvertToUInt64().ToString() + ".json"));
             CR.Add(JsonConvert.DeserializeObject<Settings>(file));
         }
 
