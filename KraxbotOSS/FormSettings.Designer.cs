@@ -32,6 +32,7 @@
             this.cbUpdates = new System.Windows.Forms.ComboBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbFriends = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbFriendRequest = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -40,20 +41,19 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.clChats = new System.Windows.Forms.CheckedListBox();
-            this.cbFriends = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btnMoreInfo = new System.Windows.Forms.Button();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbApiSteam = new System.Windows.Forms.TextBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.tbApiCleverbot = new System.Windows.Forms.TextBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.tbApiGoogle = new System.Windows.Forms.TextBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.tbApiWeather = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -64,10 +64,10 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -112,6 +112,15 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Superadmin";
+            // 
+            // cbFriends
+            // 
+            this.cbFriends.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFriends.FormattingEnabled = true;
+            this.cbFriends.Location = new System.Drawing.Point(7, 20);
+            this.cbFriends.Name = "cbFriends";
+            this.cbFriends.Size = new System.Drawing.Size(167, 21);
+            this.cbFriends.TabIndex = 0;
             // 
             // groupBox3
             // 
@@ -200,15 +209,6 @@
             this.clChats.Size = new System.Drawing.Size(188, 244);
             this.clChats.TabIndex = 0;
             // 
-            // cbFriends
-            // 
-            this.cbFriends.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFriends.FormattingEnabled = true;
-            this.cbFriends.Location = new System.Drawing.Point(7, 20);
-            this.cbFriends.Name = "cbFriends";
-            this.cbFriends.Size = new System.Drawing.Size(167, 21);
-            this.cbFriends.TabIndex = 0;
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -270,60 +270,9 @@
             this.btnMoreInfo.UseVisualStyleBackColor = true;
             this.btnMoreInfo.Click += new System.EventHandler(this.btnMoreInfo_Click);
             // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.textBox4);
-            this.groupBox7.Location = new System.Drawing.Point(4, 195);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(259, 55);
-            this.groupBox7.TabIndex = 3;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Cleverbot";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(7, 20);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(239, 20);
-            this.textBox4.TabIndex = 0;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.textBox3);
-            this.groupBox8.Location = new System.Drawing.Point(4, 132);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(259, 55);
-            this.groupBox8.TabIndex = 2;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Open Weather Map";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(7, 20);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(239, 20);
-            this.textBox3.TabIndex = 0;
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.textBox2);
-            this.groupBox9.Location = new System.Drawing.Point(4, 66);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(259, 55);
-            this.groupBox9.TabIndex = 1;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Google API";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(6, 20);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(240, 20);
-            this.textBox2.TabIndex = 0;
-            // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.textBox1);
+            this.groupBox10.Controls.Add(this.tbApiSteam);
             this.groupBox10.Location = new System.Drawing.Point(3, 3);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(260, 55);
@@ -331,12 +280,63 @@
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Steam Web API";
             // 
-            // textBox1
+            // tbApiSteam
             // 
-            this.textBox1.Location = new System.Drawing.Point(7, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(240, 20);
-            this.textBox1.TabIndex = 0;
+            this.tbApiSteam.Location = new System.Drawing.Point(7, 20);
+            this.tbApiSteam.Name = "tbApiSteam";
+            this.tbApiSteam.Size = new System.Drawing.Size(240, 20);
+            this.tbApiSteam.TabIndex = 0;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.tbApiCleverbot);
+            this.groupBox7.Location = new System.Drawing.Point(4, 195);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(259, 55);
+            this.groupBox7.TabIndex = 3;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Cleverbot";
+            // 
+            // tbApiCleverbot
+            // 
+            this.tbApiCleverbot.Location = new System.Drawing.Point(7, 20);
+            this.tbApiCleverbot.Name = "tbApiCleverbot";
+            this.tbApiCleverbot.Size = new System.Drawing.Size(239, 20);
+            this.tbApiCleverbot.TabIndex = 0;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.tbApiGoogle);
+            this.groupBox9.Location = new System.Drawing.Point(4, 66);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(259, 55);
+            this.groupBox9.TabIndex = 1;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Google API";
+            // 
+            // tbApiGoogle
+            // 
+            this.tbApiGoogle.Location = new System.Drawing.Point(6, 20);
+            this.tbApiGoogle.Name = "tbApiGoogle";
+            this.tbApiGoogle.Size = new System.Drawing.Size(240, 20);
+            this.tbApiGoogle.TabIndex = 0;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.tbApiWeather);
+            this.groupBox8.Location = new System.Drawing.Point(4, 132);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(259, 55);
+            this.groupBox8.TabIndex = 2;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Open Weather Map";
+            // 
+            // tbApiWeather
+            // 
+            this.tbApiWeather.Location = new System.Drawing.Point(7, 20);
+            this.tbApiWeather.Name = "tbApiWeather";
+            this.tbApiWeather.Size = new System.Drawing.Size(239, 20);
+            this.tbApiWeather.TabIndex = 0;
             // 
             // FormSettings
             // 
@@ -362,14 +362,14 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -395,12 +395,12 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button btnMoreInfo;
         private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbApiSteam;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox tbApiCleverbot;
         private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbApiGoogle;
         private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbApiWeather;
     }
 }

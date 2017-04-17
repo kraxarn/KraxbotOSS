@@ -37,6 +37,17 @@ namespace KraxbotOSS
             // Save, close and show main form again
             // TODO: We don't save chatrooms to join yet
 
+            // API Keys
+            // TODO: For now, we just apply them
+            if (!string.IsNullOrEmpty(tbApiSteam.Text))
+                Form1.config.API_Steam = tbApiSteam.Text;
+            if (!string.IsNullOrEmpty(tbApiGoogle.Text))
+                Form1.config.API_Google = tbApiGoogle.Text;
+            if (!string.IsNullOrEmpty(tbApiWeather.Text))
+                Form1.config.API_OpenWeather = tbApiWeather.Text;
+            if (!string.IsNullOrEmpty(tbApiCleverbot.Text))
+                Form1.config.API_CleverbotIO = tbApiCleverbot.Text;
+
             // Set variables
             int updates       = cbUpdates.SelectedIndex;
             int friendRequest = cbFriendRequest.SelectedIndex;
