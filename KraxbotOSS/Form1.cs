@@ -533,6 +533,8 @@ namespace KraxbotOSS
                             for (int i = 0; i <= 5; i++)
                                 SendChatMessage(chatRoomID, string.Format("{0}: {1} ({2} hours played", i, games[total - i].name, Math.Round(games[total - i].playtime_forever / 60)));
                         }
+                        else
+                            SendChatMessage(chatRoomID, "Error: No or invalid response from Steam");
                     }
                 }
                 else if (message == "!recents" && chatRoom.Games)
