@@ -71,15 +71,6 @@ namespace KraxbotOSS
                 case 1: Form1.config.ChatRequest = "SuperadminOnly"; break;
                 case 2: Form1.config.ChatRequest = "IgnoreAll";      break;
             }
-            /*
-            switch (loginAs)
-            {
-                case 0: Form1.config.LoginAs = EPersonaState.Online;  break;
-                case 1: Form1.config.LoginAs = EPersonaState.Away;    break;
-                case 2: Form1.config.LoginAs = EPersonaState.Snooze;  break;
-                case 3: Form1.config.LoginAs = EPersonaState.Offline; break;
-            }
-            */
             Form1.config.LoginAs = (EPersonaState)loginAs;
 
             // TODO: Remake this into a list or something and use that instead
@@ -90,52 +81,30 @@ namespace KraxbotOSS
                 w.Formatting = Formatting.Indented;
                 w.WriteStartObject();
                 w.WritePropertyName("Updates");
-                w.WriteValue(cbUpdates.SelectedIndex);
+                w.WriteValue(Form1.config.Updates);
                 //w.WritePropertyName("Superadmin");
                 //w.WriteValue(tbSuperadmin.Text);
                 w.WritePropertyName("FriendRequest");
-                w.WriteValue(cbFriendRequest.SelectedIndex);
+                w.WriteValue(Form1.config.FriendRequest);
                 w.WritePropertyName("ChatRequest");
-                w.WriteValue(cbChatRequest.SelectedIndex);
+                w.WriteValue(Form1.config.ChatRequest);
                 w.WritePropertyName("LoginAs");
-                w.WriteValue(cbLoginAs.SelectedIndex);
-            }
-            // This is bad
-            File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS", "settings"), sb.ToString());
+                w.WriteValue(Form1.config.LoginAs);
 
-            // This is if we want to use the class
-            /*
-            Form1.Config config = new Form1.Config();
-            int updates = cbUpdates.SelectedIndex;
-            int friendRequest = cbFriendRequest.SelectedIndex;
-            int chatRequest = cbChatRequest.SelectedIndex;
-            int loginAs = cbLoginAs.SelectedIndex;
-
-            switch(updates)
-            {
-                case 0: config.Updates = "All";       break;
-                case 1: config.Updates = "OnlyMajor"; break;
-                case 2: config.Updates = "None";      break;
+                w.WritePropertyName("API");
+                w.WriteStartObject();
+                w.WritePropertyName("SteamWeb");
+                w.WriteValue(tbApiSteam.Text);
+                w.WritePropertyName("Google");
+                w.WriteValue(tbApiGoogle.Text);
+                w.WritePropertyName("OpenWeatherMap");
+                w.WriteValue(tbApiWeather.Text);
+                w.WritePropertyName("CleverbotIO");
+                w.WriteValue(tbApiWeather.Text);
+                w.WriteEndObject();
+                w.WriteEndObject();
             }
-            switch(friendRequest)
-            {
-                case 0: config.FriendRequest = "AcceptAll"; break;
-                case 1: config.FriendRequest = "IgnoreAll"; break;
-            }
-            switch(chatRequest)
-            {
-                case 0: config.ChatRequest = "AcceptAll"; break;
-                case 1: config.ChatRequest = "SuperadminOnly"; break;
-                case 2: config.ChatRequest = "IgnoreAll"; break;
-            }
-            switch(loginAs)
-            {
-                case 0: config.LoginAs = EPersonaState.Online; break;
-                case 1: config.LoginAs = EPersonaState.Away; break;
-                case 2: config.LoginAs = EPersonaState.Snooze; break;
-                case 3: config.LoginAs = EPersonaState.Offline; break;
-            }
-            */
+            File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS", "settings.json"), sb.ToString());
 
             this.Close();
         }
