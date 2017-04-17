@@ -563,13 +563,9 @@ namespace KraxbotOSS
                         }
                     }
                 }
-                else if (message == "!define" && chatRoom.Define)
+                else if (message.StartsWith("!define ") && chatRoom.Define)
                 {
                     // TODO: Add cooldown
-
-                }
-                else if (message.StartsWith("!define"))
-                {
                     string response = Get("http://api.urbandictionary.com/v0/define?term=" + message.Substring(8));
                     dynamic result = JsonConvert.DeserializeObject(response);
                     if (result.result_type == "no_results")
