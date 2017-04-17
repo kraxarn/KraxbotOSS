@@ -702,9 +702,14 @@ namespace KraxbotOSS
         string Get(string url)
         {
             // TODO: Check if better way to do this
-            // TODO: Handle invalid links
             using (var client = new System.Net.WebClient())
-                return client.DownloadString(url);
+            {
+                try {
+                    return client.DownloadString(url);
+                } catch (System.Net.WebException e) {
+                    return e.Message;
+                }
+            }
         }
 
         string EncryptDecrypt(string input, string key)
