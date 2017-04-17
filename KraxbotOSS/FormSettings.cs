@@ -71,6 +71,7 @@ namespace KraxbotOSS
                 case 1: Form1.config.ChatRequest = "SuperadminOnly"; break;
                 case 2: Form1.config.ChatRequest = "IgnoreAll";      break;
             }
+            /*
             switch (loginAs)
             {
                 case 0: Form1.config.LoginAs = EPersonaState.Online;  break;
@@ -78,6 +79,8 @@ namespace KraxbotOSS
                 case 2: Form1.config.LoginAs = EPersonaState.Snooze;  break;
                 case 3: Form1.config.LoginAs = EPersonaState.Offline; break;
             }
+            */
+            Form1.config.LoginAs = (EPersonaState)loginAs;
 
             // TODO: Remake this into a list or something and use that instead
             StringBuilder sb = new StringBuilder();
