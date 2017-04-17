@@ -734,6 +734,7 @@ namespace KraxbotOSS
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             running = false;
+            Environment.Exit(Environment.ExitCode);
         }
 
         private void btnBotSettings_Click(object sender, EventArgs e)
