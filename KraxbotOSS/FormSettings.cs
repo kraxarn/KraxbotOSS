@@ -51,6 +51,12 @@ namespace KraxbotOSS
 
             cbLoginAs.SelectedIndex = (int)Form1.config.LoginAs;
 
+            // Get API keys
+            tbApiSteam.Text     = Form1.config.API_Steam;
+            tbApiGoogle.Text    = Form1.config.API_Google;
+            tbApiWeather.Text   = Form1.config.API_OpenWeather;
+            tbApiCleverbot.Text = Form1.config.API_CleverbotIO;
+
             // Get all our friends and fill the list
             List<SteamID> friends = Form1.GetFriends();
             foreach (SteamID userID in friends)
