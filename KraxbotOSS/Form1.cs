@@ -539,7 +539,29 @@ namespace KraxbotOSS
                 }
                 else if (message == "!recents" && chatRoom.Games)
                 {
-                    // TODO: Same as !games
+                    if (string.IsNullOrEmpty(config.API_Steam))
+                        SendChatMessage(chatRoomID, "Steam API isn't set up properly to use this command");
+                    else
+                    {
+                        string response = Get("http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + config.API_Steam + "&steamid=" + userID.ConvertToUInt64());
+                        if (string.IsNullOrEmpty(response))
+                            SendChatMessage(chatRoomID, "Error: No or invalid response from Steam");
+                        else
+                        {
+                            dynamic result = JsonConvert.DeserializeObject(response);
+                            SendChatMessage(chatRoomID, string.Format("You have played {0} games recently", result.response.total_count));
+                            JArray array = result.response.games;
+                            JArray games = new JArray(array.OrderByDescending(obj => obj["playtime_2weeks"]));
+                            for (int i = 0; i <= 4; i++)
+                            {
+                                int playtime = (int)Math.Round((double)games[i]["playtime_2weeks"] / 60);
+                                if (playtime == 1)
+                                    SendChatMessage(chatRoomID, string.Format("{0}: {1} (1 hour played recently)", i+1, games[i]["name"]));
+                                else
+                                    SendChatMessage(chatRoomID, string.Format("{0}: {1} ({2} hours played recently)", i + 1, games[i]["name"], playtime));
+                            }
+                        }
+                    }
                 }
                 else if (message == "!define" && chatRoom.Define)
                 {
