@@ -76,16 +76,16 @@ namespace KraxbotOSS
 
             JObject obj = JObject.FromObject(new
             {
-                Updates = Form1.config.Updates,
+                Updates       = Form1.config.Updates,
                 FriendRequest = Form1.config.FriendRequest,
-                ChatRequest = Form1.config.ChatRequest,
-                LoginAs = Form1.config.LoginAs,
+                ChatRequest   = Form1.config.ChatRequest,
+                LoginAs       = Form1.config.LoginAs,
                 API = new
                 {
-                    SteamWeb = Form1.config.API_Steam,
-                    Google = Form1.config.API_Google,
+                    SteamWeb       = Form1.config.API_Steam,
+                    Google         = Form1.config.API_Google,
                     OpenWeatherMap = Form1.config.API_OpenWeather,
-                    CleverbotIO = Form1.config.API_OpenWeather
+                    CleverbotIO    = Form1.config.API_CleverbotIO
                 }
             });
 
