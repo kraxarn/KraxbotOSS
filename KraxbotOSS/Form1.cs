@@ -522,7 +522,7 @@ namespace KraxbotOSS
                         SendChatMessage(chatRoomID, "Steam API isn't set up properly to use this command");
                     else
                     {
-                        string response = Get("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + config.API_Steam + "&include_appinfo=1&include_played_free_games=1&steamid=" + userID);
+                        string response = Get("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + config.API_Steam + "&include_appinfo=1&include_played_free_games=1&steamid=" + userID.ConvertToUInt64());
                         if (!string.IsNullOrEmpty(response))
                         {
                             dynamic result = JsonConvert.DeserializeObject(response);
