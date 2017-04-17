@@ -48,6 +48,20 @@ namespace KraxbotOSS
                 Directory.CreateDirectory(Path.Combine(configPath, "chatrooms"));
             }
 
+            // Check and load config
+            if (File.Exists(Path.Combine(configPath, "settings.json")))
+            {
+                dynamic json = JsonConvert.DeserializeObject(File.ReadAllText(Path.Combine(configPath, "settings.json")));
+                config.Updates = json.Updates;
+                config.FriendRequest = json.FriendRequest;
+                config.ChatRequest = json.ChatRequest;
+                config.LoginAs = json.LoginAs;
+                config.API_Steam = json.API.SteamWeb;
+                config.API_Google = json.API.Google;
+                config.API_OpenWeather = json.API.OpenWeatherMap;
+                config.API_CleverbotIO = json.API.CleverbotIO;
+            }
+
             // Welcome the user :)
             log.AppendText("Welcome to KraxBot " + version);
 
