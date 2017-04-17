@@ -91,6 +91,7 @@ namespace KraxbotOSS
         public class Settings
         {
             public List<UserInfo> Users = new List<UserInfo>();
+            public List<String> SetRules = new List<String>();
 
             public int Version = 0;
             public string ChatName = "NoName";
