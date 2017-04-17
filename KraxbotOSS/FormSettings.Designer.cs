@@ -172,10 +172,13 @@
             this.cbLoginAs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLoginAs.FormattingEnabled = true;
             this.cbLoginAs.Items.AddRange(new object[] {
+            "Offline",
             "Online",
+            "Busy",
             "Away",
             "Snooze",
-            "Offline"});
+            "Looking to Trade",
+            "Looking to Play"});
             this.cbLoginAs.Location = new System.Drawing.Point(7, 19);
             this.cbLoginAs.Name = "cbLoginAs";
             this.cbLoginAs.Size = new System.Drawing.Size(167, 21);
