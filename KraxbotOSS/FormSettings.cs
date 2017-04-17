@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SteamKit2;
 
 namespace KraxbotOSS
@@ -73,7 +74,23 @@ namespace KraxbotOSS
             }
             Form1.config.LoginAs = (EPersonaState)loginAs;
 
+            JObject obj = JObject.FromObject(new
+            {
+                Updates = Form1.config.Updates,
+                FriendRequest = Form1.config.FriendRequest,
+                ChatRequest = Form1.config.ChatRequest,
+                LoginAs = Form1.config.LoginAs,
+                API = new
+                {
+                    SteamWeb = Form1.config.API_Steam,
+                    Google = Form1.config.API_Google,
+                    OpenWeatherMap = Form1.config.API_OpenWeather,
+                    CleverbotIO = Form1.config.API_OpenWeather
+                }
+            });
+
             // TODO: Remake this into a list or something and use that instead
+            /*
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
             using (JsonWriter w = new JsonTextWriter(sw))
@@ -104,7 +121,8 @@ namespace KraxbotOSS
                 w.WriteEndObject();
                 w.WriteEndObject();
             }
-            File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS", "settings.json"), sb.ToString());
+            */
+            File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS", "settings.json"), JsonConvert.SerializeObject(obj, Formatting.Indented));
 
             this.Close();
         }
