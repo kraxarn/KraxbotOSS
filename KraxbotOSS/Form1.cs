@@ -22,9 +22,7 @@ namespace KraxbotOSS
         string version = "0.1.0";
         bool running;
         static string configPath;
-        //Settings[] CR;
         List<Settings> CR = new List<Settings>();
-
         public static Config config = new Config();
 
         // Steam variables
@@ -37,16 +35,10 @@ namespace KraxbotOSS
         {
             InitializeComponent();
 
-            // Testing stuff
-            //lbChatrooms.Items.Add("Test");
-
             // Check config dir
             configPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS");
             if (!Directory.Exists(configPath))
-            {
-                // User is prob running for the first time
                 Directory.CreateDirectory(Path.Combine(configPath, "chatrooms"));
-            }
 
             // Check and load config
             if (File.Exists(Path.Combine(configPath, "settings.json")))
@@ -78,14 +70,11 @@ namespace KraxbotOSS
             manager.Subscribe<SteamUser.LoggedOnCallback>(OnLoggedOn);                // When we finished logging in
             manager.Subscribe<SteamUser.LoggedOffCallback>(OnLoggedOff);              // When we got logged off
             manager.Subscribe<SteamUser.AccountInfoCallback>(OnAccountInfo);          // We finished logging in
-            //manager.Subscribe<SteamFriends.FriendsListCallback>(OnFriendsList);     // We recieved our friends list
-            //manager.Subscribe<SteamFriends.PersonaStateCallback>(OnPersonaState);   // When a friend changes status
             manager.Subscribe<SteamFriends.FriendAddedCallback>(OnFriendAdded);       // Someone added us
             manager.Subscribe<SteamFriends.FriendMsgCallback>(OnFriendMsg);           // We got a PM
             manager.Subscribe<SteamFriends.ChatMsgCallback>(OnChatMsg);               // Someone sent a chat message
             manager.Subscribe<SteamFriends.ChatInviteCallback>(OnChatInvite);         // We got invited to a chat
             manager.Subscribe<SteamFriends.ChatEnterCallback>(OnChatEnter);           // We entered a chat
-            //manager.Subscribe<SteamFriends.ChatActionResultCallback>(OnChatAction); // ?
             manager.Subscribe<SteamFriends.ChatMemberInfoCallback>(OnChatMemberInfo); // A user has left or entered a chat
             manager.Subscribe<SteamUser.UpdateMachineAuthCallback>(OnMachineAuth);    // We logged in and can store it
 
@@ -199,11 +188,11 @@ namespace KraxbotOSS
             {
                 MessageBox.Show("Error connecting to Steam, try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 running = false;
-                this.Close();
+                Close();
                 return;
             }
             Log("Ok");
-            this.Invoke((MethodInvoker)delegate
+            Invoke((MethodInvoker)delegate
             {
                 btnLogin.Enabled = true;
                 lNetwork.Text = "Network: Connected";
@@ -410,7 +399,6 @@ namespace KraxbotOSS
             {
                 if (message == "!nodelay")
                 {
-                    // TODO: Maybe there's a better way to do this?
                     chatRoom.DelayDefine  = 0;
                     chatRoom.DelayGames   = 0;
                     chatRoom.DelayRandom  = 0;
@@ -470,7 +458,7 @@ namespace KraxbotOSS
                             default: return;
                         }
                         SendChatMessage(chatRoomID, string.Format("Delay of {0} was set to {1} seconds", set[1], set[2]));
-                        // TODO: Save settings here
+                        SaveSettings(chatRoom);
                     }
                     else
                         SendChatMessage(chatRoomID, "Delay needs to be a number (in seconds)");
