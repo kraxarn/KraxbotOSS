@@ -577,9 +577,9 @@ namespace KraxbotOSS
                         string def = result.list[0].definition;
                         def = def.Replace("\n", " ");
                         if (def.Length < 500)
-                            SendChatMessage(chatRoomID, string.Format("{0} is {1}", result.list[0].word, def));
+                            SendChatMessage(chatRoomID, string.Format("{1}", result.list[0].word, def));
                         else
-                            SendChatMessage(chatRoomID, string.Format("{0} is {1}...", result.list[0].word, def.Substring(0, 500)));
+                            SendChatMessage(chatRoomID, string.Format("{1}...", result.list[0].word, def.Substring(0, 500)));
                         if (isMod)
                         {
                             if (result.list[0].example != null)
