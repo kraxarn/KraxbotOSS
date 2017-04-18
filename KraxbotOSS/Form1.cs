@@ -215,7 +215,7 @@ namespace KraxbotOSS
                 // TODO: Add Steam Guard support
                 if (callback.Result == EResult.AccountLogonDenied)
                     MessageBox.Show("Denied login to Steam: " + callback.Result, "Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                else
+                else if (callback.Result != EResult.TryAnotherCM)
                     MessageBox.Show("Unable to login to Steam: " + callback.Result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
