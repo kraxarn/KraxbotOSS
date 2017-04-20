@@ -136,42 +136,8 @@ namespace KraxbotOSS
                 }
             });
 
-            // TODO: Remake this into a list or something and use that instead
-            /*
-            StringBuilder sb = new StringBuilder();
-            StringWriter sw = new StringWriter(sb);
-            using (JsonWriter w = new JsonTextWriter(sw))
-            {
-                w.Formatting = Formatting.Indented;
-                w.WriteStartObject();
-                w.WritePropertyName("Updates");
-                w.WriteValue(Form1.config.Updates);
-                //w.WritePropertyName("Superadmin");
-                //w.WriteValue(tbSuperadmin.Text);
-                w.WritePropertyName("FriendRequest");
-                w.WriteValue(Form1.config.FriendRequest);
-                w.WritePropertyName("ChatRequest");
-                w.WriteValue(Form1.config.ChatRequest);
-                w.WritePropertyName("LoginAs");
-                w.WriteValue(Form1.config.LoginAs);
-
-                w.WritePropertyName("API");
-                w.WriteStartObject();
-                w.WritePropertyName("SteamWeb");
-                w.WriteValue(tbApiSteam.Text);
-                w.WritePropertyName("Google");
-                w.WriteValue(tbApiGoogle.Text);
-                w.WritePropertyName("OpenWeatherMap");
-                w.WriteValue(tbApiWeather.Text);
-                w.WritePropertyName("CleverbotIO");
-                w.WriteValue(tbApiWeather.Text);
-                w.WriteEndObject();
-                w.WriteEndObject();
-            }
-            */
             File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS", "settings.json"), JsonConvert.SerializeObject(obj, Formatting.Indented));
-
-            this.Close();
+            Close();
         }
 
         private void btnMoreInfo_Click(object sender, EventArgs e)
