@@ -64,7 +64,7 @@ namespace KraxbotOSS
             foreach (SteamID userID in friends)
             {
                 cbFriends.Items.Add(string.Format("{0} ({1})", Form1.GetFriendName(userID), userID.AccountID));
-                if (userID == Form1.config.Superadmin)
+                if (userID.AccountID == Form1.config.Superadmin)
                     cbFriends.SelectedIndex = cbFriends.Items.Count - 1;
             }
 
