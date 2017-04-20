@@ -348,6 +348,7 @@
             this.ClientSize = new System.Drawing.Size(302, 370);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnSave);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSettings";

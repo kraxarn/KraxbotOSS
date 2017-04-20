@@ -30,12 +30,10 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -55,6 +53,7 @@
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.lInvitedName = new System.Windows.Forms.Label();
             this.lSpam = new System.Windows.Forms.Label();
             this.lWelcomeMsg = new System.Windows.Forms.Label();
@@ -78,11 +77,12 @@
             this.lDelayRecents = new System.Windows.Forms.Label();
             this.lDelaySearch = new System.Windows.Forms.Label();
             this.lYtDelay = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.listView1 = new System.Windows.Forms.ListView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -105,17 +105,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.listView1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(302, 514);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Users";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
@@ -227,15 +216,6 @@
             this.label3.Size = new System.Drawing.Size(98, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Welcome Message";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 120);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(46, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "DC Kick";
             // 
             // label6
             // 
@@ -407,6 +387,15 @@
             this.label28.Size = new System.Drawing.Size(81, 13);
             this.label28.TabIndex = 27;
             this.label28.Text = "YouTube Delay";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 120);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "DC Kick";
             // 
             // lInvitedName
             // 
@@ -615,6 +604,17 @@
             this.lYtDelay.TabIndex = 50;
             this.lYtDelay.Text = "Unknown";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.listView1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(302, 514);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Users";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // listView1
             // 
             this.listView1.Location = new System.Drawing.Point(6, 6);
@@ -629,6 +629,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(327, 560);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormChatroomInfo";
@@ -640,9 +641,9 @@
             this.Shown += new System.EventHandler(this.FormChatroomInfo_Shown);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

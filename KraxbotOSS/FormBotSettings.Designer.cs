@@ -101,6 +101,7 @@
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.gbState);
             this.Controls.Add(this.gbName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormBotSettings";
