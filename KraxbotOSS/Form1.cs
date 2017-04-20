@@ -721,7 +721,7 @@ namespace KraxbotOSS
 
         void CreateSettings(SteamID ChatRoomID)
         {
-            // TODO: Get more info that defaults to null
+            // TODO: Get ChatName, InvitedName and InvitedID
             CR.Add(new Settings() { ChatID = ChatRoomID });
         }
         void SaveSettings(Settings setting)
