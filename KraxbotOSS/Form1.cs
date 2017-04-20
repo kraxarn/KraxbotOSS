@@ -391,20 +391,22 @@ namespace KraxbotOSS
             }
 
             // Superadmin commands
-            // TODO: actually check for superadmin
-            if (message == "!info")
+            if (userID == config.Superadmin)
             {
-                // Get if we are using Mono
-                string runtime;
-                if (Type.GetType("Mono.Runtime") != null) runtime = "Mono";
-                else runtime = ".NET";
-                // Get if system is 32 or 64 bit
-                string arch;
-                if (Environment.Is64BitOperatingSystem) arch = "x64";
-                else arch = "x86";
+                if (message == "!info")
+                {
+                    // Get if we are using Mono
+                    string runtime;
+                    if (Type.GetType("Mono.Runtime") != null) runtime = "Mono";
+                    else runtime = ".NET";
+                    // Get if system is 32 or 64 bit
+                    string arch;
+                    if (Environment.Is64BitOperatingSystem) arch = "x64";
+                    else arch = "x86";
 
-                // TODO: Maybe use WMI to get more info or find cross platform version of it
-                SendChatMessage(chatRoomID, string.Format("\nOS: {0} {1} \nRuntime: {2} {3}", Environment.OSVersion.ToString(), arch, runtime, Environment.Version.ToString()));
+                    // TODO: Maybe use WMI to get more info or find cross platform version of it
+                    SendChatMessage(chatRoomID, string.Format("\nOS: {0} {1} \nRuntime: {2} {3}", Environment.OSVersion.ToString(), arch, runtime, Environment.Version.ToString()));
+                }
             }
 
             // Admin commands
