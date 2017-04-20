@@ -115,10 +115,22 @@ namespace KraxbotOSS
             }
             Form1.config.LoginAs = (EPersonaState)loginAs;
 
+            // Superadmin
             int from = (cbFriends.Text.LastIndexOf('(') + 1);
             int to = (cbFriends.Text.LastIndexOf(')'));
             string superadmin = cbFriends.Text.Substring(from, to - from);
             Form1.config.Superadmin = friends.Single(s => s.AccountID.ToString() == superadmin).AccountID;
+
+            // Autojoin chatrooms
+            List<int> chatrooms = new List<int>();
+            for (int i = 0; i < clChats.Items.Count; i++)
+                if (clChats.GetItemChecked(i))
+                {
+                    string group = clChats.Items[i].ToString();
+                    from = (group.LastIndexOf('(') + 1);
+                    to = (group.LastIndexOf(')'));
+                    chatrooms.Add(int.Parse(group.Substring(from, to - from)));
+                }
 
             JObject obj = JObject.FromObject(new
             {
@@ -127,6 +139,7 @@ namespace KraxbotOSS
                 ChatRequest   = Form1.config.ChatRequest,
                 LoginAs       = Form1.config.LoginAs,
                 Superadmin    = superadmin,
+                Chatrooms     = chatrooms,
                 API = new
                 {
                     SteamWeb       = Form1.config.API_Steam,
