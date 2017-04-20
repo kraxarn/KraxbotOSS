@@ -17,7 +17,7 @@ namespace KraxbotOSS
 {
     public partial class FormSettings : Form
     {
-        List<SteamID> friends;
+        List<SteamID> friends, groups;
 
         public FormSettings()
         {
@@ -67,6 +67,11 @@ namespace KraxbotOSS
                 if (userID == Form1.config.Superadmin)
                     cbFriends.SelectedIndex = cbFriends.Items.Count - 1;
             }
+
+            // Get all known chatrooms
+            groups = Form1.GetGroups();
+            foreach (SteamID clanID in groups)
+                clChats.Items.Add(string.Format("{0} ({1})", Form1.GetGroupName(clanID), clanID.AccountID));
         }
 
         private void btnSave_Click(object sender, EventArgs e)

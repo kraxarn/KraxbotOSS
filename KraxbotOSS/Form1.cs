@@ -699,6 +699,13 @@ namespace KraxbotOSS
             friends.SetPersonaState(state);
         }
 
+        public static List<SteamID> GetGroups()
+        {
+            List<SteamID> groups = new List<SteamID>();
+            for (int i = 0; i < friends.GetClanCount(); i++)
+                groups.Add(friends.GetClanByIndex(i));
+            return groups;
+        }
         public static List<SteamID> GetFriends()
         {
             List<SteamID> friend = new List<SteamID>();
@@ -709,6 +716,10 @@ namespace KraxbotOSS
         public static string GetFriendName(SteamID userID)
         {
             return friends.GetFriendPersonaName(userID);
+        }
+        public static string GetGroupName(SteamID clanID)
+        {
+            return friends.GetClanName(clanID);
         }
 
         // -- Other stuffs -- //
