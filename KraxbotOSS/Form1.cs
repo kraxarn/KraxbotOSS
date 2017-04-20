@@ -239,7 +239,8 @@ namespace KraxbotOSS
         }
         void OnFriendAdded(SteamFriends.FriendAddedCallback callback)
         {
-            Log(callback.PersonaName + " is now my friend");
+            if (config.FriendRequest == "AcceptAll")
+                Log(callback.PersonaName + " is now my friend");
         }
         void OnChatInvite(SteamFriends.ChatInviteCallback callback)
         {
