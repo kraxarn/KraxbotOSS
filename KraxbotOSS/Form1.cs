@@ -54,6 +54,9 @@ namespace KraxbotOSS
                 config.API_CleverbotIO = json.API.CleverbotIO;
             }
 
+            // Check for updates
+            CheckForUpdates();
+
             // Welcome the user :)
             log.AppendText("Welcome to KraxBot " + version);
 
@@ -758,6 +761,22 @@ namespace KraxbotOSS
             for (int i = 0; i < input.Length; i++)
                 output[i] = (char)(input[i] ^ cKey[i % cKey.Length]);
             return new string(output);
+        }
+
+        void CheckForUpdates()
+        {
+            // TODO: Maybe ASync this
+            string response = Get("https://web.kraxarn.com/api/ver.php?app=kraxbot");
+            dynamic result = JsonConvert.DeserializeObject(response);
+            string newVersion = result.stable.version_string;
+            if (version != newVersion)
+            {
+                if (MessageBox.Show(string.Format("Current version is {0} \nNew Version is {1} \nDo you want to update now?", version, newVersion), "New Update Found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    // TODO: Start updater and update here
+                    System.Diagnostics.Process.Start("http://web.kraxarn.com/apps/kraxbot");
+                }
+            }
         }
 
         // -- Buttons and ui stuff -- //
