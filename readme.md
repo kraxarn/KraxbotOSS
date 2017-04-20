@@ -1,4 +1,4 @@
-# KraxBot: Open Source
+![Kraxbot: Open Source](https://vgy.me/WOrYGl.png)
 
 Open source and cross platform Steam bot
 
