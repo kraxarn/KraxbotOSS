@@ -49,6 +49,7 @@ namespace KraxbotOSS
                 config.ChatRequest     = json.ChatRequest;
                 config.LoginAs         = json.LoginAs;
                 config.Superadmin      = json.Superadmin;
+                config.Chatrooms       = json.Chatrooms;
                 config.API_Steam       = json.API.SteamWeb;
                 config.API_Google      = json.API.Google;
                 config.API_OpenWeather = json.API.OpenWeatherMap;
@@ -177,6 +178,7 @@ namespace KraxbotOSS
             internal string ChatRequest    = "AcceptAll";
             internal EPersonaState LoginAs = EPersonaState.Online;
             internal uint Superadmin;
+            internal JArray Chatrooms;
 
             internal string API_Steam;
             internal string API_Google;
@@ -236,8 +238,18 @@ namespace KraxbotOSS
         }
         void OnAccountInfo(SteamUser.AccountInfoCallback callback)
         {
-            // Set as online
-            friends.SetPersonaState(EPersonaState.Online);
+            // Since it's triggered twice
+            if (friends.GetPersonaState() != config.LoginAs)
+            {
+                // Set as online
+                friends.SetPersonaState(EPersonaState.Online);
+
+                // Join chatrooms
+                Console.WriteLine(config.Chatrooms);
+                foreach (SteamID groupID in GetGroups())
+                    if (config.Chatrooms.ToString().IndexOf(groupID.AccountID.ToString()) > -1)
+                        friends.JoinChat(groupID);
+            }
         }
         void OnFriendAdded(SteamFriends.FriendAddedCallback callback)
         {
