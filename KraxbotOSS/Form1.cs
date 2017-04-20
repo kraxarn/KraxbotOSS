@@ -244,11 +244,11 @@ namespace KraxbotOSS
         }
         void OnChatInvite(SteamFriends.ChatInviteCallback callback)
         {
-            // TODO: For now, just log it
             Log(string.Format("\nGot invite to {0} from {1}", callback.ChatRoomName, friends.GetFriendPersonaName(callback.PatronID)));
 
-            // For now, we join all, but in the future, check what's set in the settings
-            friends.JoinChat(callback.ChatRoomID);
+            // TODO: Add SuperadminOnly
+            if (config.ChatRequest == "AcceptAll")
+                friends.JoinChat(callback.ChatRoomID);
         }
         void OnChatEnter(SteamFriends.ChatEnterCallback callback)
         {
