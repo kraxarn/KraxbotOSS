@@ -118,7 +118,7 @@ namespace KraxbotOSS
             int from = (cbFriends.Text.LastIndexOf('(') + 1);
             int to = (cbFriends.Text.LastIndexOf(')'));
             string superadmin = cbFriends.Text.Substring(from, to - from);
-            Form1.config.Superadmin = friends.Single(s => s.AccountID.ToString() == superadmin);
+            Form1.config.Superadmin = friends.Single(s => s.AccountID.ToString() == superadmin).AccountID;
 
             JObject obj = JObject.FromObject(new
             {
