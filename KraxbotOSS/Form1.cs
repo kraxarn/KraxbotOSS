@@ -175,6 +175,7 @@ namespace KraxbotOSS
             internal string FriendRequest  = "AcceptAll";
             internal string ChatRequest    = "AcceptAll";
             internal EPersonaState LoginAs = EPersonaState.Online;
+            internal SteamID Superadmin;
 
             internal string API_Steam;
             internal string API_Google;
