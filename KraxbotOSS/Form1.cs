@@ -245,7 +245,6 @@ namespace KraxbotOSS
                 friends.SetPersonaState(config.LoginAs);
 
                 // Join chatrooms
-                Console.WriteLine(config.Chatrooms);
                 foreach (SteamID groupID in GetGroups())
                     if (config.Chatrooms.ToString().IndexOf(groupID.AccountID.ToString()) > -1)
                         friends.JoinChat(groupID);
