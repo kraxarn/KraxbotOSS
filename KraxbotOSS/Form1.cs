@@ -808,7 +808,6 @@ namespace KraxbotOSS
         {
             Form botSettings = new FormBotSettings();
             botSettings.Tag = friends.GetPersonaName() + (int)friends.GetPersonaState();
-            Console.WriteLine(botSettings.Tag);
             botSettings.ShowDialog(this);
         }
 
