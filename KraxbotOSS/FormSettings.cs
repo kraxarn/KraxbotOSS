@@ -17,6 +17,8 @@ namespace KraxbotOSS
 {
     public partial class FormSettings : Form
     {
+        List<SteamID> friends;
+
         public FormSettings()
         {
             InitializeComponent();
@@ -58,9 +60,13 @@ namespace KraxbotOSS
             tbApiCleverbot.Text = Form1.config.API_CleverbotIO;
 
             // Get all our friends and fill the list
-            List<SteamID> friends = Form1.GetFriends();
+            friends = Form1.GetFriends();
             foreach (SteamID userID in friends)
-                cbFriends.Items.Add(Form1.GetFriendName(userID));
+            {
+                cbFriends.Items.Add(string.Format("{0} ({1})", Form1.GetFriendName(userID), userID.AccountID));
+                if (userID == Form1.config.Superadmin)
+                    cbFriends.SelectedIndex = cbFriends.Items.Count - 1;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -104,12 +110,18 @@ namespace KraxbotOSS
             }
             Form1.config.LoginAs = (EPersonaState)loginAs;
 
+            int from = (cbFriends.Text.LastIndexOf('(') + 1);
+            int to = (cbFriends.Text.LastIndexOf(')'));
+            string superadmin = cbFriends.Text.Substring(from, to - from);
+            Form1.config.Superadmin = friends.Single(s => s.AccountID.ToString() == superadmin);
+
             JObject obj = JObject.FromObject(new
             {
                 Updates       = Form1.config.Updates,
                 FriendRequest = Form1.config.FriendRequest,
                 ChatRequest   = Form1.config.ChatRequest,
                 LoginAs       = Form1.config.LoginAs,
+                Superadmin    = superadmin,
                 API = new
                 {
                     SteamWeb       = Form1.config.API_Steam,

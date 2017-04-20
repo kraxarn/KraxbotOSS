@@ -48,6 +48,7 @@ namespace KraxbotOSS
                 config.FriendRequest   = json.FriendRequest;
                 config.ChatRequest     = json.ChatRequest;
                 config.LoginAs         = json.LoginAs;
+                config.Superadmin      = json.Superadmin;
                 config.API_Steam       = json.API.SteamWeb;
                 config.API_Google      = json.API.Google;
                 config.API_OpenWeather = json.API.OpenWeatherMap;
