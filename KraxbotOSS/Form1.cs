@@ -48,7 +48,7 @@ namespace KraxbotOSS
                 config.FriendRequest   = json.FriendRequest;
                 config.ChatRequest     = json.ChatRequest;
                 config.LoginAs         = json.LoginAs;
-                config.Superadmin      = json.Superadmin;
+                config.SuperadminID    = json.Superadmin;
                 config.API_Steam       = json.API.SteamWeb;
                 config.API_Google      = json.API.Google;
                 config.API_OpenWeather = json.API.OpenWeatherMap;
@@ -81,6 +81,7 @@ namespace KraxbotOSS
             manager.Subscribe<SteamFriends.ChatEnterCallback>(OnChatEnter);           // We entered a chat
             manager.Subscribe<SteamFriends.ChatMemberInfoCallback>(OnChatMemberInfo); // A user has left or entered a chat
             manager.Subscribe<SteamUser.UpdateMachineAuthCallback>(OnMachineAuth);    // We logged in and can store it
+            manager.Subscribe<SteamFriends.FriendsListCallback>(OnFriendsList);       // When we recieved our friends
 
             // Tell the main Steam loop we are running
             running = true;
@@ -177,6 +178,7 @@ namespace KraxbotOSS
             internal string ChatRequest    = "AcceptAll";
             internal EPersonaState LoginAs = EPersonaState.Online;
             internal SteamID Superadmin;
+            internal int SuperadminID;
 
             internal string API_Steam;
             internal string API_Google;
@@ -238,6 +240,11 @@ namespace KraxbotOSS
         {
             // Set as online
             friends.SetPersonaState(EPersonaState.Online);
+        }
+        void OnFriendsList(SteamFriends.FriendsListCallback callback)
+        {
+            // Get Superadmin
+            config.Superadmin = GetFriends().Single(s => s.AccountID == config.SuperadminID);
         }
         void OnFriendAdded(SteamFriends.FriendAddedCallback callback)
         {
