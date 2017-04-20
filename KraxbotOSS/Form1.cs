@@ -242,7 +242,7 @@ namespace KraxbotOSS
             if (friends.GetPersonaState() != config.LoginAs)
             {
                 // Set as online
-                friends.SetPersonaState(EPersonaState.Online);
+                friends.SetPersonaState(config.LoginAs);
 
                 // Join chatrooms
                 Console.WriteLine(config.Chatrooms);
