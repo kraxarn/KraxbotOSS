@@ -735,11 +735,6 @@ namespace KraxbotOSS
             CR.Add(JsonConvert.DeserializeObject<Settings>(file));
         }
 
-        void ToggleSetting(string setting, string name, Settings chatRoom)
-        {
-            // TODO: Maybe use this?
-        }
-
         string Get(string url)
         {
             // TODO: Check if better way to do this
