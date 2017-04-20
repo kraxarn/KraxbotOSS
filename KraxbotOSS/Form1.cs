@@ -768,7 +768,13 @@ namespace KraxbotOSS
             // TODO: Maybe ASync this
             string response = Get("https://web.kraxarn.com/api/ver.php?app=kraxbot");
             dynamic result = JsonConvert.DeserializeObject(response);
-            string newVersion = result.stable.version_string;
+            string newVersion = version;
+            switch (config.Updates)
+            {
+                case "All": newVersion = result.stable.version_string; break;
+                case "OnlyMajor": newVersion = result.major.version_string; break;
+                case "Beta": newVersion = result.beta.version_string; break;
+            }
             if (version != newVersion)
             {
                 if (MessageBox.Show(string.Format("Current version is {0} \nNew Version is {1} \nDo you want to update now?", version, newVersion), "New Update Found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
