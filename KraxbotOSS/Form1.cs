@@ -21,7 +21,7 @@ namespace KraxbotOSS
         // Some variables
         string version = "0.1.0";
         bool running;
-        static string configPath;
+        public static string configPath;
         List<Settings> CR = new List<Settings>();
         public static Config config = new Config();
 
@@ -82,6 +82,7 @@ namespace KraxbotOSS
             manager.Subscribe<SteamFriends.ChatEnterCallback>(OnChatEnter);           // We entered a chat
             manager.Subscribe<SteamFriends.ChatMemberInfoCallback>(OnChatMemberInfo); // A user has left or entered a chat
             manager.Subscribe<SteamUser.UpdateMachineAuthCallback>(OnMachineAuth);    // We logged in and can store it
+            manager.Subscribe<SteamUser.LoginKeyCallback>(OnLoginKey);                // When we want to save our password
 
             // Tell the main Steam loop we are running
             running = true;
@@ -235,6 +236,11 @@ namespace KraxbotOSS
             });
 
             // To other stuff here after logging in (like joining chatrooms)
+        }
+        void OnLoginKey(SteamUser.LoginKeyCallback callback)
+        {
+            File.WriteAllText(Path.Combine(configPath, "loginkey"), callback.LoginKey);
+            user.AcceptNewLoginKey(callback);
         }
         void OnAccountInfo(SteamUser.AccountInfoCallback callback)
         {
@@ -694,7 +700,28 @@ namespace KraxbotOSS
             {
                 Username = username,
                 Password = password,
-                SentryFileHash = sentryHash
+                SentryFileHash = sentryHash,
+                ShouldRememberPassword = rememberPassword
+            });
+        }
+        public static void Login(string username)
+        {
+            // Use sentry hash if we have one
+            byte[] sentryHash = null;
+            if (File.Exists(Path.Combine(configPath, "sentry")))
+                sentryHash = CryptoHelper.SHAHash(File.ReadAllBytes(Path.Combine(configPath, "sentry")));
+
+            // Get our login key
+            string loginkey = null;
+            if (File.Exists(Path.Combine(configPath, "loginkey")))
+                loginkey = File.ReadAllText(Path.Combine(configPath, "loginkey"));
+
+            user.LogOn(new SteamUser.LogOnDetails
+            {
+                Username = username,
+                ShouldRememberPassword = true,
+                SentryFileHash = sentryHash,
+                LoginKey = loginkey,
             });
         }
         public static void UpdateBotSetttings(string name, EPersonaState state)
