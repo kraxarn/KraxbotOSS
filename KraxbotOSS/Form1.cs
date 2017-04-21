@@ -701,7 +701,9 @@ namespace KraxbotOSS
                 Username = username,
                 Password = password,
                 SentryFileHash = sentryHash,
-                ShouldRememberPassword = rememberPassword
+                ShouldRememberPassword = rememberPassword,
+                AuthCode = authCode,
+                TwoFactorCode = twoFactorCode
             });
         }
         public static void Login(string username)

@@ -30,12 +30,12 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbUsername = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gbPassword = new System.Windows.Forms.GroupBox();
             this.tbPassword = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.cbSaveLogin = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.gbPassword.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -55,15 +55,15 @@
             this.tbUsername.Size = new System.Drawing.Size(150, 20);
             this.tbUsername.TabIndex = 0;
             // 
-            // groupBox2
+            // gbPassword
             // 
-            this.groupBox2.Controls.Add(this.tbPassword);
-            this.groupBox2.Location = new System.Drawing.Point(12, 68);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(165, 50);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Password";
+            this.gbPassword.Controls.Add(this.tbPassword);
+            this.gbPassword.Location = new System.Drawing.Point(12, 68);
+            this.gbPassword.Name = "gbPassword";
+            this.gbPassword.Size = new System.Drawing.Size(165, 50);
+            this.gbPassword.TabIndex = 1;
+            this.gbPassword.TabStop = false;
+            this.gbPassword.Text = "Password";
             // 
             // tbPassword
             // 
@@ -100,7 +100,7 @@
             this.ClientSize = new System.Drawing.Size(187, 180);
             this.Controls.Add(this.cbSaveLogin);
             this.Controls.Add(this.btnLogin);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.gbPassword);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -114,8 +114,8 @@
             this.TopMost = true;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.gbPassword.ResumeLayout(false);
+            this.gbPassword.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,7 +125,7 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox tbUsername;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox gbPassword;
         private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.CheckBox cbSaveLogin;
