@@ -19,7 +19,10 @@ namespace KraxbotOSS
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            Form1.Login(tbUsername.Text, tbPassword.Text);
+            if (cbSaveLogin.Checked)
+                Form1.Login(tbUsername.Text, tbPassword.Text, true);
+            else
+                Form1.Login(tbUsername.Text, tbPassword.Text, false);
             Close();
         }
     }

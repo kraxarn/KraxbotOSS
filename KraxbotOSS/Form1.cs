@@ -678,7 +678,7 @@ namespace KraxbotOSS
 
         // -- Steam functions -- //
 
-        public static void Login(string username, string password)
+        public static void Login(string username, string password, bool rememberPassword, string authCode = null, string twoFactorCode = null)
         {
             bool isUsernameNull = string.IsNullOrEmpty(username);
             bool isPasswordNull = string.IsNullOrEmpty(password);
