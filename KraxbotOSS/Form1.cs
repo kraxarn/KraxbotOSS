@@ -13,6 +13,7 @@ using System.IO;
 using SteamKit2;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Threading;
 
 namespace KraxbotOSS
 {
@@ -34,6 +35,10 @@ namespace KraxbotOSS
         public Form1()
         {
             InitializeComponent();
+
+            // Crash handler
+            Application.ThreadException += new ThreadExceptionEventHandler(OnThreadException);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(OnUnhandledException);
 
             // Check config dir
             configPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS");
@@ -875,6 +880,20 @@ namespace KraxbotOSS
             Form chatroomInfo = new FormChatroomInfo();
             chatroomInfo.Tag = lbChatrooms.SelectedValue;
             chatroomInfo.ShowDialog(this);
+        }
+
+        // -- Crash handler -- //
+
+        private void OnThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message, "Thread Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Close();
+        }
+        private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception ex = (Exception)e.ExceptionObject;
+            MessageBox.Show(ex.Message, "Unhandled Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Close();
         }
     }
 }
