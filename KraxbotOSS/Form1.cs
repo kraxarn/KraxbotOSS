@@ -474,8 +474,7 @@ namespace KraxbotOSS
                 else if (message.StartsWith("!setdelay "))
                 {
                     string[] set = message.Split(' ');
-                    int delay;
-                    if (int.TryParse(set[2], out delay))
+                    if (int.TryParse(set[2], out int delay))
                     {
                         switch(set[1])
                         {
@@ -865,8 +864,10 @@ namespace KraxbotOSS
 
         private void btnBotSettings_Click(object sender, EventArgs e)
         {
-            Form botSettings = new FormBotSettings();
-            botSettings.Tag = friends.GetPersonaName() + (int)friends.GetPersonaState();
+            Form botSettings = new FormBotSettings()
+            {
+                Tag = friends.GetPersonaName() + (int)friends.GetPersonaState()
+            };
             botSettings.ShowDialog(this);
         }
 
