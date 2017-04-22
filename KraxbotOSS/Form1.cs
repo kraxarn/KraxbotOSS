@@ -233,7 +233,8 @@ namespace KraxbotOSS
                     Invoke((MethodInvoker)delegate
                     {
                         FormLogin login = new FormLogin("NeedTwoFactor");
-                        login.ShowDialog(this);
+                        // If we use ShowDialog here, we get disconencted and can't login
+                        login.Show(this);
                     });
                 }
                 else if (callback.Result != EResult.TryAnotherCM)

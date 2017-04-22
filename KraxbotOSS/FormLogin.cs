@@ -33,10 +33,12 @@ namespace KraxbotOSS
         private void btnLogin_Click(object sender, EventArgs e)
         {
             Username = tbUsername.Text;
-            Password = tbPassword.Text;
 
             if (gbPassword.Text == "Password")
+            {
+                Password = tbPassword.Text;
                 Form1.Login(Username, Password, cbSaveLogin.Checked);
+            }
             else if (gbPassword.Text == "Mobile Authenticator Code")
                 Form1.Login(Username, Password, cbSaveLogin.Checked, null, tbPassword.Text);
 
