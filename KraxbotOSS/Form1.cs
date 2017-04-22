@@ -668,7 +668,9 @@ namespace KraxbotOSS
                     SendChatMessage(chatRoomID, "Current time is " + DateTime.Now.ToShortTimeString());
                 else if (message.StartsWith("!roll"))
                 {
+                    #pragma warning disable IDE0018
                     int max = 100;
+                    #pragma warning restore IDE0018
                     int.TryParse(message.Split(' ')[1], out max);
                     SendChatMessage(chatRoomID, "Your number is " + new Random().Next(0, max));
                 }
