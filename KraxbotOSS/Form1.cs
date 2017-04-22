@@ -892,7 +892,10 @@ namespace KraxbotOSS
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = (Exception)e.ExceptionObject;
-            MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Unhandled Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            #if DEBUG
+            #else
+                MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Unhandled Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            #endif
         }
     }
 }
