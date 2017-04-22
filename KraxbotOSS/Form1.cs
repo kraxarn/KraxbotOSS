@@ -886,7 +886,7 @@ namespace KraxbotOSS
 
         private void OnThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            MessageBox.Show(e.Exception.Message, "Thread Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(e.Exception.Message + "\n" + e.Exception.StackTrace, "Thread Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             Close();
         }
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
