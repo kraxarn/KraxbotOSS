@@ -60,6 +60,7 @@
             this.tbKey.Name = "tbKey";
             this.tbKey.Size = new System.Drawing.Size(200, 20);
             this.tbKey.TabIndex = 0;
+            this.tbKey.UseSystemPasswordChar = true;
             // 
             // FormSaveLogin
             // 
