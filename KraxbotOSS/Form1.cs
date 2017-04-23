@@ -43,7 +43,10 @@ namespace KraxbotOSS
             // Check config dir
             configPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS");
             if (!Directory.Exists(configPath))
+            {
                 Directory.CreateDirectory(Path.Combine(configPath, "chatrooms"));
+                Directory.CreateDirectory(Path.Combine(configPath, "sentryhash"));
+            }
 
             // Check and load config
             if (File.Exists(Path.Combine(configPath, "settings.json")))
@@ -346,7 +349,7 @@ namespace KraxbotOSS
             // Writes sentry file
             int fileSize;
             byte[] sentryHash;
-            using (var fs = File.Open(Path.Combine(configPath, "sentry"), FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            using (var fs = File.Open(Path.Combine(configPath, "sentryhash", FormLogin.Username + ".bin"), FileMode.OpenOrCreate, FileAccess.ReadWrite))
             {
                 fs.Seek(callback.Offset, SeekOrigin.Begin);
                 fs.Write(callback.Data, 0, callback.BytesToWrite);
@@ -708,8 +711,8 @@ namespace KraxbotOSS
 
             // Use sentry hash if we have one
             byte[] sentryHash = null;
-            if (File.Exists(Path.Combine(configPath, "sentry")))
-                sentryHash = CryptoHelper.SHAHash(File.ReadAllBytes(Path.Combine(configPath, "sentry")));
+            if (File.Exists(Path.Combine(configPath, "sentryhash", username + ".bin")))
+                sentryHash = CryptoHelper.SHAHash(File.ReadAllBytes(Path.Combine(configPath, "sentryhash", username + ".bin")));
 
             user.LogOn(new SteamUser.LogOnDetails
             {
