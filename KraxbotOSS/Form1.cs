@@ -319,6 +319,9 @@ namespace KraxbotOSS
         {
             // Vars
             Settings chatRoom = CR.Single(s => s.ChatID == callback.ChatRoomID);
+            SteamID chatRoomID = callback.ChatRoomID;
+            EChatMemberStateChange state = callback.StateChangeInfo.StateChange;
+            string name = friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn);
 
             // When a user enters or leaves a chat
             // TODO: Add more to this
@@ -326,16 +329,20 @@ namespace KraxbotOSS
 
             // Add or remove user from Users list
             // TODO: Fill rest of info
-            if (callback.StateChangeInfo.StateChange == EChatMemberStateChange.Entered)
+            if (state == EChatMemberStateChange.Entered)
             {
                 chatRoom.Users.Add(new UserInfo()
                 {
                     SteamID = callback.StateChangeInfo.ChatterActedOn.AccountID
                 });
+                if (chatRoom.Welcome)
+                    SendChatMessage(chatRoomID, string.Format("{0} {1}{2}", chatRoom.WelcomeMsg, name, chatRoom.WelcomeEnd));
             }
-            else if (callback.StateChangeInfo.StateChange == EChatMemberStateChange.Left)
+            else if (state == EChatMemberStateChange.Left)
             {
                 chatRoom.Users.Remove(chatRoom.Users.Single(s => s.SteamID == callback.StateChangeInfo.ChatterActedOn.AccountID));
+                if (chatRoom.AllStates)
+                    SendChatMessage(chatRoomID, string.Format("Good bye {0}{1}", name, chatRoom.WelcomeEnd));
             }
         }
         void OnLoggedOff(SteamUser.LoggedOffCallback callback)
