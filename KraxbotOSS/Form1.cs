@@ -884,8 +884,24 @@ namespace KraxbotOSS
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            Form login = new FormLogin();
-            login.ShowDialog(this);
+            if (File.Exists(Path.Combine(configPath, "userinfo")))
+            {
+                string[] user = File.ReadAllLines(Path.Combine(configPath, "userinfo"));
+                if (user[0] == "Auto")
+                    Login(user[1], EncryptDecrypt(user[2], Environment.MachineName), true);
+                else if (user[1] == "Key")
+                {
+                    FormSaveLogin saveLogin = new FormSaveLogin();
+                    saveLogin.ShowDialog(this);
+                    if (!string.IsNullOrEmpty(FormLogin.EncryptKey))
+                        Login(user[1], EncryptDecrypt(user[2], FormLogin.EncryptKey), true);
+                }
+            }
+            else
+            {
+                Form login = new FormLogin();
+                login.ShowDialog(this);
+            }
         }
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
