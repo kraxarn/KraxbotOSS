@@ -728,8 +728,8 @@ namespace KraxbotOSS
         {
             // Use sentry hash if we have one
             byte[] sentryHash = null;
-            if (File.Exists(Path.Combine(configPath, "sentry")))
-                sentryHash = CryptoHelper.SHAHash(File.ReadAllBytes(Path.Combine(configPath, "sentry")));
+            if (File.Exists(Path.Combine(configPath, "sentryhash", username + ".bin")))
+                sentryHash = CryptoHelper.SHAHash(File.ReadAllBytes(Path.Combine(configPath, "sentryhash", username + ".bin")));
 
             // Get our login key
             string loginkey = null;
