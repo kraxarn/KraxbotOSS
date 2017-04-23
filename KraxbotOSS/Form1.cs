@@ -91,6 +91,7 @@ namespace KraxbotOSS
             manager.Subscribe<SteamFriends.ChatMemberInfoCallback>(OnChatMemberInfo); // A user has left or entered a chat
             manager.Subscribe<SteamUser.UpdateMachineAuthCallback>(OnMachineAuth);    // We logged in and can store it
             manager.Subscribe<SteamUser.LoginKeyCallback>(OnLoginKey);                // When we want to save our password
+            manager.Subscribe<SteamFriends.FriendsListCallback>(OnFriendsList);       // When we get our friends list
 
             // Tell the main Steam loop we are running
             running = true;
@@ -266,12 +267,14 @@ namespace KraxbotOSS
             {
                 // Set as online
                 friends.SetPersonaState(config.LoginAs);
-
-                // Join chatrooms
-                foreach (SteamID groupID in GetGroups())
-                    if (config.Chatrooms.ToString().IndexOf(groupID.AccountID.ToString()) > -1)
-                        friends.JoinChat(groupID);
             }
+        }
+        void OnFriendsList(SteamFriends.FriendsListCallback callback)
+        {
+            // Join chatrooms
+            foreach (SteamID groupID in GetGroups())
+                if (config.Chatrooms.ToString().IndexOf(groupID.AccountID.ToString()) > -1)
+                    friends.JoinChat(groupID);
         }
         void OnFriendAdded(SteamFriends.FriendAddedCallback callback)
         {
