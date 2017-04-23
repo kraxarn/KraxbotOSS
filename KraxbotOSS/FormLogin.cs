@@ -21,6 +21,7 @@ namespace KraxbotOSS
         {
             if (cbSaveLogin.Checked)
             {
+                EncryptKey = null;
                 DialogResult result = MessageBox.Show(
                     "To save your password, it needs to be encrypted." +
                     "\nWould you like me to automatically generate a key for you?" +
@@ -36,7 +37,7 @@ namespace KraxbotOSS
                 {
                     FormSaveLogin saveLogin = new FormSaveLogin();
                     DialogResult encryptResult = saveLogin.ShowDialog();
-                    if (encryptResult == DialogResult.Cancel)
+                    if (string.IsNullOrEmpty(EncryptKey))
                         cbSaveLogin.Checked = false;
                 }
                 else
