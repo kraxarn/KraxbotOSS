@@ -36,7 +36,7 @@ namespace KraxbotOSS
                 else if (result == DialogResult.No)
                 {
                     FormSaveLogin saveLogin = new FormSaveLogin();
-                    DialogResult encryptResult = saveLogin.ShowDialog();
+                    DialogResult encryptResult = saveLogin.ShowDialog(this);
                     if (string.IsNullOrEmpty(EncryptKey))
                         cbSaveLogin.Checked = false;
                 }
