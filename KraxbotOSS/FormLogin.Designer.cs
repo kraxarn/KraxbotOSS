@@ -92,6 +92,7 @@
             this.cbSaveLogin.TabIndex = 3;
             this.cbSaveLogin.Text = "Remember Me";
             this.cbSaveLogin.UseVisualStyleBackColor = true;
+            this.cbSaveLogin.CheckedChanged += new System.EventHandler(this.cbSaveLogin_CheckedChanged);
             // 
             // FormLogin
             // 
