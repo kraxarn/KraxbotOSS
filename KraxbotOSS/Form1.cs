@@ -889,7 +889,7 @@ namespace KraxbotOSS
                 string[] user = File.ReadAllLines(Path.Combine(configPath, "userinfo"));
                 if (user[0] == "Auto")
                     Login(user[1], EncryptDecrypt(user[2], Environment.MachineName), true);
-                else if (user[1] == "Key")
+                else if (user[0] == "Key")
                 {
                     FormSaveLogin saveLogin = new FormSaveLogin();
                     saveLogin.ShowDialog(this);
