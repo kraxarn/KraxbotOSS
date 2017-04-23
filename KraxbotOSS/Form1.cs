@@ -926,10 +926,7 @@ namespace KraxbotOSS
 
         private void btnChatroomInfo_Click(object sender, EventArgs e)
         {
-            Form chatroomInfo = new FormChatroomInfo()
-            {
-                Tag = lbChatrooms.SelectedValue
-            };
+            Form chatroomInfo = new FormChatroomInfo(CR.Single(s => s.ChatName == lbChatrooms.GetItemText(lbChatrooms.SelectedIndex)));
             chatroomInfo.ShowDialog(this);
         }
 

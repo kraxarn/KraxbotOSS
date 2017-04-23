@@ -12,7 +12,7 @@ namespace KraxbotOSS
 {
     public partial class FormChatroomInfo : Form
     {
-        public FormChatroomInfo()
+        public FormChatroomInfo(Form1.Settings settings)
         {
             InitializeComponent();
         }
