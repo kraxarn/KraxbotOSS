@@ -312,7 +312,7 @@ namespace KraxbotOSS
 
             // Add value to chatroom settings if needed
             if (CR.SingleOrDefault(s => s.ChatID == callback.ChatID) == null)
-                CreateSettings(callback.ChatID);
+                CreateSettings(callback.ChatID, callback.ChatRoomName, callback.FriendID.AccountID, friends.GetFriendPersonaName(callback.FriendID));
             Settings chatRoom = CR.Single(s => s.ChatID == callback.ChatID);
 
             // Add all current users to the Users list
@@ -810,10 +810,15 @@ namespace KraxbotOSS
             friends.SendChatMessage(userID, EChatEntryType.ChatMsg, message);
         }
 
-        void CreateSettings(SteamID ChatRoomID)
+        void CreateSettings(SteamID ChatRoomID, string ChatRoomName, SteamID InvitedID, string InvitedName)
         {
             // TODO: Get ChatName, InvitedName and InvitedID
-            CR.Add(new Settings() { ChatID = ChatRoomID });
+            CR.Add(new Settings() {
+                ChatID = ChatRoomID,
+                ChatName = ChatRoomName,
+                InvitedID = InvitedID,
+                InvitedName = InvitedName
+            });
         }
         void SaveSettings(Settings setting)
         {
