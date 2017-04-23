@@ -41,12 +41,6 @@ namespace KraxbotOSS
             }
             else if (gbPassword.Text == "Mobile Authenticator Code")
                 Form1.Login(Username, Password, cbSaveLogin.Checked, null, tbPassword.Text);
-
-
-            if (cbSaveLogin.Checked)
-                Form1.Login(tbUsername.Text, tbPassword.Text, true);
-            else
-                Form1.Login(tbUsername.Text, tbPassword.Text, false);
             Close();
         }
     }
