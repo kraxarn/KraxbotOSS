@@ -262,12 +262,7 @@ namespace KraxbotOSS
         }
         void OnAccountInfo(SteamUser.AccountInfoCallback callback)
         {
-            // Since it's triggered twice
-            if (friends.GetPersonaState() != config.LoginAs)
-            {
-                // Set as online
-                friends.SetPersonaState(config.LoginAs);
-            }
+            friends.SetPersonaState(config.LoginAs);
         }
         void OnFriendsList(SteamFriends.FriendsListCallback callback)
         {
