@@ -638,7 +638,6 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Chatroom Info";
             this.TopMost = true;
-            this.Shown += new System.EventHandler(this.FormChatroomInfo_Shown);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
