@@ -78,7 +78,7 @@
             this.lDelaySearch = new System.Windows.Forms.Label();
             this.lYtDelay = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lvUsers = new System.Windows.Forms.ListView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -606,7 +606,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.listView1);
+            this.tabPage2.Controls.Add(this.lvUsers);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -615,13 +615,13 @@
             this.tabPage2.Text = "Users";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // listView1
+            // lvUsers
             // 
-            this.listView1.Location = new System.Drawing.Point(6, 6);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(290, 502);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.lvUsers.Location = new System.Drawing.Point(6, 6);
+            this.lvUsers.Name = "lvUsers";
+            this.lvUsers.Size = new System.Drawing.Size(290, 502);
+            this.lvUsers.TabIndex = 0;
+            this.lvUsers.UseCompatibleStateImageBehavior = false;
             // 
             // FormChatroomInfo
             // 
@@ -699,6 +699,6 @@
         private System.Windows.Forms.Label lDelayRecents;
         private System.Windows.Forms.Label lDelaySearch;
         private System.Windows.Forms.Label lYtDelay;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lvUsers;
     }
 }

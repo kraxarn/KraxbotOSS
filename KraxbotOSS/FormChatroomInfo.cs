@@ -43,6 +43,9 @@ namespace KraxbotOSS
             Set(lDelayRecents, settings.DelayRecents);
             Set(lDelaySearch,  settings.DelaySearch);
             Set(lYtDelay,      settings.DelayYT);
+
+            foreach (Form1.UserInfo userID in settings.Users)
+                lvUsers.Items.Add(Form1.GetFriendName(userID.SteamID));
         }
 
         void Set(Label label, string setting)
