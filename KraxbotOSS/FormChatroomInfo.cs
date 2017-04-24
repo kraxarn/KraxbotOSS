@@ -45,7 +45,12 @@ namespace KraxbotOSS
             Set(lYtDelay,      settings.DelayYT);
 
             foreach (Form1.UserInfo userID in settings.Users)
-                lvUsers.Items.Add(Form1.GetFriendName(userID.SteamID));
+            {
+                string[] add = { Form1.GetFriendName(userID.SteamID), userID.SteamID.AccountID.ToString(), userID.Rank.ToString() };
+                lvUsers.Items.Add(new ListViewItem(add));
+            }
+            foreach (ColumnHeader header in lvUsers.Columns)
+                header.Width = -1;
         }
 
         void Set(Label label, string setting)

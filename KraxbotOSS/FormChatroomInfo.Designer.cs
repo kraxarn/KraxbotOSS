@@ -79,6 +79,9 @@
             this.lYtDelay = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lvUsers = new System.Windows.Forms.ListView();
+            this.chPersonaName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chSteamID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chRank = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -617,11 +620,31 @@
             // 
             // lvUsers
             // 
+            this.lvUsers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chPersonaName,
+            this.chSteamID,
+            this.chRank});
             this.lvUsers.Location = new System.Drawing.Point(6, 6);
             this.lvUsers.Name = "lvUsers";
             this.lvUsers.Size = new System.Drawing.Size(290, 502);
             this.lvUsers.TabIndex = 0;
             this.lvUsers.UseCompatibleStateImageBehavior = false;
+            this.lvUsers.View = System.Windows.Forms.View.Details;
+            // 
+            // chPersonaName
+            // 
+            this.chPersonaName.Text = "Name";
+            this.chPersonaName.Width = 40;
+            // 
+            // chSteamID
+            // 
+            this.chSteamID.Text = "Steam ID";
+            this.chSteamID.Width = 56;
+            // 
+            // chRank
+            // 
+            this.chRank.Text = "Rank";
+            this.chRank.Width = 190;
             // 
             // FormChatroomInfo
             // 
@@ -700,5 +723,8 @@
         private System.Windows.Forms.Label lDelaySearch;
         private System.Windows.Forms.Label lYtDelay;
         private System.Windows.Forms.ListView lvUsers;
+        private System.Windows.Forms.ColumnHeader chPersonaName;
+        private System.Windows.Forms.ColumnHeader chSteamID;
+        private System.Windows.Forms.ColumnHeader chRank;
     }
 }
