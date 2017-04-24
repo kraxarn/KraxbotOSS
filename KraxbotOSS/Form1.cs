@@ -572,7 +572,29 @@ namespace KraxbotOSS
             {
                 if (message.StartsWith("!poke "))
                 {
-                    // TODO: Add function to search for users in a chat
+                    if (isMod || chatRoom.AllPoke)
+                    {
+                        string search = message.Substring(6);
+                        List<SteamID> results = new List<SteamID>();
+                        foreach (UserInfo user in chatRoom.Users)
+                            if (friends.GetFriendPersonaName(user.SteamID).ToLower().IndexOf(search.ToLower()) > -1)
+                                results.Add(user.SteamID);
+
+                        if (results.Count > 1)
+                            SendChatMessage(chatRoomID, "Found multiple users, try to be more specific");
+                        else if (results.Count == 0)
+                            SendChatMessage(chatRoomID, "No user found");
+                        else if (results[0] == chatRoom.LastPoke)
+                            SendChatMessage(chatRoomID, "You have already poked that user");
+                        else if (results[0] == client.SteamID)
+                            SendChatMessage(chatRoomID, "Poked myself, *poke*");
+                        else
+                        {
+                            SendMessage(results[0], string.Format("Hey you! {0} poked you in {1}", friends.GetFriendPersonaName(userID), chatRoom.ChatName));
+                            SendChatMessage(chatRoomID, string.Format("Poked {0}", friends.GetFriendPersonaName(results[0])));
+                            chatRoom.LastPoke = userID;
+                        }
+                    }
                 }
                 else if (message.StartsWith("!random"))
                 {
