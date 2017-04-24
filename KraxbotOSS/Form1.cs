@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading;
 using Cleverbot.Net;
+using System.Text.RegularExpressions;
 
 namespace KraxbotOSS
 {
@@ -460,7 +461,32 @@ namespace KraxbotOSS
                         if (!string.IsNullOrEmpty(response))
                         {
                             string title = GetStringBetween(GetStringBetween(response, "<title", "</title"), ">");
-                            SendChatMessage(chatRoomID, string.Format("{0} posted {1}", name, title.Trim()));
+                            if (title.IndexOf("YouTube") > -1)
+                            {
+                                // Youtube
+                                if (string.IsNullOrEmpty(config.API_Google))
+                                {
+                                    string video = title.Substring(0, title.LastIndexOf("- YouTube"));
+                                    SendChatMessage(chatRoomID, string.Format("{0} posted a video: {1}", name, video));
+                                } else
+                                {
+                                    string videoID = null;
+                                    if (links[i].StartsWith("https://youtu.be/"))
+                                        videoID = links[i].Substring(17, 11);
+                                    else
+                                        videoID = links[i].Substring(32, 11);
+                                    if (!string.IsNullOrEmpty(videoID))
+                                    {
+                                        dynamic info = JsonConvert.DeserializeObject(Get("https://www.googleapis.com/youtube/v3/videos?id=" + videoID + "&key=" + config.API_Google + "&part=statistics,snippet,contentDetails"));
+                                        dynamic video = info.items[0];
+                                        TimeSpan time = System.Xml.XmlConvert.ToTimeSpan(video.contentDetails.duration.ToString());
+                                        string duration = time.Minutes + ":" + time.Seconds;
+                                        SendChatMessage(chatRoomID, string.Format("{0} posted a video: {1} by {2} with {3} views, lasting {4}", name, video.snippet.title, video.snippet.channelTitle, video.statistics.viewCount.ToString(), duration));
+                                    }
+                                }
+                            }
+                            else
+                                SendChatMessage(chatRoomID, string.Format("{0} posted {1}", name, title.Trim()));
                         }
                     }
                 }
