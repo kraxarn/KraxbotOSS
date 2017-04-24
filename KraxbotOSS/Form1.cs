@@ -577,7 +577,9 @@ namespace KraxbotOSS
                 else if (message.StartsWith("!random"))
                 {
                     // TODO: Make this once we can get all users in a chatroom
-                    SendChatMessage(chatRoomID, string.Format("The winner is {0}!", friends.GetFriendPersonaName(chatRoom.Users[new Random().Next(chatRoom.Users.Count)].SteamID)));
+                    List<UserInfo> users = new List<UserInfo>(chatRoom.Users);
+                    users.Remove(users.Single(s => s.SteamID == client.SteamID));
+                    SendChatMessage(chatRoomID, string.Format("The winner is {0}!", friends.GetFriendPersonaName(users[new Random().Next(users.Count)].SteamID)));
                 }
                 else if (message == "!games" && chatRoom.Games)
                 {
