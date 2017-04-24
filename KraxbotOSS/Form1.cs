@@ -14,6 +14,7 @@ using SteamKit2;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading;
+using Cleverbot.Net;
 
 namespace KraxbotOSS
 {
@@ -25,6 +26,7 @@ namespace KraxbotOSS
         public static string configPath;
         List<Settings> CR = new List<Settings>();
         public static Config config = new Config();
+        List<CleverbotUser> CB = new List<CleverbotUser>();
 
         // Steam variables
         static SteamClient client;
@@ -177,6 +179,11 @@ namespace KraxbotOSS
             public SteamID         SteamID;
             public EClanPermission Rank;
             public EChatPermission Permission;
+        }
+        public class CleverbotUser
+        {
+            public SteamID          SteamID;
+            public CleverbotSession Session;
         }
 
         // Settings
@@ -397,9 +404,25 @@ namespace KraxbotOSS
         {
             // TODO: Commands and/or Cleverbot
             string message = callback.Message;
-            if (!string.IsNullOrEmpty(message))
+            SteamID userID = callback.Sender;
+            if (!string.IsNullOrEmpty(message.Trim()))
             {
                 Log(string.Format("\n{0}: {1}", friends.GetFriendPersonaName(callback.Sender), message));
+
+                // Check if we have a Cleverbot session
+                if (!CB.Exists(x => x.SteamID == userID))
+                {
+                    Log(string.Format("No Cleverbot session for {0}", friends.GetFriendPersonaName(userID)));
+                    string[] apikey = config.API_CleverbotIO.Split(';');
+                    CB.Add(new CleverbotUser()
+                    {
+                        SteamID = userID,
+                        Session = CleverbotSession.NewSession(apikey[0], apikey[1])
+                    });
+                }
+                // Use Cleverbot
+                CleverbotSession session = CB.Single(s => s.SteamID == userID).Session;
+                SendMessage(userID, session.Send(message));
             }
         }
         void OnChatMsg(SteamFriends.ChatMsgCallback callback)
