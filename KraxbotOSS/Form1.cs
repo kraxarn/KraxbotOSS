@@ -447,8 +447,26 @@ namespace KraxbotOSS
             bool isMod = true;
 
             // TODO: Spam protection
-            // TODO: Cleverbot
             // TODO: Link resolving
+
+            // Cleverbot
+            if (message.StartsWith("."))
+            {
+                // Check if we have a Cleverbot session
+                if (!CB.Exists(x => x.SteamID == chatRoomID))
+                {
+                    Log(string.Format("\nNo Cleverbot session for {0}", friends.GetClanName(chatRoomID)));
+                    string[] apikey = config.API_CleverbotIO.Split(';');
+                    CB.Add(new CleverbotUser()
+                    {
+                        SteamID = chatRoomID,
+                        Session = CleverbotSession.NewSession(apikey[0], apikey[1])
+                    });
+                }
+                // Use Cleverbot
+                CleverbotSession session = CB.Single(s => s.SteamID == chatRoomID).Session;
+                SendChatMessage(chatRoomID, session.Send(message));
+            }
 
             // Always on commands
             if (message == "!leave")
