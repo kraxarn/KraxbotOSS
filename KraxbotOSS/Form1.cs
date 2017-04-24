@@ -447,7 +447,25 @@ namespace KraxbotOSS
             bool isMod = true;
 
             // TODO: Spam protection
-            // TODO: Link resolving
+
+            // Link resolving
+            if (chatRoom.Links)
+            {
+                string[] links = message.Split(' ');
+                for(int i = 0; i < links.Length;  i++)
+                {
+                    if (links[i].StartsWith("http"))
+                    {
+                        string response = Get(links[i]);
+                        if (!string.IsNullOrEmpty(response))
+                        {
+                            string titlePre = GetStringBetween(response, "<title", "</title");
+                            string title = GetStringBetween(titlePre, ">");
+                            SendChatMessage(chatRoomID, string.Format("{0} posted {1}", name, title.Trim()));
+                        }
+                    }
+                }
+            }
 
             // Cleverbot
             if (message.StartsWith("."))
@@ -943,6 +961,18 @@ namespace KraxbotOSS
                     System.Diagnostics.Process.Start("http://web.kraxarn.com/apps/kraxbot");
                 }
             }
+        }
+
+        string GetStringBetween(string token, string first, string second = null)
+        {
+            int from = token.IndexOf(first) + first.Length;
+            if (!string.IsNullOrEmpty(second))
+            {
+                int to = token.IndexOf(second);
+                return token.Substring(from, to - from);
+            }
+            else
+                return token.Substring(from);
         }
 
         // -- Buttons and ui stuff -- //
