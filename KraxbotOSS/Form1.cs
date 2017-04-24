@@ -338,7 +338,7 @@ namespace KraxbotOSS
 
             // When a user enters or leaves a chat
             // TODO: Add more to this
-            Log(string.Format("\n{0} {1} ({2})", friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn), callback.StateChangeInfo.StateChange, callback.Type));
+            Log(string.Format("\n[{0}] {1} {2} ({3})", chatRoom.ChatName.Substring(0, 3), friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn), callback.StateChangeInfo.StateChange, callback.Type));
 
             // Add or remove user from Users list
             // TODO: Fill rest of info
