@@ -346,7 +346,9 @@ namespace KraxbotOSS
             {
                 chatRoom.Users.Add(new UserInfo()
                 {
-                    SteamID = callback.StateChangeInfo.ChatterActedOn.AccountID
+                    SteamID    = callback.StateChangeInfo.MemberInfo.SteamID,
+                    Permission = callback.StateChangeInfo.MemberInfo.Permissions,
+                    Rank       = callback.StateChangeInfo.MemberInfo.Details
                 });
                 if (chatRoom.Welcome)
                     SendChatMessage(chatRoomID, string.Format("{0} {1}{2}", chatRoom.WelcomeMsg, name, chatRoom.WelcomeEnd));
