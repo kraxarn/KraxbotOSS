@@ -459,8 +459,7 @@ namespace KraxbotOSS
                         string response = Get(links[i]);
                         if (!string.IsNullOrEmpty(response))
                         {
-                            string titlePre = GetStringBetween(response, "<title", "</title");
-                            string title = GetStringBetween(titlePre, ">");
+                            string title = GetStringBetween(GetStringBetween(response, "<title", "</title"), ">");
                             SendChatMessage(chatRoomID, string.Format("{0} posted {1}", name, title.Trim()));
                         }
                     }
