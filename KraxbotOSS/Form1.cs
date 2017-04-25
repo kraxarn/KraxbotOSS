@@ -970,6 +970,7 @@ namespace KraxbotOSS
         {
             // TODO: Maybe ASync this
             string response = Get("https://web.kraxarn.com/api/ver.php?app=kraxbot");
+            if (string.IsNullOrEmpty(response)) return;
             dynamic result = JsonConvert.DeserializeObject(response);
             string newVersion = version;
             switch (config.Updates)
