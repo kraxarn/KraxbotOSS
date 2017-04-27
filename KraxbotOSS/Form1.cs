@@ -180,6 +180,8 @@ namespace KraxbotOSS
             public SteamID         SteamID;
             public EClanPermission Rank;
             public EChatPermission Permission;
+            public long            LastTime = 0;
+            public string          LastMessage;
         }
         public class CleverbotUser
         {
@@ -436,11 +438,13 @@ namespace KraxbotOSS
 
             // Variables
             // TODO: Get rank of user and bot here
-            string message = callback.Message;
-            SteamID userID = callback.ChatterID;
+            string message     = callback.Message;
+            SteamID userID     = callback.ChatterID;
             SteamID chatRoomID = callback.ChatRoomID;
-            Settings chatRoom = CR.Single(s => s.ChatID == chatRoomID);
-            UserInfo chatter = chatRoom.Users.Single(s => s.SteamID == userID);
+            Settings chatRoom  = CR.Single(s => s.ChatID == chatRoomID);
+            UserInfo chatter   = chatRoom.Users.Single(s => s.SteamID == userID);
+            UserInfo bot       = chatRoom.Users.Single(s => s.SteamID == client.SteamID);
+            long now           = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
             string name = friends.GetFriendPersonaName(callback.ChatterID);
             string game = friends.GetFriendGamePlayedName(callback.ChatterID);
@@ -450,7 +454,50 @@ namespace KraxbotOSS
             if (chatter.Rank == EClanPermission.Moderator || chatter.Rank == EClanPermission.Officer || chatter.Rank == EClanPermission.Owner)
                 isMod = true;
 
-            // TODO: Spam protection
+            // Check if bot is mod
+            bool isBotMod = false;
+            switch(bot.Rank)
+            {
+                case EClanPermission.Moderator:
+                case EClanPermission.Officer:
+                case EClanPermission.Owner:
+                    isBotMod = true;
+                    break;
+            }
+
+            // Spam protection
+            if (isBotMod && !isMod && chatRoom.Spam != "None")
+            {
+                if (chatter.LastMessage == message && chatter.LastTime + 3000 > now)
+                {
+                    // Sent the same message within the same 3 seconds
+                    SendChatMessage(chatRoomID, string.Format("Please {0}, don't spam", name));
+                    if (chatRoom.Spam == "Kick")
+                        friends.KickChatMember(chatRoomID, userID);
+                    else if (chatRoom.Spam == "Ban")
+                        friends.BanChatMember(chatRoomID, userID);
+                }
+                else if (chatter.LastTime + 500 > now)
+                {
+                    // Sent a mesage within the same 0.5 seconds
+                    SendChatMessage(chatRoomID, string.Format("Please {0}, don't post too fast", name));
+                    if (chatRoom.Spam == "Kick")
+                        friends.KickChatMember(chatRoomID, userID);
+                    else if (chatRoom.Spam == "Ban")
+                        friends.BanChatMember(chatRoomID, userID);
+                }
+                else if (message.Length > 400)
+                {
+                    // Sent a message longer than 400 characters
+                    SendChatMessage(chatRoomID, string.Format("Please {0}, don't post too long messages", name));
+                    if (chatRoom.Spam == "Kick")
+                        friends.KickChatMember(chatRoomID, userID);
+                    else if (chatRoom.Spam == "Ban")
+                        friends.BanChatMember(chatRoomID, userID);
+                }
+            }
+            chatter.LastMessage = message;
+            chatter.LastTime = now;
 
             // Link resolving
             if (chatRoom.Links)
@@ -532,7 +579,9 @@ namespace KraxbotOSS
             if (userID.AccountID == config.Superadmin)
             {
                 if (message == "!timestamp")
-                    SendChatMessage(chatRoomID, string.Format("Current timestamp: {0}", DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()));
+                    SendChatMessage(chatRoomID, string.Format("Current timestamp: {0}", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString()));
+                else if (message.StartsWith("!permission"))
+                    SendChatMessage(chatRoomID, CheckPermission(message.Split()[1], bot.Permission).ToString());
                 else if (message == "!info")
                 {
                     // Get if we are using Mono
@@ -950,6 +999,22 @@ namespace KraxbotOSS
         {
             string file = File.ReadAllText(Path.Combine(configPath, "chatrooms", chatRoomID.ConvertToUInt64().ToString() + ".json"));
             CR.Add(JsonConvert.DeserializeObject<Settings>(file));
+        }
+
+        bool CheckPermission(string check, EChatPermission permission)
+        {
+            // TODO: Not actually sure if this is how it works
+            if (check == "kick")
+            {
+                if ((permission & EChatPermission.Kick) == EChatPermission.Kick) return true;
+                else return false;
+            }
+            else if (check == "ban")
+            {
+                if ((permission & EChatPermission.Ban) == EChatPermission.Ban) return true;
+                else return false;
+            }
+            else return false;
         }
 
         string Get(string url)
