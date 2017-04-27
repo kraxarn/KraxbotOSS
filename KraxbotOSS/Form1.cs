@@ -488,7 +488,11 @@ namespace KraxbotOSS
                                     }
                                 }
                             }
-                            else
+                            else if (title.IndexOf("on Steam") > -1)
+                                SendChatMessage(chatRoomID, string.Format("{0} posted a game: {1}", name, GetStringBetween(title, "", "on Steam")));
+                            else if (title.IndexOf("Steam Community :: Screenshot") > -1)
+                                SendChatMessage(chatRoomID, string.Format("{0} posted a screenshot from {1}", name, GetStringBetween(response, "This item is incompatible with ", ". Please see the")));
+                            else if (title.IndexOf("Item Inventory") < 0)
                                 SendChatMessage(chatRoomID, string.Format("{0} posted {1}", name, title.Trim()));
                         }
                     }
