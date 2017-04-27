@@ -263,19 +263,6 @@ namespace KraxbotOSS
                 lStatus.Text = "State: Logged in";
             });
 
-            // Check if we set to save password
-            if (!string.IsNullOrEmpty(FormLogin.EncryptKey))
-            {
-                string[] save = new string[3];
-                if (FormLogin.EncryptKey == Environment.MachineName)
-                    save[0] = "Auto";
-                else
-                    save[0] = "Key";
-                save[1] = FormLogin.Username;
-                save[2] = EncryptDecrypt(FormLogin.Password, FormLogin.EncryptKey);
-                File.WriteAllLines(Path.Combine(configPath, "userinfo"), save);
-            }
-
             // To other stuff here after logging in (like joining chatrooms)
         }
         void OnLoginKey(SteamUser.LoginKeyCallback callback)
