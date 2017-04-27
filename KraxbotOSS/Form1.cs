@@ -290,9 +290,12 @@ namespace KraxbotOSS
         void OnFriendsList(SteamFriends.FriendsListCallback callback)
         {
             // Join chatrooms
-            foreach (SteamID groupID in GetGroups())
-                if (config.Chatrooms.ToString().IndexOf(groupID.AccountID.ToString()) > -1)
-                    friends.JoinChat(groupID);
+            if (config.Chatrooms != null)
+            {
+                foreach (SteamID groupID in GetGroups())
+                    if (config.Chatrooms.ToString().IndexOf(groupID.AccountID.ToString()) > -1)
+                        friends.JoinChat(groupID);
+            }
         }
         void OnFriendAdded(SteamFriends.FriendAddedCallback callback)
         {
