@@ -424,7 +424,10 @@ namespace KraxbotOSS
                 }
                 // Use Cleverbot
                 CleverbotSession session = CB.Single(s => s.SteamID == userID).Session;
-                SendMessage(userID, session.Send(message));
+                try
+                { SendMessage(userID, session.Send(message)); }
+                catch (Exception e)
+                { Log("\n" + e.Message); }
             }
         }
         void OnChatMsg(SteamFriends.ChatMsgCallback callback)
@@ -564,7 +567,10 @@ namespace KraxbotOSS
                 }
                 // Use Cleverbot
                 CleverbotSession session = CB.Single(s => s.SteamID == chatRoomID).Session;
-                SendChatMessage(chatRoomID, session.Send(message));
+                try
+                { SendChatMessage(chatRoomID, session.Send(message)); }
+                catch (Exception e)
+                { Log("\n" + e.Message); }
             }
 
             // Always on commands
