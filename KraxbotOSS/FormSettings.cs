@@ -44,9 +44,9 @@ namespace KraxbotOSS
 
             switch(Form1.config.ChatRequest)
             {
-                case "AcceptAll": index = 0; break;
+                case "AcceptAll":      index = 0; break;
                 case "SuperadminOnly": index = 1; break;
-                case "IgnoreAll": index = 2; break;
+                case "IgnoreAll":      index = 2; break;
                 default: throw new Exception("Unexpected ChatRequest value");
             }
             cbChatRequest.SelectedIndex = index;
@@ -132,7 +132,7 @@ namespace KraxbotOSS
             if (cbFriends.Enabled)
             {
                 from = (cbFriends.Text.LastIndexOf('(') + 1);
-                to = (cbFriends.Text.LastIndexOf(')'));
+                to   = (cbFriends.Text.LastIndexOf(')'));
                 superadmin = cbFriends.Text.Substring(from, to - from);
                 Form1.config.Superadmin = friends.Single(s => s.AccountID.ToString() == superadmin).AccountID;
             }
@@ -146,7 +146,7 @@ namespace KraxbotOSS
                     {
                         string group = clChats.Items[i].ToString();
                         from = (group.LastIndexOf('(') + 1);
-                        to = (group.LastIndexOf(')'));
+                        to   = (group.LastIndexOf(')'));
                         chatrooms.Add(int.Parse(group.Substring(from, to - from)));
                     }
             }
