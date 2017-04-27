@@ -88,11 +88,10 @@
             this.cbSaveLogin.AutoSize = true;
             this.cbSaveLogin.Location = new System.Drawing.Point(12, 125);
             this.cbSaveLogin.Name = "cbSaveLogin";
-            this.cbSaveLogin.Size = new System.Drawing.Size(98, 17);
+            this.cbSaveLogin.Size = new System.Drawing.Size(95, 17);
             this.cbSaveLogin.TabIndex = 3;
             this.cbSaveLogin.Text = "Remember Me";
             this.cbSaveLogin.UseVisualStyleBackColor = true;
-            this.cbSaveLogin.CheckedChanged += new System.EventHandler(this.cbSaveLogin_CheckedChanged);
             // 
             // FormLogin
             // 

@@ -17,34 +17,6 @@ namespace KraxbotOSS
         public static string Username, Password, AuthCode, EncryptKey;
         public static bool AutoGenerateKey;
 
-        private void cbSaveLogin_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbSaveLogin.Checked)
-            {
-                EncryptKey = null;
-                DialogResult result = MessageBox.Show(
-                    "To save your password, it needs to be encrypted." +
-                    "\nWould you like me to automatically generate a key for you?" +
-                    "\nIf you select 'No', you'll need to manually enter a key." +
-                    "\nIf you are unsure, just press 'Yes'",
-                    "Password Encryption",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Question
-                );
-                if (result == DialogResult.Yes)
-                    EncryptKey = Environment.MachineName;
-                else if (result == DialogResult.No)
-                {
-                    FormSaveLogin saveLogin = new FormSaveLogin();
-                    DialogResult encryptResult = saveLogin.ShowDialog(this);
-                    if (string.IsNullOrEmpty(EncryptKey))
-                        cbSaveLogin.Checked = false;
-                }
-                else
-                    cbSaveLogin.Checked = false;
-            }
-        }
-
         public FormLogin(string Argument = "None")
         {
             InitializeComponent();
@@ -62,6 +34,9 @@ namespace KraxbotOSS
         private void btnLogin_Click(object sender, EventArgs e)
         {
             Username = tbUsername.Text;
+
+            if (cbSaveLogin.Checked)
+                File.WriteAllText(Path.Combine(Form1.configPath, "user"), Username);
 
             if (gbPassword.Text == "Password")
             {

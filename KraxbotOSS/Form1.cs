@@ -868,8 +868,8 @@ namespace KraxbotOSS
             {
                 Username = username,
                 ShouldRememberPassword = true,
-                SentryFileHash = sentryHash,
                 LoginKey = loginkey,
+                SentryFileHash = sentryHash
             });
         }
         public static void UpdateBotSetttings(string name, EPersonaState state)
@@ -1012,18 +1012,11 @@ namespace KraxbotOSS
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (File.Exists(Path.Combine(configPath, "userinfo")))
+            if (File.Exists(Path.Combine(configPath, "user")))
             {
-                string[] user = File.ReadAllLines(Path.Combine(configPath, "userinfo"));
-                if (user[0] == "Auto")
-                    Login(user[1], EncryptDecrypt(user[2], Environment.MachineName), true);
-                else if (user[0] == "Key")
-                {
-                    FormSaveLogin saveLogin = new FormSaveLogin();
-                    saveLogin.ShowDialog(this);
-                    if (!string.IsNullOrEmpty(FormLogin.EncryptKey))
-                        Login(user[1], EncryptDecrypt(user[2], FormLogin.EncryptKey), true);
-                }
+                string[] user = File.ReadAllLines(Path.Combine(configPath, "user"));
+                FormLogin.Username = user[0];
+                Login(user[0]);
             }
             else
             {
