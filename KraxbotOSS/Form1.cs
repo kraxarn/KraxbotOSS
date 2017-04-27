@@ -440,13 +440,13 @@ namespace KraxbotOSS
             Log(string.Format("\n{0}: {1}", friends.GetFriendPersonaName(callback.ChatterID), callback.Message));
 
             // Variables
-            string message     = callback.Message;
-            SteamID userID     = callback.ChatterID;
-            SteamID chatRoomID = callback.ChatRoomID;
-            Settings chatRoom  = CR.Single(s => s.ChatID == chatRoomID);
-            UserInfo chatter   = chatRoom.Users.Single(s => s.SteamID == userID);
-            UserInfo bot       = chatRoom.Users.Single(s => s.SteamID == client.SteamID);
-            long now           = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            string   message    = callback.Message;
+            SteamID  userID     = callback.ChatterID;
+            SteamID  chatRoomID = callback.ChatRoomID;
+            Settings chatRoom   = CR.Single(s => s.ChatID == chatRoomID);
+            UserInfo chatter    = chatRoom.Users.Single(s => s.SteamID == userID);
+            UserInfo bot        = chatRoom.Users.Single(s => s.SteamID == client.SteamID);
+            long     now        = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
             string name = friends.GetFriendPersonaName(callback.ChatterID);
             string game = friends.GetFriendGamePlayedName(callback.ChatterID);
