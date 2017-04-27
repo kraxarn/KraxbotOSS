@@ -73,11 +73,16 @@ namespace KraxbotOSS
 
             // Get all known chatrooms
             groups = Form1.GetGroups();
-            foreach (SteamID clanID in groups)
-                if (Form1.config.Chatrooms.ToString().IndexOf(clanID.AccountID.ToString()) > -1)
-                    clChats.Items.Add(string.Format("{0} ({1})", Form1.GetGroupName(clanID), clanID.AccountID), true);
-                else
-                    clChats.Items.Add(string.Format("{0} ({1})", Form1.GetGroupName(clanID), clanID.AccountID));
+            if (groups.Count > 0)
+            {
+                foreach (SteamID clanID in groups)
+                    if (Form1.config.Chatrooms.ToString().IndexOf(clanID.AccountID.ToString()) > -1)
+                        clChats.Items.Add(string.Format("{0} ({1})", Form1.GetGroupName(clanID), clanID.AccountID), true);
+                    else
+                        clChats.Items.Add(string.Format("{0} ({1})", Form1.GetGroupName(clanID), clanID.AccountID));
+            }
+            else
+                clChats.Enabled = false;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -134,14 +139,17 @@ namespace KraxbotOSS
 
             // Autojoin chatrooms
             List<int> chatrooms = new List<int>();
-            for (int i = 0; i < clChats.Items.Count; i++)
-                if (clChats.GetItemChecked(i))
-                {
-                    string group = clChats.Items[i].ToString();
-                    from = (group.LastIndexOf('(') + 1);
-                    to = (group.LastIndexOf(')'));
-                    chatrooms.Add(int.Parse(group.Substring(from, to - from)));
-                }
+            if (clChats.Enabled)
+            {
+                for (int i = 0; i < clChats.Items.Count; i++)
+                    if (clChats.GetItemChecked(i))
+                    {
+                        string group = clChats.Items[i].ToString();
+                        from = (group.LastIndexOf('(') + 1);
+                        to = (group.LastIndexOf(')'));
+                        chatrooms.Add(int.Parse(group.Substring(from, to - from)));
+                    }
+            }
 
             JObject obj = JObject.FromObject(new
             {
