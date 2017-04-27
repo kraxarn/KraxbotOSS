@@ -68,6 +68,9 @@ namespace KraxbotOSS
                     cbFriends.SelectedIndex = cbFriends.Items.Count - 1;
             }
 
+            if (cbFriends.Items.Count == 0)
+                cbFriends.Enabled = false;
+
             // Get all known chatrooms
             groups = Form1.GetGroups();
             foreach (SteamID clanID in groups)
@@ -119,10 +122,15 @@ namespace KraxbotOSS
             Form1.config.LoginAs = (EPersonaState)loginAs;
 
             // Superadmin
-            int from = (cbFriends.Text.LastIndexOf('(') + 1);
-            int to = (cbFriends.Text.LastIndexOf(')'));
-            string superadmin = cbFriends.Text.Substring(from, to - from);
-            Form1.config.Superadmin = friends.Single(s => s.AccountID.ToString() == superadmin).AccountID;
+            int from, to;
+            string superadmin = Form1.config.Superadmin.ToString();
+            if (cbFriends.Enabled)
+            {
+                from = (cbFriends.Text.LastIndexOf('(') + 1);
+                to = (cbFriends.Text.LastIndexOf(')'));
+                superadmin = cbFriends.Text.Substring(from, to - from);
+                Form1.config.Superadmin = friends.Single(s => s.AccountID.ToString() == superadmin).AccountID;
+            }
 
             // Autojoin chatrooms
             List<int> chatrooms = new List<int>();
