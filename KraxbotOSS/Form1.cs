@@ -440,12 +440,15 @@ namespace KraxbotOSS
             SteamID userID = callback.ChatterID;
             SteamID chatRoomID = callback.ChatRoomID;
             Settings chatRoom = CR.Single(s => s.ChatID == chatRoomID);
+            UserInfo chatter = chatRoom.Users.Single(s => s.SteamID == userID);
 
             string name = friends.GetFriendPersonaName(callback.ChatterID);
             string game = friends.GetFriendGamePlayedName(callback.ChatterID);
 
-            // TODO: Fix this
-            bool isMod = true;
+            // Check if mod
+            bool isMod = false;
+            if (chatter.Rank == EClanPermission.Moderator || chatter.Rank == EClanPermission.Officer || chatter.Rank == EClanPermission.Owner)
+                isMod = true;
 
             // TODO: Spam protection
 
