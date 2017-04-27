@@ -451,8 +451,14 @@ namespace KraxbotOSS
 
             // Check if mod
             bool isMod = false;
-            if (chatter.Rank == EClanPermission.Moderator || chatter.Rank == EClanPermission.Officer || chatter.Rank == EClanPermission.Owner)
-                isMod = true;
+            switch(chatter.Rank)
+            {
+                case EClanPermission.Moderator:
+                case EClanPermission.Officer:
+                case EClanPermission.Owner:
+                    isMod = true;
+                    break;
+            }
 
             // Check if bot is mod
             bool isBotMod = false;
