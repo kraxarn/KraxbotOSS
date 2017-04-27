@@ -405,7 +405,6 @@ namespace KraxbotOSS
         }
         void OnFriendMsg(SteamFriends.FriendMsgCallback callback)
         {
-            // TODO: Commands and/or Cleverbot
             string message = callback.Message;
             SteamID userID = callback.Sender;
             if (!string.IsNullOrEmpty(message.Trim()))
@@ -430,14 +429,11 @@ namespace KraxbotOSS
         }
         void OnChatMsg(SteamFriends.ChatMsgCallback callback)
         {
-            // TODO: Commands and maybe Cleverbot
-
             // TODO: Log this different than friend messages
             // TODO: Does this assume we are friends with the user?
             Log(string.Format("\n{0}: {1}", friends.GetFriendPersonaName(callback.ChatterID), callback.Message));
 
             // Variables
-            // TODO: Get rank of user and bot here
             string message     = callback.Message;
             SteamID userID     = callback.ChatterID;
             SteamID chatRoomID = callback.ChatRoomID;
