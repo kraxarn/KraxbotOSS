@@ -372,7 +372,7 @@ namespace KraxbotOSS
         {
             Log("\nLogged out");
         }
-        static void OnMachineAuth(SteamUser.UpdateMachineAuthCallback callback)
+        void OnMachineAuth(SteamUser.UpdateMachineAuthCallback callback)
         {
             // Writes sentry file
             int fileSize;
