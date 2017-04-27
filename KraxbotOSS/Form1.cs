@@ -531,7 +531,9 @@ namespace KraxbotOSS
             // Superadmin commands
             if (userID.AccountID == config.Superadmin)
             {
-                if (message == "!info")
+                if (message == "!timestamp")
+                    SendChatMessage(chatRoomID, string.Format("Current timestamp: {0}", DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()));
+                else if (message == "!info")
                 {
                     // Get if we are using Mono
                     string runtime;
