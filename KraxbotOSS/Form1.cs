@@ -326,11 +326,11 @@ namespace KraxbotOSS
                 lbChatrooms.Items.Add(callback.ChatRoomName);
             });
 
-            // Add value to chatroom settings if needed
-            if (CR.SingleOrDefault(s => s.ChatID == callback.ChatID) == null)
-                CreateSettings(callback.ChatID, callback.ChatRoomName, callback.FriendID.AccountID, friends.GetFriendPersonaName(callback.FriendID));
-            else
+            // Create settings if needed
+            if (File.Exists(Path.Combine(configPath, "chatrooms", callback.ChatID.ConvertToUInt64().ToString() + ".json")))
                 LoadSettings(callback.ChatID);
+            else
+                CreateSettings(callback.ChatID, callback.ChatRoomName, callback.FriendID.AccountID, friends.GetFriendPersonaName(callback.FriendID));
             Settings chatRoom = CR.Single(s => s.ChatID == callback.ChatID);
 
             // Add all current users to the Users list
