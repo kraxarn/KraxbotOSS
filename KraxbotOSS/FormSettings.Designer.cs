@@ -42,9 +42,9 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.clChats = new System.Windows.Forms.CheckedListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tpGeneral = new System.Windows.Forms.TabPage();
+            this.tpChatrooms = new System.Windows.Forms.TabPage();
+            this.tpAPI = new System.Windows.Forms.TabPage();
             this.btnMoreInfo = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.tbApiSteam = new System.Windows.Forms.TextBox();
@@ -54,6 +54,10 @@
             this.tbApiGoogle = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.tbApiWeather = new System.Windows.Forms.TextBox();
+            this.tbGamePlayed = new System.Windows.Forms.TabPage();
+            this.cbGameType = new System.Windows.Forms.CheckBox();
+            this.tbGameInfo = new System.Windows.Forms.TextBox();
+            this.gbGame = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -61,13 +65,15 @@
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tpGeneral.SuspendLayout();
+            this.tpChatrooms.SuspendLayout();
+            this.tpAPI.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
+            this.tbGamePlayed.SuspendLayout();
+            this.gbGame.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -214,54 +220,55 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tpGeneral);
+            this.tabControl1.Controls.Add(this.tbGamePlayed);
+            this.tabControl1.Controls.Add(this.tpChatrooms);
+            this.tabControl1.Controls.Add(this.tpAPI);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(280, 320);
             this.tabControl1.TabIndex = 8;
             // 
-            // tabPage1
+            // tpGeneral
             // 
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.Controls.Add(this.groupBox5);
-            this.tabPage1.Controls.Add(this.groupBox4);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(272, 294);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "General";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tpGeneral.Controls.Add(this.groupBox1);
+            this.tpGeneral.Controls.Add(this.groupBox2);
+            this.tpGeneral.Controls.Add(this.groupBox3);
+            this.tpGeneral.Controls.Add(this.groupBox5);
+            this.tpGeneral.Controls.Add(this.groupBox4);
+            this.tpGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tpGeneral.Name = "tpGeneral";
+            this.tpGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tpGeneral.Size = new System.Drawing.Size(272, 294);
+            this.tpGeneral.TabIndex = 0;
+            this.tpGeneral.Text = "General";
+            this.tpGeneral.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tpChatrooms
             // 
-            this.tabPage2.Controls.Add(this.groupBox6);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(272, 294);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Chatrooms";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tpChatrooms.Controls.Add(this.groupBox6);
+            this.tpChatrooms.Location = new System.Drawing.Point(4, 22);
+            this.tpChatrooms.Name = "tpChatrooms";
+            this.tpChatrooms.Padding = new System.Windows.Forms.Padding(3);
+            this.tpChatrooms.Size = new System.Drawing.Size(272, 294);
+            this.tpChatrooms.TabIndex = 1;
+            this.tpChatrooms.Text = "Chatrooms";
+            this.tpChatrooms.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // tpAPI
             // 
-            this.tabPage3.Controls.Add(this.btnMoreInfo);
-            this.tabPage3.Controls.Add(this.groupBox10);
-            this.tabPage3.Controls.Add(this.groupBox7);
-            this.tabPage3.Controls.Add(this.groupBox9);
-            this.tabPage3.Controls.Add(this.groupBox8);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(272, 294);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "API Keys";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tpAPI.Controls.Add(this.btnMoreInfo);
+            this.tpAPI.Controls.Add(this.groupBox10);
+            this.tpAPI.Controls.Add(this.groupBox7);
+            this.tpAPI.Controls.Add(this.groupBox9);
+            this.tpAPI.Controls.Add(this.groupBox8);
+            this.tpAPI.Location = new System.Drawing.Point(4, 22);
+            this.tpAPI.Name = "tpAPI";
+            this.tpAPI.Size = new System.Drawing.Size(272, 294);
+            this.tpAPI.TabIndex = 2;
+            this.tpAPI.Text = "API Keys";
+            this.tpAPI.UseVisualStyleBackColor = true;
             // 
             // btnMoreInfo
             // 
@@ -341,6 +348,46 @@
             this.tbApiWeather.Size = new System.Drawing.Size(239, 20);
             this.tbApiWeather.TabIndex = 0;
             // 
+            // tbGamePlayed
+            // 
+            this.tbGamePlayed.Controls.Add(this.gbGame);
+            this.tbGamePlayed.Controls.Add(this.cbGameType);
+            this.tbGamePlayed.Location = new System.Drawing.Point(4, 22);
+            this.tbGamePlayed.Name = "tbGamePlayed";
+            this.tbGamePlayed.Padding = new System.Windows.Forms.Padding(3);
+            this.tbGamePlayed.Size = new System.Drawing.Size(272, 294);
+            this.tbGamePlayed.TabIndex = 3;
+            this.tbGamePlayed.Text = "Game";
+            this.tbGamePlayed.UseVisualStyleBackColor = true;
+            // 
+            // cbGameType
+            // 
+            this.cbGameType.AutoSize = true;
+            this.cbGameType.Location = new System.Drawing.Point(20, 20);
+            this.cbGameType.Name = "cbGameType";
+            this.cbGameType.Size = new System.Drawing.Size(110, 17);
+            this.cbGameType.TabIndex = 0;
+            this.cbGameType.Text = "Non-Steam Game";
+            this.cbGameType.UseVisualStyleBackColor = true;
+            this.cbGameType.CheckedChanged += new System.EventHandler(this.cbGameType_CheckedChanged);
+            // 
+            // tbGameInfo
+            // 
+            this.tbGameInfo.Location = new System.Drawing.Point(6, 19);
+            this.tbGameInfo.Name = "tbGameInfo";
+            this.tbGameInfo.Size = new System.Drawing.Size(169, 20);
+            this.tbGameInfo.TabIndex = 1;
+            // 
+            // gbGame
+            // 
+            this.gbGame.Controls.Add(this.tbGameInfo);
+            this.gbGame.Location = new System.Drawing.Point(20, 50);
+            this.gbGame.Name = "gbGame";
+            this.gbGame.Size = new System.Drawing.Size(181, 50);
+            this.gbGame.TabIndex = 2;
+            this.gbGame.TabStop = false;
+            this.gbGame.Text = "App ID";
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -364,9 +411,9 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
+            this.tpGeneral.ResumeLayout(false);
+            this.tpChatrooms.ResumeLayout(false);
+            this.tpAPI.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -375,6 +422,10 @@
             this.groupBox9.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
+            this.tbGamePlayed.ResumeLayout(false);
+            this.tbGamePlayed.PerformLayout();
+            this.gbGame.ResumeLayout(false);
+            this.gbGame.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -395,9 +446,9 @@
         private System.Windows.Forms.CheckedListBox clChats;
         private System.Windows.Forms.ComboBox cbFriends;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tpGeneral;
+        private System.Windows.Forms.TabPage tpChatrooms;
+        private System.Windows.Forms.TabPage tpAPI;
         private System.Windows.Forms.Button btnMoreInfo;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.TextBox tbApiSteam;
@@ -407,5 +458,9 @@
         private System.Windows.Forms.TextBox tbApiGoogle;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.TextBox tbApiWeather;
+        private System.Windows.Forms.TabPage tbGamePlayed;
+        private System.Windows.Forms.TextBox tbGameInfo;
+        private System.Windows.Forms.CheckBox cbGameType;
+        private System.Windows.Forms.GroupBox gbGame;
     }
 }

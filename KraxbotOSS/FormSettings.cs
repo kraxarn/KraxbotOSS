@@ -83,6 +83,16 @@ namespace KraxbotOSS
             }
             else
                 clChats.Enabled = false;
+
+            // Get game info
+            if (Form1.config.GamePlayed_ID == 12350489788975939584)
+            {
+                cbGameType.Checked = true;
+                gbGame.Text = "App Name";
+                tbGameInfo.Text = Form1.config.GamePlayed_ExtraInfo;
+            }
+            else
+                tbGameInfo.Text = Form1.config.GamePlayed_ID.ToString();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -151,6 +161,26 @@ namespace KraxbotOSS
                     }
             }
 
+            // Game to play
+            ulong gameID = Form1.config.GamePlayed_ID;
+            string gameExtraInfo = Form1.config.GamePlayed_ExtraInfo;
+            if (cbGameType.Checked)
+            {
+                gameID = 12350489788975939584;
+                gameExtraInfo = tbGameInfo.Text;
+            }
+            else
+            {
+                if (!ulong.TryParse(tbGameInfo.Text, out gameID))
+                {
+                    MessageBox.Show("App ID doesn't seem to be a number and was set as non-Steam game", "App ID Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    gameID = 12350489788975939584;
+                    gameExtraInfo = tbGameInfo.Text;
+                }
+            }
+            Form1.config.GamePlayed_ID        = gameID;
+            Form1.config.GamePlayed_ExtraInfo = gameExtraInfo;
+
             JObject obj = JObject.FromObject(new
             {
                 Updates       = Form1.config.Updates,
@@ -165,11 +195,24 @@ namespace KraxbotOSS
                     Google         = Form1.config.API_Google,
                     OpenWeatherMap = Form1.config.API_OpenWeather,
                     CleverbotIO    = Form1.config.API_CleverbotIO
+                },
+                GamePlayed = new
+                {
+                    ID = gameID,
+                    ExtraInfo = gameExtraInfo
                 }
             });
 
             File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS", "settings.json"), JsonConvert.SerializeObject(obj, Formatting.Indented));
             Close();
+        }
+
+        private void cbGameType_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbGameType.Checked)
+                gbGame.Text = "App Name";
+            else
+                gbGame.Text = "App ID";
         }
 
         private void btnMoreInfo_Click(object sender, EventArgs e)

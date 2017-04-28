@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.IO;
 
 using SteamKit2;
+using SteamKit2.Internal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading;
@@ -55,16 +56,18 @@ namespace KraxbotOSS
             if (File.Exists(Path.Combine(configPath, "settings.json")))
             {
                 dynamic json = JsonConvert.DeserializeObject(File.ReadAllText(Path.Combine(configPath, "settings.json")));
-                config.Updates         = json.Updates;
-                config.FriendRequest   = json.FriendRequest;
-                config.ChatRequest     = json.ChatRequest;
-                config.LoginAs         = json.LoginAs;
-                config.Superadmin      = json.Superadmin;
-                config.Chatrooms       = json.Chatrooms;
-                config.API_Steam       = json.API.SteamWeb;
-                config.API_Google      = json.API.Google;
-                config.API_OpenWeather = json.API.OpenWeatherMap;
-                config.API_CleverbotIO = json.API.CleverbotIO;
+                config.Updates              = json.Updates;
+                config.FriendRequest        = json.FriendRequest;
+                config.ChatRequest          = json.ChatRequest;
+                config.LoginAs              = json.LoginAs;
+                config.Superadmin           = json.Superadmin;
+                config.Chatrooms            = json.Chatrooms;
+                config.API_Steam            = json.API.SteamWeb;
+                config.API_Google           = json.API.Google;
+                config.API_OpenWeather      = json.API.OpenWeatherMap;
+                config.API_CleverbotIO      = json.API.CleverbotIO;
+                config.GamePlayed_ID        = json.GamePlayed.ID;
+                config.GamePlayed_ExtraInfo = json.GamePlayed.ExtraInfo;
             }
 
             // Check for updates
@@ -204,6 +207,9 @@ namespace KraxbotOSS
             internal string API_Google;
             internal string API_OpenWeather;
             internal string API_CleverbotIO;
+
+            internal ulong  GamePlayed_ID;
+            internal string GamePlayed_ExtraInfo;
         }
 
         // -- Steam callbacks -- //
@@ -283,6 +289,16 @@ namespace KraxbotOSS
                     if (config.Chatrooms.ToString().IndexOf(groupID.AccountID.ToString()) > -1)
                         friends.JoinChat(groupID);
             }
+
+            // Start game
+            var playGame = new ClientMsgProtobuf<CMsgClientGamesPlayed>(EMsg.ClientGamesPlayed);
+            playGame.Body.games_played.Add(new CMsgClientGamesPlayed.GamePlayed
+            {
+                game_id = config.GamePlayed_ID,
+                game_extra_info = config.GamePlayed_ExtraInfo
+
+            });
+            client.Send(playGame);
         }
         void OnFriendAdded(SteamFriends.FriendAddedCallback callback)
         {
