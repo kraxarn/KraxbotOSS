@@ -853,7 +853,26 @@ namespace KraxbotOSS
                 }
                 else if (message == "!users")
                 {
-                    // TODO: Make this once we can get all users in a chatroom
+                    int nobodies, members, mods, officers;
+                    nobodies = members = mods = officers = 0;
+                    string owner = "no ";
+                    foreach (UserInfo user in chatRoom.Users)
+                    {
+                        switch (user.Rank)
+                        {
+                            case EClanPermission.Nobody: nobodies++;  break;
+                            case EClanPermission.Member: members++;   break;
+                            case EClanPermission.Moderator: mods++;   break;
+                            case EClanPermission.Officer: officers++; break;
+                            case EClanPermission.Owner: owner = null; break;
+                        }
+                    }
+                    string users = null;
+                    if (nobodies != 0) users += (nobodies + " are guests, ");
+                    if (members != 0) users += (members + " are users, ");
+                    if (mods != 0) users += (mods + " are mods, ");
+                    if (officers != 0) users += (officers + " are admins, ");
+                    SendChatMessage(chatRoomID, string.Format("{0} people are in this chat, where {1} and {2}owner", chatRoom.Users.Count, users.Substring(0, users.Length - 2), owner));
                 }
                 else if (message == "!invited")
                     SendChatMessage(chatRoomID, chatRoom.InvitedName + " invited me to this chat");
