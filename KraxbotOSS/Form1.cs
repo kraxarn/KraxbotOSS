@@ -954,7 +954,6 @@ namespace KraxbotOSS
                         else
                             SendChatMessage(chatRoomID, string.Format("There are currently {0} people playing {1}", playerCount, gameName));
                     }
-                    // TODO: Also make !players if user is currently playing a game
                 }
                 else if (message == "!players")
                 {
