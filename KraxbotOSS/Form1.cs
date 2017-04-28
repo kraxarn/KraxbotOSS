@@ -334,6 +334,7 @@ namespace KraxbotOSS
             Settings chatRoom = CR.Single(s => s.ChatID == callback.ChatID);
 
             // Add all current users to the Users list
+            chatRoom.Users.Clear();
             foreach (SteamFriends.ChatMemberInfo member in callback.ChatMembers)
             {
                 chatRoom.Users.Add(new UserInfo() {
