@@ -849,7 +849,25 @@ namespace KraxbotOSS
                     SendChatMessage(chatRoomID, "Check https://github.com/KraXarN/KraxbotOSS/wiki/Commands for all commands and how to use them");
                 else if (message == "!bday")
                 {
-                    // TODO: Make this once we can enter API keys
+                    if (string.IsNullOrEmpty(config.API_Steam))
+                        SendChatMessage(chatRoomID, "Steam API isn't set up properly to use this command");
+                    else
+                    {
+                        string response = Get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + config.API_Steam + "&steamids=" + userID.ConvertToUInt64());
+                        if (string.IsNullOrEmpty(response))
+                            SendChatMessage(chatRoomID, "Error: No or invalid response from Steam");
+                        else
+                        {
+                            dynamic result = JsonConvert.DeserializeObject(response);
+                            DateTime date = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+                            date = date.AddSeconds(long.Parse(result.response.players[0].timecreated.ToString()));
+                            DateTime curDate = DateTime.UtcNow;
+                            if ((curDate.Year - date.Year) == 1)
+                                SendChatMessage(chatRoomID, string.Format("{0}'s Steam birthday is {1}{2} of {3} (Account created {4} and 1 year old)", name, date.Day, GetDateSuffix(date.Day), date.ToString("MMM"), date.Year));
+                            else
+                                SendChatMessage(chatRoomID, string.Format("{0}'s Steam birthday is {1}{2} of {3} (Account created {4} and {5} years old)", name, date.Day, GetDateSuffix(date.Day), date.ToString("MMM"), date.Year, curDate.Year - date.Year));
+                        }
+                    }
                 }
                 else if (message == "!users")
                 {
@@ -1074,6 +1092,13 @@ namespace KraxbotOSS
             for (int i = 0; i < input.Length; i++)
                 output[i] = (char)(input[i] ^ cKey[i % cKey.Length]);
             return new string(output);
+        }
+        string GetDateSuffix(int day)
+        {
+            if (day % 10 == 1 && day != 11) return "st";
+            else if (day % 10 == 2 && day != 12) return "nd";
+            else if (day % 10 == 3 && day != 13) return "rd";
+            else return "th";
         }
 
         void CheckForUpdates()
