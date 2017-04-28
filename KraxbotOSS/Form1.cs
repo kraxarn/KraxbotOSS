@@ -974,9 +974,22 @@ namespace KraxbotOSS
 
                     SendChatMessage(chatRoomID, friends.GetFriendGamePlayed(userID));
                 }
-                else if (message.StartsWith("!weather "))
+                else if (message.StartsWith("!weather ") && chatRoom.Weather)
                 {
                     // TODO: Same as !bday
+                    if (string.IsNullOrEmpty(config.API_OpenWeather))
+                        SendChatMessage(chatRoomID, "Weather API isn't set up properly to use this command");
+                    else
+                    {
+                        dynamic result = JsonConvert.DeserializeObject(Get("http://api.openweathermap.org/data/2.5/weather?units=metric&appid=" + config.API_OpenWeather + "&q=" + message.Substring(9)));
+                        if (!string.IsNullOrEmpty(result.message))
+                            SendChatMessage(chatRoomID, result.message);
+                        else
+                        {
+                            DateTime date = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(long.Parse(result.dt.ToString()));
+                            SendChatMessage(chatRoomID, string.Format("The weather in {0} is {1}, {2}ºC with wind at {3} m/s and {4}% clouds (Updated {5}:{6})", result.name, result.weather[0].main, Math.Round(double.Parse(result.main.temp.ToString())), Math.Round(double.Parse(result.wind.speed.ToString())), result.clouds.all, date.Hour, date.Minute));
+                        }
+                    }
                 }
             }
         }
