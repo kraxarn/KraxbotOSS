@@ -930,8 +930,50 @@ namespace KraxbotOSS
                     SendChatMessage(chatRoomID, "= " + new DataTable().Compute(message.Substring(6), null).ToString());
                 else if (message.StartsWith("!players "))
                 {
-                    // TODO: Same as !bday
+                    // TODO: Collect all results in a list and choose the value with most players
+                    string app = message.Substring(9);
+                    string response = Get("http://api.steampowered.com/ISteamApps/GetAppList/v2");
+                    if (string.IsNullOrEmpty(response))
+                        SendChatMessage(chatRoomID, "Error: No or invalid response from Steam");
+                    else
+                    {
+                        dynamic result = JsonConvert.DeserializeObject(response);
+                        string gameName = null;
+                        int playerCount = 0;
+                        foreach (dynamic value in result.applist.apps)
+                        {
+                            if (value.name.ToString().ToLower().IndexOf(app.ToLower()) > -1)
+                            {
+                                gameName = value.name;
+                                playerCount = JsonConvert.DeserializeObject(Get("http://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=" + value.appid)).response.player_count;
+                                if (playerCount > 0) break;
+                            }
+                        }
+                        if (string.IsNullOrEmpty(gameName))
+                            SendChatMessage(chatRoomID, "No results found");
+                        else
+                            SendChatMessage(chatRoomID, string.Format("There are currently {0} people playing {1}", playerCount, gameName));
+                    }
                     // TODO: Also make !players if user is currently playing a game
+                }
+                else if (message == "!players")
+                {
+                    uint appID = friends.GetFriendGamePlayed(userID).AppID;
+                    if (appID == 0)
+                        SendChatMessage(chatRoomID, "You need to either play a game or specify a game to check players");
+                    else
+                    {
+                        string response = Get("http://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=" + appID);
+                        if (string.IsNullOrEmpty(response))
+                            SendChatMessage(chatRoomID, "Error: No or invalid response from Steam");
+                        else
+                        {
+                            dynamic result = JsonConvert.DeserializeObject(response);
+                            SendChatMessage(chatRoomID, string.Format("There are currently {0} people playing {1}", result.response.player_count, game));
+                        }
+                    }
+
+                    SendChatMessage(chatRoomID, friends.GetFriendGamePlayed(userID));
                 }
                 else if (message.StartsWith("!weather "))
                 {
