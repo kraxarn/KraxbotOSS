@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.IO;
-
 using SteamKit2;
 using SteamKit2.Internal;
 using Newtonsoft.Json;
@@ -17,6 +16,7 @@ using Newtonsoft.Json.Linq;
 using System.Threading;
 using Cleverbot.Net;
 using System.Text.RegularExpressions;
+using System.Net;
 
 namespace KraxbotOSS
 {
@@ -1034,11 +1034,11 @@ namespace KraxbotOSS
         string Get(string url)
         {
             // TODO: Check if better way to do this
-            using (var client = new System.Net.WebClient())
+            using (var client = new WebClient())
             {
                 try {
                     return client.DownloadString(url);
-                } catch (System.Net.WebException e) {
+                } catch (WebException e) {
                     Console.WriteLine(e.Message);
                     return null;
                 }
