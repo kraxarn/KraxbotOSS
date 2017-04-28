@@ -329,6 +329,8 @@ namespace KraxbotOSS
             // Add value to chatroom settings if needed
             if (CR.SingleOrDefault(s => s.ChatID == callback.ChatID) == null)
                 CreateSettings(callback.ChatID, callback.ChatRoomName, callback.FriendID.AccountID, friends.GetFriendPersonaName(callback.FriendID));
+            else
+                LoadSettings(callback.ChatID);
             Settings chatRoom = CR.Single(s => s.ChatID == callback.ChatID);
 
             // Add all current users to the Users list
