@@ -863,9 +863,9 @@ namespace KraxbotOSS
                             date = date.AddSeconds(long.Parse(result.response.players[0].timecreated.ToString()));
                             DateTime curDate = DateTime.UtcNow;
                             if ((curDate.Year - date.Year) == 1)
-                                SendChatMessage(chatRoomID, string.Format("{0}'s Steam birthday is {1}{2} of {3} (Account created {4} and 1 year old)", name, date.Day, GetDateSuffix(date.Day), date.ToString("MMM"), date.Year));
+                                SendChatMessage(chatRoomID, string.Format("{0}'s Steam birthday is {1}{2} of {3} (Account created {4} and 1 year old)", name, date.Day, GetDateSuffix(date.Day), date.ToString("MMMM"), date.Year));
                             else
-                                SendChatMessage(chatRoomID, string.Format("{0}'s Steam birthday is {1}{2} of {3} (Account created {4} and {5} years old)", name, date.Day, GetDateSuffix(date.Day), date.ToString("MMM"), date.Year, curDate.Year - date.Year));
+                                SendChatMessage(chatRoomID, string.Format("{0}'s Steam birthday is {1}{2} of {3} (Account created {4} and {5} years old)", name, date.Day, GetDateSuffix(date.Day), date.ToString("MMMM"), date.Year, curDate.Year - date.Year));
                         }
                     }
                 }
