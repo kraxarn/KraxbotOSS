@@ -1032,6 +1032,14 @@ namespace KraxbotOSS
                         }
                     }
                 }
+                else if (message.StartsWith("!convert "))
+                {
+                    dynamic result = JsonConvert.DeserializeObject(Get("http://api.duckduckgo.com/?format=json&q=" + message.Substring(9)));
+                    if (string.IsNullOrEmpty(result.Answer.ToString()))
+                        SendChatMessage(chatRoomID, "No answer found");
+                    else
+                        SendChatMessage(chatRoomID, result.Answer.ToString());
+                }
             }
         }
 
