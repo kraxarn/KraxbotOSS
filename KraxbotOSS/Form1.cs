@@ -838,7 +838,25 @@ namespace KraxbotOSS
                 }
                 else if (message.StartsWith("!yt ") && chatRoom.Search)
                 {
-                    // TODO: Same as !games
+                    // TODO: Add cooldown
+                    if (string.IsNullOrEmpty(config.API_Google))
+                        SendChatMessage(chatRoomID, "Google API isn't set up properly to use this command");
+                    else
+                    {
+                        dynamic result = JsonConvert.DeserializeObject(Get("https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + message.Substring(4) + "&type=video&key=" + config.API_Google));
+                        if (string.IsNullOrEmpty(result.items[0].snippet.ToString()))
+                            SendChatMessage(chatRoomID, "No results found");
+                        else
+                        {
+                            string results = null;
+                            int limit = 1;
+                            if (isMod) limit = 3;
+                            for (int i = 0; i < limit; i++)
+                                if (!string.IsNullOrEmpty(result.items[i].ToString()))
+                                    results += string.Format("\n{0} ({1}): https://youtu.be/{2}", result.items[i].snippet.title, result.items[i].snippet.channelTitle, result.items[i].id.videoId);
+                            SendChatMessage(chatRoomID, "Results: " + results);
+                        }
+                    }
                 }
             }
 
