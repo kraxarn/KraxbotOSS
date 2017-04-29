@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,7 +12,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading;
 using Cleverbot.Net;
-using System.Text.RegularExpressions;
 using System.Net;
 
 namespace KraxbotOSS
@@ -308,16 +304,15 @@ namespace KraxbotOSS
         void OnChatInvite(SteamFriends.ChatInviteCallback callback)
         {
             Log(string.Format("\nGot invite to {0} from {1}", callback.ChatRoomName, friends.GetFriendPersonaName(callback.PatronID)));
-
-            // TODO: Add SuperadminOnly
+            
             if (config.ChatRequest == "AcceptAll")
+                friends.JoinChat(callback.ChatRoomID);
+            else if (config.ChatRequest == "SuperadminOnly" && callback.InvitedID.AccountID == config.Superadmin)
                 friends.JoinChat(callback.ChatRoomID);
         }
         void OnChatEnter(SteamFriends.ChatEnterCallback callback)
         {
-            // TODO: Just log here as well, check for chatroom settings and stuff later
             SteamFriends.ChatMemberInfo bot = callback.ChatMembers.Single(s => s.SteamID == client.SteamID);
-
             Log(string.Format("\nJoined {0} as {1}", callback.ChatRoomName, bot.Details));
 
             // Add to chatrooms list
@@ -356,11 +351,9 @@ namespace KraxbotOSS
             string name = friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn);
 
             // When a user enters or leaves a chat
-            // TODO: Add more to this
-            Log(string.Format("\n[{0}] {1} {2} ({3})", chatRoom.ChatName.Substring(0, 3), friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn), callback.StateChangeInfo.StateChange, callback.Type));
+            Log(string.Format("\n[{0}] {1} {2}", chatRoom.ChatName.Substring(0, 3), friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn), callback.StateChangeInfo.StateChange));
 
             // Add or remove user from Users list
-            // TODO: Fill rest of info
             if (state == EChatMemberStateChange.Entered)
             {
                 chatRoom.Users.Add(new UserInfo()
@@ -468,6 +461,9 @@ namespace KraxbotOSS
                     isMod = true;
                     break;
             }
+
+            // Always treat Superadmin as mod
+            if (userID.AccountID == config.Superadmin) isMod = true;
 
             // Check if bot is mod
             bool isBotMod = false;
@@ -1137,7 +1133,6 @@ namespace KraxbotOSS
 
         void CreateSettings(SteamID ChatRoomID, string ChatRoomName, SteamID InvitedID, string InvitedName)
         {
-            // TODO: Get ChatName, InvitedName and InvitedID
             CR.Add(new Settings() {
                 ChatID = ChatRoomID,
                 ChatName = ChatRoomName,
@@ -1147,8 +1142,6 @@ namespace KraxbotOSS
         }
         void SaveSettings(Settings setting)
         {
-            // TODO: Check if xml is faster (prob not)
-            // TODO: Maybe we want to save all settings to the same file
             string file = Path.Combine(configPath, "chatrooms", setting.ChatID.ConvertToUInt64().ToString() + ".json");
             File.WriteAllText(file, JsonConvert.SerializeObject(setting, Formatting.Indented));
         }
