@@ -760,15 +760,21 @@ namespace KraxbotOSS
                 }
                 else if (message.StartsWith("!random"))
                 {
-                    List<UserInfo> users = new List<UserInfo>(chatRoom.Users);
-                    users.Remove(users.Single(s => s.SteamID == client.SteamID));
-                    SendChatMessage(chatRoomID, string.Format("The winner is {0}!", friends.GetFriendPersonaName(users[new Random().Next(users.Count)].SteamID)));
+                    if (isMod || chatRoom.TimeoutRandom < timeout)
+                    {
+                        List<UserInfo> users = new List<UserInfo>(chatRoom.Users);
+                        users.Remove(users.Single(s => s.SteamID == client.SteamID));
+                        SendChatMessage(chatRoomID, string.Format("The winner is {0}!", friends.GetFriendPersonaName(users[new Random().Next(users.Count)].SteamID)));
+                        chatRoom.TimeoutRandom = timeout + chatRoom.DelayRandom;
+                    }
+                    else
+                        SendChatMessage(chatRoomID, string.Format("This command is disabled for {0}", FormatTime(chatRoom.TimeoutRandom)));
                 }
                 else if (message == "!games" && chatRoom.Games)
                 {
                     if (string.IsNullOrEmpty(config.API_Steam))
                         SendChatMessage(chatRoomID, "Steam API isn't set up properly to use this command");
-                    else
+                    else if (isMod || chatRoom.TimeoutGames < timeout)
                     {
                         string response = Get("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + config.API_Steam + "&include_appinfo=1&include_played_free_games=1&steamid=" + userID.ConvertToUInt64());
                         if (!string.IsNullOrEmpty(response))
@@ -778,17 +784,20 @@ namespace KraxbotOSS
                             JArray array = result.response.games;
                             JArray games = new JArray(array.OrderByDescending(obj => obj["playtime_forever"]));
                             for (int i = 0; i <= 4; i++)
-                                SendChatMessage(chatRoomID, string.Format("{0}: {1} ({2} hours played)", i+1, games[i]["name"], Math.Round((double)games[i]["playtime_forever"] / 60)));
+                                SendChatMessage(chatRoomID, string.Format("{0}: {1} ({2} hours played)", i + 1, games[i]["name"], Math.Round((double)games[i]["playtime_forever"] / 60)));
                         }
                         else
                             SendChatMessage(chatRoomID, "Error: No or invalid response from Steam");
+                        chatRoom.TimeoutGames = timeout + chatRoom.DelayGames;
                     }
+                    else
+                        SendChatMessage(chatRoomID, string.Format("This command is disabled for {0}", FormatTime(chatRoom.TimeoutGames - timeout)));
                 }
                 else if (message == "!recents" && chatRoom.Games)
                 {
                     if (string.IsNullOrEmpty(config.API_Steam))
                         SendChatMessage(chatRoomID, "Steam API isn't set up properly to use this command");
-                    else
+                    else if (isMod || chatRoom.TimeoutRecents < timeout)
                     {
                         string response = Get("http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + config.API_Steam + "&steamid=" + userID.ConvertToUInt64());
                         if (string.IsNullOrEmpty(response))
@@ -808,7 +817,10 @@ namespace KraxbotOSS
                                     SendChatMessage(chatRoomID, string.Format("{0}: {1} ({2} hours played recently)", i + 1, games[i]["name"], playtime));
                             }
                         }
+                        chatRoom.TimeoutRecents = timeout + chatRoom.DelayRecents;
                     }
+                    else
+                        SendChatMessage(chatRoomID, string.Format("This command is disabled for {0}", FormatTime(chatRoom.TimeoutRecents - timeout)));
                 }
                 else if (message.StartsWith("!define ") && chatRoom.Define)
                 {
@@ -844,25 +856,30 @@ namespace KraxbotOSS
                 }
                 else if (message.StartsWith("!yt ") && chatRoom.Search)
                 {
-                    // TODO: Add cooldown
-                    if (string.IsNullOrEmpty(config.API_Google))
-                        SendChatMessage(chatRoomID, "Google API isn't set up properly to use this command");
-                    else
+                    if (isMod || chatRoom.TimeoutYT < timeout)
                     {
-                        dynamic result = JsonConvert.DeserializeObject(Get("https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + message.Substring(4) + "&type=video&key=" + config.API_Google));
-                        if (string.IsNullOrEmpty(result.items[0].snippet.ToString()))
-                            SendChatMessage(chatRoomID, "No results found");
+                        if (string.IsNullOrEmpty(config.API_Google))
+                            SendChatMessage(chatRoomID, "Google API isn't set up properly to use this command");
                         else
                         {
-                            string results = null;
-                            int limit = 1;
-                            if (isMod) limit = 3;
-                            for (int i = 0; i < limit; i++)
-                                if (!string.IsNullOrEmpty(result.items[i].ToString()))
-                                    results += string.Format("\n{0} ({1}): https://youtu.be/{2}", result.items[i].snippet.title, result.items[i].snippet.channelTitle, result.items[i].id.videoId);
-                            SendChatMessage(chatRoomID, "Results: " + results);
+                            dynamic result = JsonConvert.DeserializeObject(Get("https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + message.Substring(4) + "&type=video&key=" + config.API_Google));
+                            if (string.IsNullOrEmpty(result.items[0].snippet.ToString()))
+                                SendChatMessage(chatRoomID, "No results found");
+                            else
+                            {
+                                string results = null;
+                                int limit = 1;
+                                if (isMod) limit = 3;
+                                for (int i = 0; i < limit; i++)
+                                    if (!string.IsNullOrEmpty(result.items[i].ToString()))
+                                        results += string.Format("\n{0} ({1}): https://youtu.be/{2}", result.items[i].snippet.title, result.items[i].snippet.channelTitle, result.items[i].id.videoId);
+                                SendChatMessage(chatRoomID, "Results: " + results);
+                            }
                         }
+                        chatRoom.TimeoutYT = timeout + chatRoom.DelayYT;
                     }
+                    else
+                        SendChatMessage(chatRoomID, string.Format("This command is disabled for {0}", FormatTime(chatRoom.TimeoutYT - timeout)));
                 }
             }
 
