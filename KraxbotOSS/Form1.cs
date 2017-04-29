@@ -1203,7 +1203,6 @@ namespace KraxbotOSS
             else if (day % 10 == 3 && day != 13) return "rd";
             else return "th";
         }
-
         void CheckForUpdates()
         {
             // TODO: Maybe ASync this
@@ -1271,13 +1270,11 @@ namespace KraxbotOSS
                 login.ShowDialog(this);
             }
         }
-
-        void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             running = false;
             Environment.Exit(Environment.ExitCode);
         }
-
         private void btnBotSettings_Click(object sender, EventArgs e)
         {
             Form botSettings = new FormBotSettings()
@@ -1286,12 +1283,10 @@ namespace KraxbotOSS
             };
             botSettings.ShowDialog(this);
         }
-
         private void lbChatrooms_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnChatroomInfo.Enabled = true;
         }
-
         private void btnChatroomInfo_Click(object sender, EventArgs e)
         {
             Form chatroomInfo = new FormChatroomInfo(CR.Single(s => s.ChatName == lbChatrooms.Items[lbChatrooms.SelectedIndex].ToString()));
