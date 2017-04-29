@@ -453,6 +453,7 @@ namespace KraxbotOSS
             UserInfo chatter    = chatRoom.Users.Single(s => s.SteamID == userID);
             UserInfo bot        = chatRoom.Users.Single(s => s.SteamID == client.SteamID);
             long     now        = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            int      timeout    = (int)DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
             string name = friends.GetFriendPersonaName(callback.ChatterID);
             string game = friends.GetFriendGamePlayedName(callback.ChatterID);
@@ -811,30 +812,35 @@ namespace KraxbotOSS
                 }
                 else if (message.StartsWith("!define ") && chatRoom.Define)
                 {
-                    // TODO: Add cooldown
-                    string response = Get("http://api.urbandictionary.com/v0/define?term=" + message.Substring(8));
-                    dynamic result = JsonConvert.DeserializeObject(response);
-                    if (result.result_type == "no_results")
-                        SendChatMessage(chatRoomID, "No results found");
-                    else
+                    if (isMod || chatRoom.TimeoutDefine < timeout)
                     {
-                        string def = result.list[0].definition;
-                        def = def.Replace("\n", " ");
-                        if (def.Length < 500)
-                            SendChatMessage(chatRoomID, string.Format("{1}", result.list[0].word, def));
+                        string response = Get("http://api.urbandictionary.com/v0/define?term=" + message.Substring(8));
+                        dynamic result = JsonConvert.DeserializeObject(response);
+                        if (result.result_type == "no_results")
+                            SendChatMessage(chatRoomID, "No results found");
                         else
-                            SendChatMessage(chatRoomID, string.Format("{1}...", result.list[0].word, def.Substring(0, 500)));
-                        if (isMod)
                         {
-                            if (result.list[0].example != null)
-                                SendChatMessage(chatRoomID, string.Format("Example: \n{0}", result.list[0].example));
+                            string def = result.list[0].definition;
+                            def = def.Replace("\n", " ");
+                            if (def.Length < 500)
+                                SendChatMessage(chatRoomID, string.Format("{1}", result.list[0].word, def));
+                            else
+                                SendChatMessage(chatRoomID, string.Format("{1}...", result.list[0].word, def.Substring(0, 500)));
+                            if (isMod)
+                            {
+                                if (result.list[0].example != null)
+                                    SendChatMessage(chatRoomID, string.Format("Example: \n{0}", result.list[0].example));
 
-                            double thumbsUp = result.list[0].thumbs_up;
-                            double thumbsDown = result.list[0].thumbs_down;
-                            double thumbsTotal = thumbsUp + thumbsDown;
-                            SendChatMessage(chatRoomID, string.Format("Rating: {0}% positive ({1}/{2})", Math.Round((thumbsUp / thumbsTotal) * 100), thumbsUp, thumbsTotal));
+                                double thumbsUp = result.list[0].thumbs_up;
+                                double thumbsDown = result.list[0].thumbs_down;
+                                double thumbsTotal = thumbsUp + thumbsDown;
+                                SendChatMessage(chatRoomID, string.Format("Rating: {0}% positive ({1}/{2})", Math.Round((thumbsUp / thumbsTotal) * 100), thumbsUp, thumbsTotal));
+                            }
                         }
+                        chatRoom.TimeoutDefine = timeout + chatRoom.DelayDefine;
                     }
+                    else
+                        SendChatMessage(chatRoomID, string.Format("This command is disabled for {0}", FormatTime(chatRoom.TimeoutDefine - timeout)));
                 }
                 else if (message.StartsWith("!yt ") && chatRoom.Search)
                 {
@@ -1206,6 +1212,15 @@ namespace KraxbotOSS
             }
             else
                 return token.Substring(from);
+        }
+        string FormatTime(int seconds)
+        {
+            int min = (int)(Math.Floor(seconds / 60.0));
+            int sec = (seconds - (min * 60));
+            if (sec < 10)
+                return string.Format("{0}:0{1}", min, sec);
+            else
+                return string.Format("{0}:{1}", min, sec);
         }
 
         // -- Buttons and ui stuff -- //
