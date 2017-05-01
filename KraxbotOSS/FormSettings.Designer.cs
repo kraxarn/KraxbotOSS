@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbUpdates = new System.Windows.Forms.ComboBox();
             this.btnSave = new System.Windows.Forms.Button();
@@ -43,6 +44,10 @@
             this.clChats = new System.Windows.Forms.CheckedListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
+            this.tbGamePlayed = new System.Windows.Forms.TabPage();
+            this.gbGame = new System.Windows.Forms.GroupBox();
+            this.tbGameInfo = new System.Windows.Forms.TextBox();
+            this.cbGameType = new System.Windows.Forms.CheckBox();
             this.tpChatrooms = new System.Windows.Forms.TabPage();
             this.tpAPI = new System.Windows.Forms.TabPage();
             this.btnMoreInfo = new System.Windows.Forms.Button();
@@ -54,10 +59,11 @@
             this.tbApiGoogle = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.tbApiWeather = new System.Windows.Forms.TextBox();
-            this.tbGamePlayed = new System.Windows.Forms.TabPage();
-            this.cbGameType = new System.Windows.Forms.CheckBox();
-            this.tbGameInfo = new System.Windows.Forms.TextBox();
-            this.gbGame = new System.Windows.Forms.GroupBox();
+            this.tpAbout = new System.Windows.Forms.TabPage();
+            this.btnHomePage = new System.Windows.Forms.Button();
+            this.lBuildDate = new System.Windows.Forms.Label();
+            this.btnForgetLogin = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -66,14 +72,15 @@
             this.groupBox6.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpGeneral.SuspendLayout();
+            this.tbGamePlayed.SuspendLayout();
+            this.gbGame.SuspendLayout();
             this.tpChatrooms.SuspendLayout();
             this.tpAPI.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            this.tbGamePlayed.SuspendLayout();
-            this.gbGame.SuspendLayout();
+            this.tpAbout.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -224,6 +231,7 @@
             this.tabControl1.Controls.Add(this.tbGamePlayed);
             this.tabControl1.Controls.Add(this.tpChatrooms);
             this.tabControl1.Controls.Add(this.tpAPI);
+            this.tabControl1.Controls.Add(this.tpAbout);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -244,6 +252,46 @@
             this.tpGeneral.TabIndex = 0;
             this.tpGeneral.Text = "General";
             this.tpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // tbGamePlayed
+            // 
+            this.tbGamePlayed.Controls.Add(this.gbGame);
+            this.tbGamePlayed.Controls.Add(this.cbGameType);
+            this.tbGamePlayed.Location = new System.Drawing.Point(4, 22);
+            this.tbGamePlayed.Name = "tbGamePlayed";
+            this.tbGamePlayed.Padding = new System.Windows.Forms.Padding(3);
+            this.tbGamePlayed.Size = new System.Drawing.Size(272, 294);
+            this.tbGamePlayed.TabIndex = 3;
+            this.tbGamePlayed.Text = "Game";
+            this.tbGamePlayed.UseVisualStyleBackColor = true;
+            // 
+            // gbGame
+            // 
+            this.gbGame.Controls.Add(this.tbGameInfo);
+            this.gbGame.Location = new System.Drawing.Point(20, 50);
+            this.gbGame.Name = "gbGame";
+            this.gbGame.Size = new System.Drawing.Size(181, 50);
+            this.gbGame.TabIndex = 2;
+            this.gbGame.TabStop = false;
+            this.gbGame.Text = "App ID";
+            // 
+            // tbGameInfo
+            // 
+            this.tbGameInfo.Location = new System.Drawing.Point(6, 19);
+            this.tbGameInfo.Name = "tbGameInfo";
+            this.tbGameInfo.Size = new System.Drawing.Size(169, 20);
+            this.tbGameInfo.TabIndex = 1;
+            // 
+            // cbGameType
+            // 
+            this.cbGameType.AutoSize = true;
+            this.cbGameType.Location = new System.Drawing.Point(20, 20);
+            this.cbGameType.Name = "cbGameType";
+            this.cbGameType.Size = new System.Drawing.Size(110, 17);
+            this.cbGameType.TabIndex = 0;
+            this.cbGameType.Text = "Non-Steam Game";
+            this.cbGameType.UseVisualStyleBackColor = true;
+            this.cbGameType.CheckedChanged += new System.EventHandler(this.cbGameType_CheckedChanged);
             // 
             // tpChatrooms
             // 
@@ -348,45 +396,57 @@
             this.tbApiWeather.Size = new System.Drawing.Size(239, 20);
             this.tbApiWeather.TabIndex = 0;
             // 
-            // tbGamePlayed
+            // tpAbout
             // 
-            this.tbGamePlayed.Controls.Add(this.gbGame);
-            this.tbGamePlayed.Controls.Add(this.cbGameType);
-            this.tbGamePlayed.Location = new System.Drawing.Point(4, 22);
-            this.tbGamePlayed.Name = "tbGamePlayed";
-            this.tbGamePlayed.Padding = new System.Windows.Forms.Padding(3);
-            this.tbGamePlayed.Size = new System.Drawing.Size(272, 294);
-            this.tbGamePlayed.TabIndex = 3;
-            this.tbGamePlayed.Text = "Game";
-            this.tbGamePlayed.UseVisualStyleBackColor = true;
+            this.tpAbout.Controls.Add(this.btnHomePage);
+            this.tpAbout.Controls.Add(this.lBuildDate);
+            this.tpAbout.Controls.Add(this.btnForgetLogin);
+            this.tpAbout.Controls.Add(this.label1);
+            this.tpAbout.Location = new System.Drawing.Point(4, 22);
+            this.tpAbout.Name = "tpAbout";
+            this.tpAbout.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAbout.Size = new System.Drawing.Size(272, 294);
+            this.tpAbout.TabIndex = 4;
+            this.tpAbout.Text = "About";
+            this.tpAbout.UseVisualStyleBackColor = true;
+            this.tpAbout.Enter += new System.EventHandler(this.tpAbout_Enter);
             // 
-            // cbGameType
+            // btnHomePage
             // 
-            this.cbGameType.AutoSize = true;
-            this.cbGameType.Location = new System.Drawing.Point(20, 20);
-            this.cbGameType.Name = "cbGameType";
-            this.cbGameType.Size = new System.Drawing.Size(110, 17);
-            this.cbGameType.TabIndex = 0;
-            this.cbGameType.Text = "Non-Steam Game";
-            this.cbGameType.UseVisualStyleBackColor = true;
-            this.cbGameType.CheckedChanged += new System.EventHandler(this.cbGameType_CheckedChanged);
+            this.btnHomePage.Location = new System.Drawing.Point(150, 260);
+            this.btnHomePage.Name = "btnHomePage";
+            this.btnHomePage.Size = new System.Drawing.Size(110, 25);
+            this.btnHomePage.TabIndex = 4;
+            this.btnHomePage.Text = "Project Page";
+            this.btnHomePage.UseVisualStyleBackColor = true;
+            this.btnHomePage.Click += new System.EventHandler(this.btnHomePage_Click);
             // 
-            // tbGameInfo
+            // lBuildDate
             // 
-            this.tbGameInfo.Location = new System.Drawing.Point(6, 19);
-            this.tbGameInfo.Name = "tbGameInfo";
-            this.tbGameInfo.Size = new System.Drawing.Size(169, 20);
-            this.tbGameInfo.TabIndex = 1;
+            this.lBuildDate.AutoSize = true;
+            this.lBuildDate.Location = new System.Drawing.Point(15, 110);
+            this.lBuildDate.Name = "lBuildDate";
+            this.lBuildDate.Size = new System.Drawing.Size(0, 13);
+            this.lBuildDate.TabIndex = 3;
             // 
-            // gbGame
+            // btnForgetLogin
             // 
-            this.gbGame.Controls.Add(this.tbGameInfo);
-            this.gbGame.Location = new System.Drawing.Point(20, 50);
-            this.gbGame.Name = "gbGame";
-            this.gbGame.Size = new System.Drawing.Size(181, 50);
-            this.gbGame.TabIndex = 2;
-            this.gbGame.TabStop = false;
-            this.gbGame.Text = "App ID";
+            this.btnForgetLogin.Location = new System.Drawing.Point(10, 260);
+            this.btnForgetLogin.Name = "btnForgetLogin";
+            this.btnForgetLogin.Size = new System.Drawing.Size(110, 25);
+            this.btnForgetLogin.TabIndex = 2;
+            this.btnForgetLogin.Text = "Forget current login";
+            this.btnForgetLogin.UseVisualStyleBackColor = true;
+            this.btnForgetLogin.Click += new System.EventHandler(this.btnForgetLogin_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(233, 78);
+            this.label1.TabIndex = 0;
+            this.label1.Text = resources.GetString("label1.Text");
             // 
             // FormSettings
             // 
@@ -412,6 +472,10 @@
             this.groupBox6.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tpGeneral.ResumeLayout(false);
+            this.tbGamePlayed.ResumeLayout(false);
+            this.tbGamePlayed.PerformLayout();
+            this.gbGame.ResumeLayout(false);
+            this.gbGame.PerformLayout();
             this.tpChatrooms.ResumeLayout(false);
             this.tpAPI.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
@@ -422,10 +486,8 @@
             this.groupBox9.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            this.tbGamePlayed.ResumeLayout(false);
-            this.tbGamePlayed.PerformLayout();
-            this.gbGame.ResumeLayout(false);
-            this.gbGame.PerformLayout();
+            this.tpAbout.ResumeLayout(false);
+            this.tpAbout.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -462,5 +524,10 @@
         private System.Windows.Forms.TextBox tbGameInfo;
         private System.Windows.Forms.CheckBox cbGameType;
         private System.Windows.Forms.GroupBox gbGame;
+        private System.Windows.Forms.TabPage tpAbout;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lBuildDate;
+        private System.Windows.Forms.Button btnForgetLogin;
+        private System.Windows.Forms.Button btnHomePage;
     }
 }

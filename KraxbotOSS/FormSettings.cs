@@ -12,6 +12,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SteamKit2;
+using System.Diagnostics;
 
 namespace KraxbotOSS
 {
@@ -215,9 +216,17 @@ namespace KraxbotOSS
                 gbGame.Text = "App ID";
         }
 
-        private void btnMoreInfo_Click(object sender, EventArgs e)
+        private void tpAbout_Enter(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/KraXarN/KraxbotOSS/wiki/API-Keys");
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            DateTime build = new DateTime(2000, 1, 1)
+                .AddDays(version.Build)
+                .AddSeconds(version.Revision * 2);
+            lBuildDate.Text = "This version was built on \n" + build.ToString();
         }
+
+        private void btnHomePage_Click(object sender, EventArgs e)    => Process.Start("https://github.com/KraXarN/KraxbotOSS");
+        private void btnMoreInfo_Click(object sender, EventArgs e)    => Process.Start("https://github.com/KraXarN/KraxbotOSS/wiki/API-Keys");
+        private void btnForgetLogin_Click(object sender, EventArgs e) => File.Delete(Path.Combine(Form1.configPath, "loginkey"));
     }
 }
