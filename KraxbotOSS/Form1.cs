@@ -723,6 +723,42 @@ namespace KraxbotOSS
                         }
                     }
                 }
+                else if (message.StartsWith("!rule "))
+                {
+                    switch(message.Split(' ')[1])
+                    {
+                        case "add":
+                            // Add rule
+                            chatRoom.SetRules.Add(message.Substring(10));
+                            if (chatRoom.Rules) SendChatMessage(chatRoomID, "Rule added");
+                            else SendChatMessage(chatRoomID, "Rule added, but rules are disabled");
+                            break;
+                        case "remove":
+                            // Remove rule
+                            string search = message.Substring(13);
+                            List<string> results = chatRoom.SetRules.FindAll(s => s.Contains(search));
+                            if (results.Count == 0)
+                                SendChatMessage(chatRoomID, "No rule matching your search was found");
+                            else if (results.Count > 1)
+                                SendChatMessage(chatRoomID, "Multiple rules matching your search was found");
+                            else
+                            {
+                                chatRoom.SetRules.Remove(chatRoom.SetRules.Single(s => s.Contains(search)));
+                                SendChatMessage(chatRoomID, "Rule removed");
+                            }
+                            break;
+                        case "cls":
+                        case "clear":
+                            // Clear all rules
+                            chatRoom.SetRules.Clear();
+                            SendChatMessage(chatRoomID, "All rules removed");
+                            break;
+                        default:
+                            SendChatMessage(chatRoomID, "Invalid argument, use add, remove or clear");
+                            break;
+                    }
+                    SaveSettings(chatRoom);
+                }
             }
 
             // User commands with cooldown / Admin commands
@@ -1040,6 +1076,20 @@ namespace KraxbotOSS
                         SendChatMessage(chatRoomID, "No answer found");
                     else
                         SendChatMessage(chatRoomID, result.Answer.ToString());
+                }
+                else if (message == "!rules" && chatRoom.Rules)
+                {
+                    if (chatRoom.SetRules.Count == 0)
+                        SendChatMessage(chatRoomID, "No rules found, use !rule to add some");
+                    else
+                    {
+                        int count = 1;
+                        foreach (string rule in chatRoom.SetRules)
+                        {
+                            SendChatMessage(chatRoomID, string.Format("{0}: {1}", count, rule));
+                            count++;
+                        }
+                    }
                 }
             }
         }
