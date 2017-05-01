@@ -221,11 +221,21 @@ namespace KraxbotOSS
                 return;
             }
             Log("Ok");
-            Invoke((MethodInvoker)delegate
+            if (File.Exists(Path.Combine(configPath, "user")))
             {
-                btnLogin.Enabled = true;
                 lNetwork.Text = "Network: Connected";
-            });
+                string[] user = File.ReadAllLines(Path.Combine(configPath, "user"));
+                FormLogin.Username = user[0];
+                Login(user[0]);
+            }
+            else
+            {
+                Invoke((MethodInvoker)delegate
+                {
+                    btnLogin.Enabled = true;
+                    lNetwork.Text = "Network: Connected";
+                });
+            }
         }
         void OnDisconnected(SteamClient.DisconnectedCallback callback)
         {
