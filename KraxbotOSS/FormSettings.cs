@@ -227,8 +227,8 @@ namespace KraxbotOSS
                 lBuildDate.Text = "This version was built on \n" + buildDate;
         }
 
-        private void btnHomePage_Click(object sender, EventArgs e)    => Process.Start("https://github.com/KraXarN/KraxbotOSS");
-        private void btnMoreInfo_Click(object sender, EventArgs e)    => Process.Start("https://github.com/KraXarN/KraxbotOSS/wiki/API-Keys");
+        private void btnHomePage_Click(object sender, EventArgs e) => Process.Start("https://github.com/KraXarN/KraxbotOSS");
+        private void btnMoreInfo_Click(object sender, EventArgs e) => Process.Start("https://github.com/KraXarN/KraxbotOSS/wiki/API-Keys");
         private void btnForgetLogin_Click(object sender, EventArgs e)
         {
             File.Delete(Path.Combine(Form1.configPath, "loginkey"));
