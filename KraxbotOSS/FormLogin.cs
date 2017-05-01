@@ -29,6 +29,13 @@ namespace KraxbotOSS
                 cbSaveLogin.Enabled = false;
                 gbPassword.Text = "Mobile Authenticator Code";
             }
+            else if (Argument == "NeedGuard")
+            {
+                tbUsername.Text     = Username;
+                tbUsername.Enabled  = false;
+                cbSaveLogin.Enabled = false;
+                gbPassword.Text     = "Steam Guard Code";
+            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -45,6 +52,8 @@ namespace KraxbotOSS
             }
             else if (gbPassword.Text == "Mobile Authenticator Code")
                 Form1.Login(Username, Password, cbSaveLogin.Checked, null, tbPassword.Text);
+            else if (gbPassword.Text == "Steam Guard Code")
+                Form1.Login(Username, Password, cbSaveLogin.Checked, tbPassword.Text, null);
             Close();
         }
     }

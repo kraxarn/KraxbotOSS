@@ -251,9 +251,15 @@ namespace KraxbotOSS
         {
             if (callback.Result != EResult.OK)
             {
-                // TODO: Add Steam Guard support
                 if (callback.Result == EResult.AccountLogonDenied)
-                    MessageBox.Show("Denied login to Steam: " + callback.Result, "Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                {
+                    Invoke((MethodInvoker)delegate
+                    {
+                        FormLogin login = new FormLogin("NeedGuard");
+                        // If we use ShowDialog here, we get disconencted and can't login
+                        login.Show(this);
+                    });
+                }
                 else if (callback.Result == EResult.AccountLoginDeniedNeedTwoFactor)
                 {
                     Invoke((MethodInvoker)delegate
