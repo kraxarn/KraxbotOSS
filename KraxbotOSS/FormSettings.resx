@@ -117,12 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label1.Text" xml:space="preserve">
-    <value>KraxbotOSS by KraXarN / Kraxie
-Copyright © CrowGames 2017
-
-This software is open source and will always be.
-If you decide to make your own software
-based off this, please don't remove this notice.</value>
-  </data>
 </root>

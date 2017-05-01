@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbUpdates = new System.Windows.Forms.ComboBox();
             this.btnSave = new System.Windows.Forms.Button();
@@ -413,9 +412,9 @@
             // 
             // btnHomePage
             // 
-            this.btnHomePage.Location = new System.Drawing.Point(150, 260);
+            this.btnHomePage.Location = new System.Drawing.Point(140, 260);
             this.btnHomePage.Name = "btnHomePage";
-            this.btnHomePage.Size = new System.Drawing.Size(110, 25);
+            this.btnHomePage.Size = new System.Drawing.Size(120, 25);
             this.btnHomePage.TabIndex = 4;
             this.btnHomePage.Text = "Project Page";
             this.btnHomePage.UseVisualStyleBackColor = true;
@@ -433,7 +432,7 @@
             // 
             this.btnForgetLogin.Location = new System.Drawing.Point(10, 260);
             this.btnForgetLogin.Name = "btnForgetLogin";
-            this.btnForgetLogin.Size = new System.Drawing.Size(110, 25);
+            this.btnForgetLogin.Size = new System.Drawing.Size(120, 25);
             this.btnForgetLogin.TabIndex = 2;
             this.btnForgetLogin.Text = "Forget current login";
             this.btnForgetLogin.UseVisualStyleBackColor = true;
@@ -441,12 +440,13 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(15, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(233, 78);
+            this.label1.Size = new System.Drawing.Size(245, 95);
             this.label1.TabIndex = 0;
-            this.label1.Text = resources.GetString("label1.Text");
+            this.label1.Text = "KraxbotOSS by KraXarN / Kraxie\r\nCopyright © CrowGames 2017\r\n\r\nThis software is op" +
+    "en source and will always be. If you decide to make your own software based off " +
+    "this, please don\'t remove this notice.";
             // 
             // FormSettings
             // 
