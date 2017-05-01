@@ -19,7 +19,7 @@ namespace KraxbotOSS
     public partial class Form1 : Form
     {
         // Some variables
-        string version = "0.1.0";
+        string version = "1.0.0";
         bool running;
         public static string configPath;
         List<Settings> CR = new List<Settings>();
@@ -114,7 +114,7 @@ namespace KraxbotOSS
             public List<UserInfo> Users = new List<UserInfo>();
             public List<String> SetRules = new List<String>();
 
-            public int     Version     = 0;
+            public int     Version     = 1;
             public string  ChatName    = "NoName";
             public string  InvitedName = "NoName";
             public SteamID ChatID;
@@ -171,6 +171,11 @@ namespace KraxbotOSS
 
             public string  AutokickMode = "None";
             public SteamID AutokickUser;
+
+            // We may use these later
+            public int SpamSameMessageTimeout = 3000; // Max time when saying the same message
+            public int SpamTimeout            = 500;  // Max time when saying different messages
+            public int SpamMessageLength      = 400;  // Max length of message
         }
 
         // User info
@@ -181,6 +186,9 @@ namespace KraxbotOSS
             public EChatPermission Permission;
             public long            LastTime = 0;
             public string          LastMessage;
+            // We may use these later
+            public int Disconnect = 0;
+            public int Warning    = 0;
         }
         public class CleverbotUser
         {
