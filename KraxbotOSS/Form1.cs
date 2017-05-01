@@ -804,7 +804,9 @@ namespace KraxbotOSS
                             SendChatMessage(chatRoomID, string.Format("You have played {0} games recently", result.response.total_count));
                             JArray array = result.response.games;
                             JArray games = new JArray(array.OrderByDescending(obj => obj["playtime_2weeks"]));
-                            for (int i = 0; i <= 4; i++)
+                            int total = 5;
+                            if (games.Count < 5) total = games.Count;
+                            for (int i = 0; i < total; i++)
                             {
                                 int playtime = (int)Math.Round((double)games[i]["playtime_2weeks"] / 60);
                                 if (playtime == 1)
