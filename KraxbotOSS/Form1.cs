@@ -933,7 +933,11 @@ namespace KraxbotOSS
                     SendChatMessage(chatRoomID, chatRoom.InvitedName + " invited me to this chat");
                 else if (message == "!name")
                 {
-                    // TODO: Same as !bday
+                    string chatr = chatter.Rank.ToString();
+                    if (string.IsNullOrEmpty(game))
+                        SendChatMessage(chatRoomID, string.Format("{0} ({1})", name, chatr));
+                    else
+                        SendChatMessage(chatRoomID, string.Format("{0} playing {1} ({2})", name, game, chatr));
                 }
                 else if (message == "!ver")
                     SendChatMessage(chatRoomID, string.Format("KraxbotOSS {0} by Kraxie / KraXarN", version));
@@ -1013,7 +1017,6 @@ namespace KraxbotOSS
                 }
                 else if (message.StartsWith("!weather ") && chatRoom.Weather)
                 {
-                    // TODO: Same as !bday
                     if (string.IsNullOrEmpty(config.API_OpenWeather))
                         SendChatMessage(chatRoomID, "Weather API isn't set up properly to use this command");
                     else
