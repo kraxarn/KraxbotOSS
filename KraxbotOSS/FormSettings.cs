@@ -222,7 +222,9 @@ namespace KraxbotOSS
             DateTime build = new DateTime(2000, 1, 1)
                 .AddDays(version.Build)
                 .AddSeconds(version.Revision * 2);
-            lBuildDate.Text = "This version was built on \n" + build.ToString();
+            string buildDate = build.ToString();
+            if (!string.IsNullOrEmpty(buildDate))
+                lBuildDate.Text = "This version was built on \n" + buildDate;
         }
 
         private void btnHomePage_Click(object sender, EventArgs e)    => Process.Start("https://github.com/KraXarN/KraxbotOSS");
