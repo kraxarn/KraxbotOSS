@@ -735,15 +735,15 @@ namespace KraxbotOSS
                             break;
                         case "remove":
                             // Remove rule
-                            string search = message.Substring(13);
-                            List<string> results = chatRoom.SetRules.FindAll(s => s.Contains(search));
+                            string search = message.Substring(13).ToLower();
+                            List<string> results = chatRoom.SetRules.FindAll(s => s.ToLower().Contains(search));
                             if (results.Count == 0)
                                 SendChatMessage(chatRoomID, "No rule matching your search was found");
                             else if (results.Count > 1)
                                 SendChatMessage(chatRoomID, "Multiple rules matching your search was found");
                             else
                             {
-                                chatRoom.SetRules.Remove(chatRoom.SetRules.Single(s => s.Contains(search)));
+                                chatRoom.SetRules.Remove(chatRoom.SetRules.Single(s => s.ToLower().Contains(search)));
                                 SendChatMessage(chatRoomID, "Rule removed");
                             }
                             break;
