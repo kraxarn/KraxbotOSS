@@ -1256,6 +1256,7 @@ namespace KraxbotOSS
             using (var client = new WebClient())
             {
                 try {
+                    client.Headers.Add("user-agent", "KraxbotOSS");
                     return client.DownloadString(url);
                 } catch (WebException e) {
                     MessageBox.Show(e.StackTrace);
