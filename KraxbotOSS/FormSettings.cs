@@ -94,11 +94,7 @@ namespace KraxbotOSS
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // Save, close and show main form again
-            // TODO: We don't save chatrooms to join yet
-
             // API Keys
-            // TODO: For now, we just apply them
             if (!string.IsNullOrEmpty(tbApiSteam.Text))
                 Form1.config.API_Steam = tbApiSteam.Text;
             if (!string.IsNullOrEmpty(tbApiGoogle.Text))
