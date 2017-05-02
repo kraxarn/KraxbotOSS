@@ -19,7 +19,7 @@ namespace KraxbotOSS
     public partial class Form1 : Form
     {
         // Some variables
-        string version = "1.0.0";
+        string version = "1.0.1";
         bool running;
         public static string configPath;
         List<Settings> CR = new List<Settings>();
