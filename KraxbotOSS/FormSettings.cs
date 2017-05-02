@@ -76,11 +76,14 @@ namespace KraxbotOSS
             groups = Form1.GetGroups();
             if (groups.Count > 0)
             {
-                foreach (SteamID clanID in groups)
-                    if (Form1.config.Chatrooms.ToString().IndexOf(clanID.AccountID.ToString()) > -1)
-                        clChats.Items.Add(string.Format("{0} ({1})", Form1.GetGroupName(clanID), clanID.AccountID), true);
-                    else
-                        clChats.Items.Add(string.Format("{0} ({1})", Form1.GetGroupName(clanID), clanID.AccountID));
+                if (Form1.config.Chatrooms.HasValues)
+                {
+                    foreach (SteamID clanID in groups)
+                        if (Form1.config.Chatrooms.ToString().IndexOf(clanID.AccountID.ToString()) > -1)
+                            clChats.Items.Add(string.Format("{0} ({1})", Form1.GetGroupName(clanID), clanID.AccountID), true);
+                        else
+                            clChats.Items.Add(string.Format("{0} ({1})", Form1.GetGroupName(clanID), clanID.AccountID));
+                }
             }
             else
                 clChats.Enabled = false;
