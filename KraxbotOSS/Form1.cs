@@ -205,7 +205,7 @@ namespace KraxbotOSS
             internal string ChatRequest    = "AcceptAll";
             internal EPersonaState LoginAs = EPersonaState.Online;
             internal uint Superadmin;
-            internal JArray Chatrooms;
+            internal JArray Chatrooms      = new JArray();
 
             internal string API_Steam;
             internal string API_Google;
