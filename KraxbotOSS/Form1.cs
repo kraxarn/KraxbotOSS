@@ -1372,6 +1372,7 @@ namespace KraxbotOSS
 
         private void OnThreadException(object sender, ThreadExceptionEventArgs e)
         {
+            DumpError(e.Exception);
             #if DEBUG
             #else
                 MessageBox.Show(e.Exception.Message + "\n" + e.Exception.StackTrace, "Thread Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1381,10 +1382,16 @@ namespace KraxbotOSS
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = (Exception)e.ExceptionObject;
+            DumpError(ex);
             #if DEBUG
             #else
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Unhandled Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             #endif
+        }
+        private void DumpError(Exception error)
+        {
+            string[] dump = { error.Message, error.StackTrace };
+            File.WriteAllLines(Path.Combine(configPath, "crash.log"), dump);
         }
     }
 }
