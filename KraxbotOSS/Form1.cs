@@ -1287,6 +1287,7 @@ namespace KraxbotOSS
             if (string.IsNullOrEmpty(response)) return;
             dynamic result = JsonConvert.DeserializeObject(response);
             string newVersion = result[0].tag_name;
+            newVersion = newVersion.Substring(1);
             if (version != newVersion)
             {
                 if (MessageBox.Show(string.Format("Current version is {0} \nNew Version is {1} \nDo you want to update now?", version, newVersion), "New Update Found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
