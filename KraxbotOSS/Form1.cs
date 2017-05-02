@@ -67,7 +67,8 @@ namespace KraxbotOSS
             }
 
             // Check for updates
-            CheckForUpdates();
+            if (config.Updates != "None")
+                CheckForUpdates();
 
             // Welcome the user :)
             log.AppendText("Welcome to KraxBot " + version);
