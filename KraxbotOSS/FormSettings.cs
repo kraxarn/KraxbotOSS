@@ -28,26 +28,23 @@ namespace KraxbotOSS
             int index = 0;
             switch(Form1.config.Updates)
             {
-                case "All":  index = 0; break;
                 case "None": index = 1; break;
-                default: throw new Exception("Unexpected Updates value");
+                default:     index = 0; break; // 0: All
             }
             cbUpdates.SelectedIndex = index;
 
             switch(Form1.config.FriendRequest)
             {
-                case "AcceptAll": index = 0; break;
                 case "IgnoreAll": index = 1; break;
-                default: throw new Exception("Unexpected FriendRequest value");
+                default:          index = 0; break; // 0: AcceptAll
             }
             cbFriendRequest.SelectedIndex = index;
 
             switch(Form1.config.ChatRequest)
             {
-                case "AcceptAll":      index = 0; break;
                 case "SuperadminOnly": index = 1; break;
                 case "IgnoreAll":      index = 2; break;
-                default: throw new Exception("Unexpected ChatRequest value");
+                default:               index = 0; break; // 0: AcceptAll
             }
             cbChatRequest.SelectedIndex = index;
 
