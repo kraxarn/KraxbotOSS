@@ -1258,7 +1258,7 @@ namespace KraxbotOSS
                 try {
                     return client.DownloadString(url);
                 } catch (WebException e) {
-                    Console.WriteLine(e.Message);
+                    MessageBox.Show(e.StackTrace);
                     return null;
                 }
             }
@@ -1279,26 +1279,17 @@ namespace KraxbotOSS
             else if (day % 10 == 3 && day != 13) return "rd";
             else return "th";
         }
+
         void CheckForUpdates()
         {
-            // TODO: Maybe ASync this
-            string response = Get("http://web.kraxarn.com/api/ver.php?app=kraxbot");
+            string response = Get("https://api.github.com/repos/KraXarN/KraxbotOSS/releases");
             if (string.IsNullOrEmpty(response)) return;
             dynamic result = JsonConvert.DeserializeObject(response);
-            string newVersion = version;
-            switch (config.Updates)
-            {
-                case "All": newVersion = result.stable.version_string; break;
-                case "OnlyMajor": newVersion = result.major.version_string; break;
-                case "Beta": newVersion = result.beta.version_string; break;
-            }
+            string newVersion = result[0].tag_name;
             if (version != newVersion)
             {
                 if (MessageBox.Show(string.Format("Current version is {0} \nNew Version is {1} \nDo you want to update now?", version, newVersion), "New Update Found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    // TODO: Start updater and update here
-                    System.Diagnostics.Process.Start("http://web.kraxarn.com/apps/kraxbot");
-                }
+                    System.Diagnostics.Process.Start("https://github.com/KraXarN/KraxbotOSS/releases");
             }
         }
 
