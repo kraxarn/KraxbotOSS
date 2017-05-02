@@ -231,7 +231,10 @@ namespace KraxbotOSS
             Log("Ok");
             if (File.Exists(Path.Combine(configPath, "user")))
             {
-                lNetwork.Text = "Network: Connected";
+                Invoke((MethodInvoker)delegate
+                {
+                    lNetwork.Text = "Network: Connected";
+                });
                 string[] user = File.ReadAllLines(Path.Combine(configPath, "user"));
                 FormLogin.Username = user[0];
                 Login(user[0]);
