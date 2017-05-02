@@ -28,9 +28,8 @@ namespace KraxbotOSS
             int index = 0;
             switch(Form1.config.Updates)
             {
-                case "All":       index = 0; break;
-                case "OnlyMajor": index = 1; break;
-                case "None":      index = 2; break;
+                case "All":  index = 0; break;
+                case "None": index = 1; break;
                 default: throw new Exception("Unexpected Updates value");
             }
             cbUpdates.SelectedIndex = index;
@@ -120,9 +119,8 @@ namespace KraxbotOSS
 
             switch (updates)
             {
-                case 0: Form1.config.Updates = "All";       break;
-                case 1: Form1.config.Updates = "OnlyMajor"; break;
-                case 2: Form1.config.Updates = "None";      break;
+                case 0: Form1.config.Updates = "All";  break;
+                case 1: Form1.config.Updates = "None"; break;
             }
             switch (friendRequest)
             {

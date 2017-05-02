@@ -98,7 +98,6 @@
             this.cbUpdates.FormattingEnabled = true;
             this.cbUpdates.Items.AddRange(new object[] {
             "All",
-            "Only Major",
             "None"});
             this.cbUpdates.Location = new System.Drawing.Point(6, 19);
             this.cbUpdates.Name = "cbUpdates";
