@@ -1372,7 +1372,10 @@ namespace KraxbotOSS
 
         private void OnThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            MessageBox.Show(e.Exception.Message + "\n" + e.Exception.StackTrace, "Thread Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            #if DEBUG
+            #else
+                MessageBox.Show(e.Exception.Message + "\n" + e.Exception.StackTrace, "Thread Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            #endif
             Close();
         }
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
