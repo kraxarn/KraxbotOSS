@@ -1323,7 +1323,7 @@ namespace KraxbotOSS
             // Hide the main form and show the settings form
             //this.Hide();
             Form settings = new FormSettings();
-            settings.Show();
+            settings.ShowDialog(this);
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
