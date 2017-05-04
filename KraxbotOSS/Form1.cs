@@ -281,6 +281,12 @@ namespace KraxbotOSS
                         login.Show(this);
                     });
                 }
+                else if (callback.Result == EResult.InvalidPassword && string.IsNullOrEmpty(FormLogin.Password))
+                {
+                    File.Delete(Path.Combine(configPath, "loginkey"));
+                    File.Delete(Path.Combine(configPath, "user"));
+                    MessageBox.Show("Your saved login seems to be invalid, so it was removed.\nTry logging in again.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 else if (callback.Result != EResult.TryAnotherCM)
                     MessageBox.Show("Unable to login to Steam: " + callback.Result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
