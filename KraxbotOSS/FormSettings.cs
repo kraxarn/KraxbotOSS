@@ -140,6 +140,7 @@ namespace KraxbotOSS
             }
 
             // Autojoin chatrooms
+            Form1.config.Chatrooms.Clear();
             List<int> chatrooms = new List<int>();
             if (clChats.Enabled)
             {
@@ -149,7 +150,9 @@ namespace KraxbotOSS
                         string group = clChats.Items[i].ToString();
                         from = (group.LastIndexOf('(') + 1);
                         to   = (group.LastIndexOf(')'));
-                        chatrooms.Add(int.Parse(group.Substring(from, to - from)));
+                        int groupID = int.Parse(group.Substring(from, to - from));
+                        chatrooms.Add(groupID);
+                        Form1.config.Chatrooms.Add(groupID);
                     }
             }
 
