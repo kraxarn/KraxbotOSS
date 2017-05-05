@@ -131,7 +131,7 @@ namespace KraxbotOSS
             // Superadmin
             int from, to;
             string superadmin = Form1.config.Superadmin.ToString();
-            if (cbFriends.Enabled)
+            if (cbFriends.Enabled && cbFriends.SelectedIndex > 0)
             {
                 from = (cbFriends.Text.LastIndexOf('(') + 1);
                 to   = (cbFriends.Text.LastIndexOf(')'));
