@@ -401,7 +401,7 @@ namespace KraxbotOSS
             }
             else if (state == EChatMemberStateChange.Left)
             {
-                chatRoom.Users.Remove(chatRoom.Users.Single(s => s.SteamID == callback.StateChangeInfo.ChatterActedOn.AccountID));
+                chatRoom.Users.Remove(chatRoom.Users.Single(s => s.SteamID == callback.StateChangeInfo.ChatterActedOn));
                 if (chatRoom.AllStates)
                     SendChatMessage(chatRoomID, string.Format("Good bye {0}{1}", name, chatRoom.WelcomeEnd));
             }
