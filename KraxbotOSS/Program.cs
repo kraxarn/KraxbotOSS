@@ -16,6 +16,7 @@ namespace KraxbotOSS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             Application.Run(new Form1());
         }
     }
