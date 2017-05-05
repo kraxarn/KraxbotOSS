@@ -176,6 +176,9 @@ namespace KraxbotOSS
             Form1.config.GamePlayed_ID        = gameID;
             Form1.config.GamePlayed_ExtraInfo = gameExtraInfo;
 
+            // Start game
+            Form1.PlayGame(gameID, gameExtraInfo);
+
             JObject obj = JObject.FromObject(new
             {
                 Updates       = Form1.config.Updates,

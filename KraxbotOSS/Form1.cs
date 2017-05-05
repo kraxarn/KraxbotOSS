@@ -321,14 +321,7 @@ namespace KraxbotOSS
             }
 
             // Start game
-            var playGame = new ClientMsgProtobuf<CMsgClientGamesPlayed>(EMsg.ClientGamesPlayed);
-            playGame.Body.games_played.Add(new CMsgClientGamesPlayed.GamePlayed
-            {
-                game_id = config.GamePlayed_ID,
-                game_extra_info = config.GamePlayed_ExtraInfo
-
-            });
-            client.Send(playGame);
+            PlayGame(config.GamePlayed_ID, config.GamePlayed_ExtraInfo);
         }
         void OnFriendAdded(SteamFriends.FriendAddedCallback callback)
         {
@@ -1199,6 +1192,17 @@ namespace KraxbotOSS
         public static string GetGroupName(SteamID clanID)
         {
             return friends.GetClanName(clanID);
+        }
+        public static void PlayGame(ulong gameID, string gameExtraInfo)
+        {
+            var playGame = new ClientMsgProtobuf<CMsgClientGamesPlayed>(EMsg.ClientGamesPlayed);
+            playGame.Body.games_played.Add(new CMsgClientGamesPlayed.GamePlayed
+            {
+                game_id = gameID,
+                game_extra_info = gameExtraInfo
+
+            });
+            client.Send(playGame);
         }
 
         // -- Other stuffs -- //
