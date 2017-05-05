@@ -723,12 +723,22 @@ namespace KraxbotOSS
                         switch(set[2])
                         {
                             case "ban":
-                                chatRoom.Spam = "Ban";
-                                SendChatMessage(chatRoomID, "Spam will now ban");
+                                if (CheckPermission("ban", bot.Permission))
+                                {
+                                    chatRoom.Spam = "Ban";
+                                    SendChatMessage(chatRoomID, "Spam will now ban");
+                                }
+                                else
+                                    SendChatMessage(chatRoomID, "I don't have permission to ban users");
                                 break;
                             case "kick":
-                                chatRoom.Spam = "Kick";
-                                SendChatMessage(chatRoomID, "Spam will now kick");
+                                if (CheckPermission("kick", bot.Permission))
+                                {
+                                    chatRoom.Spam = "Kick";
+                                    SendChatMessage(chatRoomID, "Spam will now kick");
+                                }
+                                else
+                                    SendChatMessage(chatRoomID, "I don't have permission to kick users");
                                 break;
                             case "none":
                                 chatRoom.Spam = "None";
