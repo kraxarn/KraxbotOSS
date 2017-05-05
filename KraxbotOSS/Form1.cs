@@ -548,37 +548,41 @@ namespace KraxbotOSS
                         string response = Get(links[i]);
                         if (!string.IsNullOrEmpty(response))
                         {
-                            string title = GetStringBetween(GetStringBetween(response, "<title", "</title"), ">");
-                            if (title.IndexOf("YouTube") > -1)
+                            if (response.IndexOf("<title") > -1 && response.IndexOf("</title>") > -1)
                             {
-                                // Youtube
-                                if (string.IsNullOrEmpty(config.API_Google))
+                                string title = GetStringBetween(GetStringBetween(response, "<title", "</title"), ">");
+                                if (title.IndexOf("YouTube") > -1)
                                 {
-                                    string video = title.Substring(0, title.LastIndexOf("- YouTube"));
-                                    SendChatMessage(chatRoomID, string.Format("{0} posted a video: {1}", name, video));
-                                } else
-                                {
-                                    string videoID = null;
-                                    if (links[i].StartsWith("https://youtu.be/"))
-                                        videoID = links[i].Substring(17, 11);
-                                    else
-                                        videoID = links[i].Substring(32, 11);
-                                    if (!string.IsNullOrEmpty(videoID))
+                                    // Youtube
+                                    if (string.IsNullOrEmpty(config.API_Google))
                                     {
-                                        dynamic info = JsonConvert.DeserializeObject(Get("https://www.googleapis.com/youtube/v3/videos?id=" + videoID + "&key=" + config.API_Google + "&part=statistics,snippet,contentDetails"));
-                                        dynamic video = info.items[0];
-                                        TimeSpan time = System.Xml.XmlConvert.ToTimeSpan(video.contentDetails.duration.ToString());
-                                        string duration = time.Minutes + ":" + time.Seconds;
-                                        SendChatMessage(chatRoomID, string.Format("{0} posted a video: {1} by {2} with {3} views, lasting {4}", name, video.snippet.title, video.snippet.channelTitle, video.statistics.viewCount.ToString(), duration));
+                                        string video = title.Substring(0, title.LastIndexOf("- YouTube"));
+                                        SendChatMessage(chatRoomID, string.Format("{0} posted a video: {1}", name, video));
+                                    }
+                                    else
+                                    {
+                                        string videoID = null;
+                                        if (links[i].StartsWith("https://youtu.be/"))
+                                            videoID = links[i].Substring(17, 11);
+                                        else
+                                            videoID = links[i].Substring(32, 11);
+                                        if (!string.IsNullOrEmpty(videoID))
+                                        {
+                                            dynamic info = JsonConvert.DeserializeObject(Get("https://www.googleapis.com/youtube/v3/videos?id=" + videoID + "&key=" + config.API_Google + "&part=statistics,snippet,contentDetails"));
+                                            dynamic video = info.items[0];
+                                            TimeSpan time = System.Xml.XmlConvert.ToTimeSpan(video.contentDetails.duration.ToString());
+                                            string duration = time.Minutes + ":" + time.Seconds;
+                                            SendChatMessage(chatRoomID, string.Format("{0} posted a video: {1} by {2} with {3} views, lasting {4}", name, video.snippet.title, video.snippet.channelTitle, video.statistics.viewCount.ToString(), duration));
+                                        }
                                     }
                                 }
+                                else if (title.IndexOf("on Steam") > -1)
+                                    SendChatMessage(chatRoomID, string.Format("{0} posted a game: {1}", name, GetStringBetween(title, "", "on Steam")));
+                                else if (title.IndexOf("Steam Community :: Screenshot") > -1)
+                                    SendChatMessage(chatRoomID, string.Format("{0} posted a screenshot from {1}", name, GetStringBetween(response, "This item is incompatible with ", ". Please see the")));
+                                else if (title.IndexOf("Item Inventory") < 0)
+                                    SendChatMessage(chatRoomID, string.Format("{0} posted {1}", name, title.Trim()));
                             }
-                            else if (title.IndexOf("on Steam") > -1)
-                                SendChatMessage(chatRoomID, string.Format("{0} posted a game: {1}", name, GetStringBetween(title, "", "on Steam")));
-                            else if (title.IndexOf("Steam Community :: Screenshot") > -1)
-                                SendChatMessage(chatRoomID, string.Format("{0} posted a screenshot from {1}", name, GetStringBetween(response, "This item is incompatible with ", ". Please see the")));
-                            else if (title.IndexOf("Item Inventory") < 0)
-                                SendChatMessage(chatRoomID, string.Format("{0} posted {1}", name, title.Trim()));
                         }
                     }
                 }
