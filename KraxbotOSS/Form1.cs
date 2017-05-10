@@ -442,25 +442,28 @@ namespace KraxbotOSS
             SteamID userID = callback.Sender;
             if (!string.IsNullOrEmpty(message.Trim()))
             {
-                Log(string.Format("\n{0}: {1}", friends.GetFriendPersonaName(callback.Sender), message));
-
-                // Check if we have a Cleverbot session
-                if (!CB.Exists(x => x.SteamID == userID))
+                if (!string.IsNullOrEmpty(config.API_CleverbotIO))
                 {
-                    Log(string.Format("\nNo Cleverbot session for {0}", friends.GetFriendPersonaName(userID)));
-                    string[] apikey = config.API_CleverbotIO.Split(';');
-                    CB.Add(new CleverbotUser()
+                    Log(string.Format("\n{0}: {1}", friends.GetFriendPersonaName(callback.Sender), message));
+
+                    // Check if we have a Cleverbot session
+                    if (!CB.Exists(x => x.SteamID == userID))
                     {
-                        SteamID = userID,
-                        Session = CleverbotSession.NewSession(apikey[0], apikey[1])
-                    });
+                        Log(string.Format("\nNo Cleverbot session for {0}", friends.GetFriendPersonaName(userID)));
+                        string[] apikey = config.API_CleverbotIO.Split(';');
+                        CB.Add(new CleverbotUser()
+                        {
+                            SteamID = userID,
+                            Session = CleverbotSession.NewSession(apikey[0], apikey[1])
+                        });
+                    }
+                    // Use Cleverbot
+                    CleverbotSession session = CB.Single(s => s.SteamID == userID).Session;
+                    try
+                    { SendMessage(userID, session.Send(message)); }
+                    catch (Exception e)
+                    { Log("\n" + e.Message); }
                 }
-                // Use Cleverbot
-                CleverbotSession session = CB.Single(s => s.SteamID == userID).Session;
-                try
-                { SendMessage(userID, session.Send(message)); }
-                catch (Exception e)
-                { Log("\n" + e.Message); }
             }
         }
         void OnChatMsg(SteamFriends.ChatMsgCallback callback)
@@ -593,7 +596,7 @@ namespace KraxbotOSS
             }
 
             // Cleverbot
-            if (message.StartsWith("."))
+            if (message.StartsWith(".") && !string.IsNullOrEmpty(config.API_CleverbotIO))
             {
                 // Check if we have a Cleverbot session
                 if (!CB.Exists(x => x.SteamID == chatRoomID))
