@@ -355,10 +355,6 @@ namespace KraxbotOSS
                 CreateSettings(callback.ChatID, callback.ChatRoomName, callback.FriendID.AccountID, friends.GetFriendPersonaName(callback.FriendID));
             Settings chatRoom = CR.Single(s => s.ChatID == callback.ChatID);
 
-            // Check if we have permission to kick
-            if (!CheckPermission("kick", chatRoom.Users.Single(s => s.SteamID == client.SteamID).Permission))
-                chatRoom.Spam = "None";
-
             // Add all current users to the Users list
             chatRoom.Users.Clear();
             foreach (SteamFriends.ChatMemberInfo member in callback.ChatMembers)
@@ -369,6 +365,10 @@ namespace KraxbotOSS
                     Permission = member.Permissions
                 });
             }
+
+            // Check if we have permission to kick
+            if (!CheckPermission("kick", chatRoom.Users.Single(s => s.SteamID == client.SteamID).Permission))
+                chatRoom.Spam = "None";
 
             // Then save settings
             SaveSettings(chatRoom);
