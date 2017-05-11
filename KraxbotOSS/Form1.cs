@@ -375,32 +375,35 @@ namespace KraxbotOSS
         }
         void OnChatMemberInfo(SteamFriends.ChatMemberInfoCallback callback)
         {
-            // Vars
-            Settings chatRoom = CR.Single(s => s.ChatID == callback.ChatRoomID);
-            SteamID chatRoomID = callback.ChatRoomID;
-            EChatMemberStateChange state = callback.StateChangeInfo.StateChange;
-            string name = friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn);
-
-            // When a user enters or leaves a chat
-            Log(string.Format("\n[{0}] {1} {2}", chatRoom.ChatName.Substring(0, 3), friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn), callback.StateChangeInfo.StateChange));
-
-            // Add or remove user from Users list
-            if (state == EChatMemberStateChange.Entered)
+            if (callback.Type == EChatInfoType.StateChange)
             {
-                chatRoom.Users.Add(new UserInfo()
+                // Vars
+                Settings chatRoom = CR.Single(s => s.ChatID == callback.ChatRoomID);
+                SteamID chatRoomID = callback.ChatRoomID;
+                EChatMemberStateChange state = callback.StateChangeInfo.StateChange;
+                string name = friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn);
+
+                // When a user enters or leaves a chat
+                Log(string.Format("\n[{0}] {1} {2}", chatRoom.ChatName.Substring(0, 3), friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn), callback.StateChangeInfo.StateChange));
+
+                // Add or remove user from Users list
+                if (state == EChatMemberStateChange.Entered)
                 {
-                    SteamID    = callback.StateChangeInfo.MemberInfo.SteamID,
-                    Permission = callback.StateChangeInfo.MemberInfo.Permissions,
-                    Rank       = callback.StateChangeInfo.MemberInfo.Details
-                });
-                if (chatRoom.Welcome)
-                    SendChatMessage(chatRoomID, string.Format("{0} {1}{2}", chatRoom.WelcomeMsg, name, chatRoom.WelcomeEnd));
-            }
-            else if (state == EChatMemberStateChange.Left)
-            {
-                chatRoom.Users.Remove(chatRoom.Users.Single(s => s.SteamID == callback.StateChangeInfo.ChatterActedOn));
-                if (chatRoom.AllStates)
-                    SendChatMessage(chatRoomID, string.Format("Good bye {0}{1}", name, chatRoom.WelcomeEnd));
+                    chatRoom.Users.Add(new UserInfo()
+                    {
+                        SteamID    = callback.StateChangeInfo.MemberInfo.SteamID,
+                        Permission = callback.StateChangeInfo.MemberInfo.Permissions,
+                        Rank       = callback.StateChangeInfo.MemberInfo.Details
+                    });
+                    if (chatRoom.Welcome)
+                        SendChatMessage(chatRoomID, string.Format("{0} {1}{2}", chatRoom.WelcomeMsg, name, chatRoom.WelcomeEnd));
+                }
+                else if (state == EChatMemberStateChange.Left)
+                {
+                    chatRoom.Users.Remove(chatRoom.Users.Single(s => s.SteamID == callback.StateChangeInfo.ChatterActedOn));
+                    if (chatRoom.AllStates)
+                        SendChatMessage(chatRoomID, string.Format("Good bye {0}{1}", name, chatRoom.WelcomeEnd));
+                }
             }
         }
         void OnLoggedOff(SteamUser.LoggedOffCallback callback)
