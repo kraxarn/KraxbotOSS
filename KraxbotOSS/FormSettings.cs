@@ -102,7 +102,12 @@ namespace KraxbotOSS
             if (!string.IsNullOrEmpty(tbApiWeather.Text))
                 Form1.config.API_OpenWeather = tbApiWeather.Text;
             if (!string.IsNullOrEmpty(tbApiCleverbot.Text))
-                Form1.config.API_CleverbotIO = tbApiCleverbot.Text;
+            {
+                if (tbApiCleverbot.Text.Contains(';'))
+                    Form1.config.API_CleverbotIO = tbApiCleverbot.Text;
+                else
+                    MessageBox.Show("Cleverbot API key doesn't seem to have been correctly entered, so it was ignored", "Cleverbot API Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             // Set variables
             int updates       = cbUpdates.SelectedIndex;
