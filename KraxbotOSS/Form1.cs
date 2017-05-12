@@ -452,7 +452,7 @@ namespace KraxbotOSS
                     // Check if we have a Cleverbot session
                     if (!CB.Exists(x => x.SteamID == userID))
                     {
-                        Log(string.Format("\nNo Cleverbot session for {0}", friends.GetFriendPersonaName(userID)));
+                        Log(string.Format("\nCreated Cleverbot session for {0}", friends.GetFriendPersonaName(userID)));
                         string[] apikey = config.API_CleverbotIO.Split(';');
                         CB.Add(new CleverbotUser()
                         {
@@ -604,7 +604,7 @@ namespace KraxbotOSS
                 // Check if we have a Cleverbot session
                 if (!CB.Exists(x => x.SteamID == chatRoomID))
                 {
-                    Log(string.Format("\nNo Cleverbot session for {0}", chatRoom.ChatName));
+                    Log(string.Format("\nCreated Cleverbot session for {0}", chatRoom.ChatName));
                     string[] apikey = config.API_CleverbotIO.Split(';');
                     CB.Add(new CleverbotUser()
                     {
