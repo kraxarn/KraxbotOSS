@@ -398,11 +398,18 @@ namespace KraxbotOSS
                     if (chatRoom.Welcome)
                         SendChatMessage(chatRoomID, string.Format("{0} {1}{2}", chatRoom.WelcomeMsg, name, chatRoom.WelcomeEnd));
                 }
-                else if (state == EChatMemberStateChange.Left)
+                else if (state == EChatMemberStateChange.Left && chatRoom.AllStates)
+                    SendChatMessage(chatRoomID, string.Format("Good bye {0}{1}", name, chatRoom.WelcomeEnd));
+
+                // Remove user if left in some way
+                switch(state)
                 {
-                    chatRoom.Users.Remove(chatRoom.Users.Single(s => s.SteamID == callback.StateChangeInfo.ChatterActedOn));
-                    if (chatRoom.AllStates)
-                        SendChatMessage(chatRoomID, string.Format("Good bye {0}{1}", name, chatRoom.WelcomeEnd));
+                    case EChatMemberStateChange.Banned:
+                    case EChatMemberStateChange.Disconnected:
+                    case EChatMemberStateChange.Kicked:
+                    case EChatMemberStateChange.Left:
+                        chatRoom.Users.Remove(chatRoom.Users.Single(s => s.SteamID == callback.StateChangeInfo.ChatterActedOn));
+                        break;
                 }
             }
         }
