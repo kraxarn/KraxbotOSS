@@ -426,6 +426,8 @@ namespace KraxbotOSS
                             Invoke((MethodInvoker)delegate
                             {
                                 lbChatrooms.Items.Remove(chatRoom.ChatName);
+                                if (lbChatrooms.Items.Count == 0)
+                                    btnChatroomInfo.Enabled = false;
                             });
                             break;
                     }
