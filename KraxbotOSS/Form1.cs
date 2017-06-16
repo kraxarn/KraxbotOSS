@@ -653,7 +653,7 @@ namespace KraxbotOSS
             {
                 if (isMod || userID == chatRoom.InvitedID)
                 {
-                    Log(string.Format("Left {0} with request from {1}", chatRoom.ChatName, name));
+                    Log(string.Format("\nLeft {0} with request from {1}", chatRoom.ChatName, name));
                     SaveSettings(chatRoom);
                     CR.Remove(CR.Single(s => s.ChatID == callback.ChatRoomID));
                     Invoke((MethodInvoker)delegate
