@@ -411,6 +411,25 @@ namespace KraxbotOSS
                         chatRoom.Users.Remove(chatRoom.Users.Single(s => s.SteamID == callback.StateChangeInfo.ChatterActedOn));
                         break;
                 }
+
+                // See if bot left the chat
+                if (callback.StateChangeInfo.ChatterActedOn == client.SteamID)
+                {
+                    switch (state)
+                    {
+                        case EChatMemberStateChange.Banned:
+                        case EChatMemberStateChange.Disconnected:
+                        case EChatMemberStateChange.Kicked:
+                        case EChatMemberStateChange.Left:
+                            SaveSettings(chatRoom);
+                            CR.Remove(CR.Single(s => s.ChatID == callback.ChatRoomID));
+                            Invoke((MethodInvoker)delegate
+                            {
+                                lbChatrooms.Items.Remove(chatRoom.ChatName);
+                            });
+                            break;
+                    }
+                }
             }
         }
         void OnLoggedOff(SteamUser.LoggedOffCallback callback)
