@@ -1,9 +1,10 @@
 ![Kraxbot: Open Source](https://vgy.me/ZA2UEo.png)
-Open source and cross platform Steam bot
+
+![](https://vgy.me/uIzIiE.png)
 
 # About
-A Steambot based off DASH-E 3.0, but uses a different programming language, so not really.
-Why? To make it easier to run for other users.
+A Steam chat bot based off DASH-E 3.0, but uses a different programming language, so not really.
+Why? To make it easier to run for other users and to provide a simple GUI.
 
 # Pre-Built Executables
 Check the releases page. Currently, some manual steps are required to run it on Linux and macOS. If enough people are intrested in running it on those systems, I might make special executables for them.
