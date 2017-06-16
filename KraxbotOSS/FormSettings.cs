@@ -95,18 +95,17 @@ namespace KraxbotOSS
         private void btnSave_Click(object sender, EventArgs e)
         {
             // API Keys
-            if (!string.IsNullOrEmpty(tbApiSteam.Text))
-                Form1.config.API_Steam = tbApiSteam.Text;
-            if (!string.IsNullOrEmpty(tbApiGoogle.Text))
-                Form1.config.API_Google = tbApiGoogle.Text;
-            if (!string.IsNullOrEmpty(tbApiWeather.Text))
-                Form1.config.API_OpenWeather = tbApiWeather.Text;
-            if (!string.IsNullOrEmpty(tbApiCleverbot.Text))
+            Form1.config.API_Steam = tbApiSteam.Text;
+            Form1.config.API_Google = tbApiGoogle.Text;
+            Form1.config.API_OpenWeather = tbApiWeather.Text;
+            if (String.IsNullOrEmpty(tbApiCleverbot.Text))
+                Form1.config.API_CleverbotIO = null;
+            else if (tbApiCleverbot.Text.Contains(';'))
+                Form1.config.API_CleverbotIO = tbApiCleverbot.Text;
+            else
             {
-                if (tbApiCleverbot.Text.Contains(';'))
-                    Form1.config.API_CleverbotIO = tbApiCleverbot.Text;
-                else
-                    MessageBox.Show("Cleverbot API key doesn't seem to have been correctly entered, so it was ignored", "Cleverbot API Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Cleverbot API key doesn't seem to have been correctly entered, so it was ignored", "Cleverbot API Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Form1.config.API_CleverbotIO = null;
             }
 
             // Set variables
