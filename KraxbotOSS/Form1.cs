@@ -654,6 +654,14 @@ namespace KraxbotOSS
                 if (isMod || userID == chatRoom.InvitedID)
                 {
                     Log(string.Format("Left {0} with request from {1}", chatRoom.ChatName, name));
+                    SaveSettings(chatRoom);
+                    CR.Remove(CR.Single(s => s.ChatID == callback.ChatRoomID));
+                    Invoke((MethodInvoker)delegate
+                    {
+                        lbChatrooms.Items.Remove(chatRoom.ChatName);
+                        if (lbChatrooms.Items.Count == 0)
+                            btnChatroomInfo.Enabled = false;
+                    });
                     friends.LeaveChat(chatRoomID);
                 }
             }
