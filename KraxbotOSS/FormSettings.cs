@@ -90,6 +90,14 @@ namespace KraxbotOSS
             }
             else
                 tbGameInfo.Text = Form1.config.GamePlayed_ID.ToString();
+
+			// Discord
+			gbDiscordToken.Enabled = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = cbEnableDiscord.Checked = Form1.config.Discord_Enabled;
+			tbDiscordToken.Text            = Form1.config.Discord_Token;
+			tbDiscordAdmin.Text            = Form1.config.Discord_Admin;
+			cbDiscordAllowCommands.Checked = Form1.config.Discord_AllowCommands;
+			cbDiscordToSteam.Checked       = Form1.config.Discord_DiscordToSteam;
+			cbSteamToDiscord.Checked       = Form1.config.Discord_SteamToDiscord;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -183,7 +191,15 @@ namespace KraxbotOSS
             // Start game
             Form1.PlayGame(gameID, gameExtraInfo);
 
-            JObject obj = JObject.FromObject(new
+			// Discord
+			Form1.config.Discord_Enabled        = cbEnableDiscord.Checked;
+			Form1.config.Discord_Token          = tbDiscordToken.Text;
+			Form1.config.Discord_Admin          = tbDiscordAdmin.Text;
+			Form1.config.Discord_AllowCommands  = cbDiscordAllowCommands.Checked;
+			Form1.config.Discord_DiscordToSteam = cbDiscordToSteam.Checked;
+			Form1.config.Discord_SteamToDiscord = cbSteamToDiscord.Checked;
+
+			JObject obj = JObject.FromObject(new
             {
                 Updates       = Form1.config.Updates,
                 FriendRequest = Form1.config.FriendRequest,
@@ -202,7 +218,16 @@ namespace KraxbotOSS
                 {
                     ID = gameID,
                     ExtraInfo = gameExtraInfo
-                }
+                },
+				Discord = new
+				{
+					Enabled        = Form1.config.Discord_Enabled,
+					Token          = Form1.config.Discord_Token,
+					Admin          = Form1.config.Discord_Admin,
+					AllowCommands  = Form1.config.Discord_AllowCommands,
+					DiscordToSteam = Form1.config.Discord_DiscordToSteam,
+					SteamToDiscord = Form1.config.Discord_SteamToDiscord
+				}
             });
 
             File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrowGames", "KraxbotOSS", "settings.json"), JsonConvert.SerializeObject(obj, Formatting.Indented));
@@ -228,9 +253,16 @@ namespace KraxbotOSS
                 lBuildDate.Text = "This version was built on \n" + buildDate;
         }
 
-        private void btnHomePage_Click(object sender, EventArgs e) => Process.Start("https://github.com/KraXarN/KraxbotOSS");
-        private void btnMoreInfo_Click(object sender, EventArgs e) => Process.Start("https://github.com/KraXarN/KraxbotOSS/wiki/API-Keys");
-        private void btnForgetLogin_Click(object sender, EventArgs e)
+        private void btnHomePage_Click(object sender, EventArgs e)    => Process.Start("https://github.com/KraXarN/KraxbotOSS");
+        private void btnMoreInfo_Click(object sender, EventArgs e)    => Process.Start("https://github.com/KraXarN/KraxbotOSS/wiki/API-Keys");
+		private void btnDiscordHelp_Click(object sender, EventArgs e) => Process.Start("https://github.com/kraxarn/KraxbotOSS/wiki/Discord");
+
+		private void cbEnableDiscord_Click(object sender, EventArgs e)
+		{
+			gbDiscordToken.Enabled = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = cbEnableDiscord.Checked;
+		}
+
+		private void btnForgetLogin_Click(object sender, EventArgs e)
         {
             File.Delete(Path.Combine(Form1.configPath, "loginkey"));
             File.Delete(Path.Combine(Form1.configPath, "user"));

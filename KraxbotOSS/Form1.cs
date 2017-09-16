@@ -64,6 +64,12 @@ namespace KraxbotOSS
                 config.API_CleverbotIO      = json.API.CleverbotIO;
                 config.GamePlayed_ID        = json.GamePlayed.ID;
                 config.GamePlayed_ExtraInfo = json.GamePlayed.ExtraInfo;
+
+				// Discord settings
+				if (json.Discord != null)
+				{
+					config.Discord_Enabled = json.Discord.Enabled;
+				}
             }
 
             // Check for updates
@@ -215,6 +221,14 @@ namespace KraxbotOSS
 
             internal ulong  GamePlayed_ID;
             internal string GamePlayed_ExtraInfo;
+
+			// 1.1: Discord Settings
+			internal bool   Discord_Enabled = false;
+			internal string Discord_Token;
+			internal string Discord_Admin;
+			internal bool   Discord_AllowCommands  = false;
+			internal bool   Discord_DiscordToSteam = true;
+			internal bool   Discord_SteamToDiscord = true;
         }
 
         // -- Steam callbacks -- //
