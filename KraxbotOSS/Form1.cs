@@ -68,7 +68,12 @@ namespace KraxbotOSS
 				// Discord settings
 				if (json.Discord != null)
 				{
-					config.Discord_Enabled = json.Discord.Enabled;
+					config.Discord_Enabled        = json.Discord.Enabled;
+					config.Discord_Token          = json.Discord.Token;
+					config.Discord_Admin          = json.Discord.Admin;
+					config.Discord_StateChanges   = json.Discord.StateChanges;
+					config.Discord_DiscordToSteam = json.Discord.DiscordToSteam;
+					config.Discord_SteamToDiscord = json.Discord.SteamToDiscord;
 				}
             }
 
