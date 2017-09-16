@@ -58,22 +58,22 @@
 			this.tbApiGoogle = new System.Windows.Forms.TextBox();
 			this.groupBox8 = new System.Windows.Forms.GroupBox();
 			this.tbApiWeather = new System.Windows.Forms.TextBox();
+			this.tpDiscord = new System.Windows.Forms.TabPage();
+			this.gbDiscordAdmin = new System.Windows.Forms.GroupBox();
+			this.tbDiscordAdmin = new System.Windows.Forms.TextBox();
+			this.btnDiscordHelp = new System.Windows.Forms.Button();
+			this.gbDiscordSettings = new System.Windows.Forms.GroupBox();
+			this.cbSteamToDiscord = new System.Windows.Forms.CheckBox();
+			this.cbDiscordToSteam = new System.Windows.Forms.CheckBox();
+			this.cbDiscordStateChanges = new System.Windows.Forms.CheckBox();
+			this.cbEnableDiscord = new System.Windows.Forms.CheckBox();
+			this.gbDiscordToken = new System.Windows.Forms.GroupBox();
+			this.tbDiscordToken = new System.Windows.Forms.TextBox();
 			this.tpAbout = new System.Windows.Forms.TabPage();
 			this.btnHomePage = new System.Windows.Forms.Button();
 			this.lBuildDate = new System.Windows.Forms.Label();
 			this.btnForgetLogin = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
-			this.tpDiscord = new System.Windows.Forms.TabPage();
-			this.cbEnableDiscord = new System.Windows.Forms.CheckBox();
-			this.gbDiscordToken = new System.Windows.Forms.GroupBox();
-			this.tbDiscordToken = new System.Windows.Forms.TextBox();
-			this.cbDiscordAllowCommands = new System.Windows.Forms.CheckBox();
-			this.gbDiscordSettings = new System.Windows.Forms.GroupBox();
-			this.cbDiscordToSteam = new System.Windows.Forms.CheckBox();
-			this.cbSteamToDiscord = new System.Windows.Forms.CheckBox();
-			this.btnDiscordHelp = new System.Windows.Forms.Button();
-			this.gbDiscordAdmin = new System.Windows.Forms.GroupBox();
-			this.tbDiscordAdmin = new System.Windows.Forms.TextBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -90,11 +90,11 @@
 			this.groupBox7.SuspendLayout();
 			this.groupBox9.SuspendLayout();
 			this.groupBox8.SuspendLayout();
-			this.tpAbout.SuspendLayout();
 			this.tpDiscord.SuspendLayout();
-			this.gbDiscordToken.SuspendLayout();
-			this.gbDiscordSettings.SuspendLayout();
 			this.gbDiscordAdmin.SuspendLayout();
+			this.gbDiscordSettings.SuspendLayout();
+			this.gbDiscordToken.SuspendLayout();
+			this.tpAbout.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -262,7 +262,7 @@
 			this.tpGeneral.Location = new System.Drawing.Point(4, 22);
 			this.tpGeneral.Name = "tpGeneral";
 			this.tpGeneral.Padding = new System.Windows.Forms.Padding(3);
-			this.tpGeneral.Size = new System.Drawing.Size(293, 294);
+			this.tpGeneral.Size = new System.Drawing.Size(312, 294);
 			this.tpGeneral.TabIndex = 0;
 			this.tpGeneral.Text = "General";
 			this.tpGeneral.UseVisualStyleBackColor = true;
@@ -410,6 +410,124 @@
 			this.tbApiWeather.Size = new System.Drawing.Size(239, 20);
 			this.tbApiWeather.TabIndex = 0;
 			// 
+			// tpDiscord
+			// 
+			this.tpDiscord.Controls.Add(this.gbDiscordAdmin);
+			this.tpDiscord.Controls.Add(this.btnDiscordHelp);
+			this.tpDiscord.Controls.Add(this.gbDiscordSettings);
+			this.tpDiscord.Controls.Add(this.cbEnableDiscord);
+			this.tpDiscord.Controls.Add(this.gbDiscordToken);
+			this.tpDiscord.Location = new System.Drawing.Point(4, 22);
+			this.tpDiscord.Name = "tpDiscord";
+			this.tpDiscord.Size = new System.Drawing.Size(312, 294);
+			this.tpDiscord.TabIndex = 5;
+			this.tpDiscord.Text = "Discord";
+			this.tpDiscord.UseVisualStyleBackColor = true;
+			// 
+			// gbDiscordAdmin
+			// 
+			this.gbDiscordAdmin.Controls.Add(this.tbDiscordAdmin);
+			this.gbDiscordAdmin.Enabled = false;
+			this.gbDiscordAdmin.Location = new System.Drawing.Point(20, 95);
+			this.gbDiscordAdmin.Name = "gbDiscordAdmin";
+			this.gbDiscordAdmin.Size = new System.Drawing.Size(273, 50);
+			this.gbDiscordAdmin.TabIndex = 5;
+			this.gbDiscordAdmin.TabStop = false;
+			this.gbDiscordAdmin.Text = "Admin";
+			// 
+			// tbDiscordAdmin
+			// 
+			this.tbDiscordAdmin.Location = new System.Drawing.Point(7, 20);
+			this.tbDiscordAdmin.Name = "tbDiscordAdmin";
+			this.tbDiscordAdmin.Size = new System.Drawing.Size(260, 20);
+			this.tbDiscordAdmin.TabIndex = 0;
+			// 
+			// btnDiscordHelp
+			// 
+			this.btnDiscordHelp.Location = new System.Drawing.Point(230, 265);
+			this.btnDiscordHelp.Name = "btnDiscordHelp";
+			this.btnDiscordHelp.Size = new System.Drawing.Size(75, 23);
+			this.btnDiscordHelp.TabIndex = 4;
+			this.btnDiscordHelp.Text = "Help";
+			this.btnDiscordHelp.UseVisualStyleBackColor = true;
+			this.btnDiscordHelp.Click += new System.EventHandler(this.btnDiscordHelp_Click);
+			// 
+			// gbDiscordSettings
+			// 
+			this.gbDiscordSettings.Controls.Add(this.cbSteamToDiscord);
+			this.gbDiscordSettings.Controls.Add(this.cbDiscordToSteam);
+			this.gbDiscordSettings.Controls.Add(this.cbDiscordStateChanges);
+			this.gbDiscordSettings.Enabled = false;
+			this.gbDiscordSettings.Location = new System.Drawing.Point(20, 150);
+			this.gbDiscordSettings.Name = "gbDiscordSettings";
+			this.gbDiscordSettings.Size = new System.Drawing.Size(273, 100);
+			this.gbDiscordSettings.TabIndex = 3;
+			this.gbDiscordSettings.TabStop = false;
+			this.gbDiscordSettings.Text = "Settings";
+			// 
+			// cbSteamToDiscord
+			// 
+			this.cbSteamToDiscord.AutoSize = true;
+			this.cbSteamToDiscord.Checked = true;
+			this.cbSteamToDiscord.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbSteamToDiscord.Location = new System.Drawing.Point(10, 70);
+			this.cbSteamToDiscord.Name = "cbSteamToDiscord";
+			this.cbSteamToDiscord.Size = new System.Drawing.Size(186, 17);
+			this.cbSteamToDiscord.TabIndex = 4;
+			this.cbSteamToDiscord.Text = "Send Steam Messages to Discord";
+			this.cbSteamToDiscord.UseVisualStyleBackColor = true;
+			// 
+			// cbDiscordToSteam
+			// 
+			this.cbDiscordToSteam.AutoSize = true;
+			this.cbDiscordToSteam.Checked = true;
+			this.cbDiscordToSteam.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbDiscordToSteam.Location = new System.Drawing.Point(10, 45);
+			this.cbDiscordToSteam.Name = "cbDiscordToSteam";
+			this.cbDiscordToSteam.Size = new System.Drawing.Size(186, 17);
+			this.cbDiscordToSteam.TabIndex = 3;
+			this.cbDiscordToSteam.Text = "Send Discord Messages to Steam";
+			this.cbDiscordToSteam.UseVisualStyleBackColor = true;
+			// 
+			// cbDiscordStateChanges
+			// 
+			this.cbDiscordStateChanges.AutoSize = true;
+			this.cbDiscordStateChanges.Location = new System.Drawing.Point(10, 20);
+			this.cbDiscordStateChanges.Name = "cbDiscordStateChanges";
+			this.cbDiscordStateChanges.Size = new System.Drawing.Size(157, 17);
+			this.cbDiscordStateChanges.TabIndex = 2;
+			this.cbDiscordStateChanges.Text = "Notify About State Changes";
+			this.cbDiscordStateChanges.UseVisualStyleBackColor = true;
+			// 
+			// cbEnableDiscord
+			// 
+			this.cbEnableDiscord.AutoSize = true;
+			this.cbEnableDiscord.Location = new System.Drawing.Point(20, 15);
+			this.cbEnableDiscord.Name = "cbEnableDiscord";
+			this.cbEnableDiscord.Size = new System.Drawing.Size(138, 17);
+			this.cbEnableDiscord.TabIndex = 1;
+			this.cbEnableDiscord.Text = "Enable Discord Support";
+			this.cbEnableDiscord.UseVisualStyleBackColor = true;
+			this.cbEnableDiscord.Click += new System.EventHandler(this.cbEnableDiscord_Click);
+			// 
+			// gbDiscordToken
+			// 
+			this.gbDiscordToken.Controls.Add(this.tbDiscordToken);
+			this.gbDiscordToken.Enabled = false;
+			this.gbDiscordToken.Location = new System.Drawing.Point(20, 38);
+			this.gbDiscordToken.Name = "gbDiscordToken";
+			this.gbDiscordToken.Size = new System.Drawing.Size(273, 50);
+			this.gbDiscordToken.TabIndex = 0;
+			this.gbDiscordToken.TabStop = false;
+			this.gbDiscordToken.Text = "Bot Token";
+			// 
+			// tbDiscordToken
+			// 
+			this.tbDiscordToken.Location = new System.Drawing.Point(7, 20);
+			this.tbDiscordToken.Name = "tbDiscordToken";
+			this.tbDiscordToken.Size = new System.Drawing.Size(260, 20);
+			this.tbDiscordToken.TabIndex = 0;
+			// 
 			// tpAbout
 			// 
 			this.tpAbout.Controls.Add(this.btnHomePage);
@@ -419,7 +537,7 @@
 			this.tpAbout.Location = new System.Drawing.Point(4, 22);
 			this.tpAbout.Name = "tpAbout";
 			this.tpAbout.Padding = new System.Windows.Forms.Padding(3);
-			this.tpAbout.Size = new System.Drawing.Size(293, 294);
+			this.tpAbout.Size = new System.Drawing.Size(312, 294);
 			this.tpAbout.TabIndex = 4;
 			this.tpAbout.Text = "About";
 			this.tpAbout.UseVisualStyleBackColor = true;
@@ -463,124 +581,6 @@
     "en source and will always be. If you decide to make your own software based off " +
     "this, please don\'t remove this notice.";
 			// 
-			// tpDiscord
-			// 
-			this.tpDiscord.Controls.Add(this.gbDiscordAdmin);
-			this.tpDiscord.Controls.Add(this.btnDiscordHelp);
-			this.tpDiscord.Controls.Add(this.gbDiscordSettings);
-			this.tpDiscord.Controls.Add(this.cbEnableDiscord);
-			this.tpDiscord.Controls.Add(this.gbDiscordToken);
-			this.tpDiscord.Location = new System.Drawing.Point(4, 22);
-			this.tpDiscord.Name = "tpDiscord";
-			this.tpDiscord.Size = new System.Drawing.Size(312, 294);
-			this.tpDiscord.TabIndex = 5;
-			this.tpDiscord.Text = "Discord";
-			this.tpDiscord.UseVisualStyleBackColor = true;
-			// 
-			// cbEnableDiscord
-			// 
-			this.cbEnableDiscord.AutoSize = true;
-			this.cbEnableDiscord.Location = new System.Drawing.Point(20, 15);
-			this.cbEnableDiscord.Name = "cbEnableDiscord";
-			this.cbEnableDiscord.Size = new System.Drawing.Size(138, 17);
-			this.cbEnableDiscord.TabIndex = 1;
-			this.cbEnableDiscord.Text = "Enable Discord Support";
-			this.cbEnableDiscord.UseVisualStyleBackColor = true;
-			this.cbEnableDiscord.Click += new System.EventHandler(this.cbEnableDiscord_Click);
-			// 
-			// gbDiscordToken
-			// 
-			this.gbDiscordToken.Controls.Add(this.tbDiscordToken);
-			this.gbDiscordToken.Enabled = false;
-			this.gbDiscordToken.Location = new System.Drawing.Point(20, 38);
-			this.gbDiscordToken.Name = "gbDiscordToken";
-			this.gbDiscordToken.Size = new System.Drawing.Size(273, 50);
-			this.gbDiscordToken.TabIndex = 0;
-			this.gbDiscordToken.TabStop = false;
-			this.gbDiscordToken.Text = "Bot Token";
-			// 
-			// tbDiscordToken
-			// 
-			this.tbDiscordToken.Location = new System.Drawing.Point(7, 20);
-			this.tbDiscordToken.Name = "tbDiscordToken";
-			this.tbDiscordToken.Size = new System.Drawing.Size(260, 20);
-			this.tbDiscordToken.TabIndex = 0;
-			// 
-			// cbDiscordAllowCommands
-			// 
-			this.cbDiscordAllowCommands.AutoSize = true;
-			this.cbDiscordAllowCommands.Location = new System.Drawing.Point(10, 20);
-			this.cbDiscordAllowCommands.Name = "cbDiscordAllowCommands";
-			this.cbDiscordAllowCommands.Size = new System.Drawing.Size(106, 17);
-			this.cbDiscordAllowCommands.TabIndex = 2;
-			this.cbDiscordAllowCommands.Text = "Allow Commands";
-			this.cbDiscordAllowCommands.UseVisualStyleBackColor = true;
-			// 
-			// gbDiscordSettings
-			// 
-			this.gbDiscordSettings.Controls.Add(this.cbSteamToDiscord);
-			this.gbDiscordSettings.Controls.Add(this.cbDiscordToSteam);
-			this.gbDiscordSettings.Controls.Add(this.cbDiscordAllowCommands);
-			this.gbDiscordSettings.Enabled = false;
-			this.gbDiscordSettings.Location = new System.Drawing.Point(20, 150);
-			this.gbDiscordSettings.Name = "gbDiscordSettings";
-			this.gbDiscordSettings.Size = new System.Drawing.Size(273, 100);
-			this.gbDiscordSettings.TabIndex = 3;
-			this.gbDiscordSettings.TabStop = false;
-			this.gbDiscordSettings.Text = "Settings";
-			// 
-			// cbDiscordToSteam
-			// 
-			this.cbDiscordToSteam.AutoSize = true;
-			this.cbDiscordToSteam.Checked = true;
-			this.cbDiscordToSteam.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbDiscordToSteam.Location = new System.Drawing.Point(10, 45);
-			this.cbDiscordToSteam.Name = "cbDiscordToSteam";
-			this.cbDiscordToSteam.Size = new System.Drawing.Size(186, 17);
-			this.cbDiscordToSteam.TabIndex = 3;
-			this.cbDiscordToSteam.Text = "Send Discord Messages to Steam";
-			this.cbDiscordToSteam.UseVisualStyleBackColor = true;
-			// 
-			// cbSteamToDiscord
-			// 
-			this.cbSteamToDiscord.AutoSize = true;
-			this.cbSteamToDiscord.Checked = true;
-			this.cbSteamToDiscord.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbSteamToDiscord.Location = new System.Drawing.Point(10, 70);
-			this.cbSteamToDiscord.Name = "cbSteamToDiscord";
-			this.cbSteamToDiscord.Size = new System.Drawing.Size(186, 17);
-			this.cbSteamToDiscord.TabIndex = 4;
-			this.cbSteamToDiscord.Text = "Send Steam Messages to Discord";
-			this.cbSteamToDiscord.UseVisualStyleBackColor = true;
-			// 
-			// btnDiscordHelp
-			// 
-			this.btnDiscordHelp.Location = new System.Drawing.Point(230, 265);
-			this.btnDiscordHelp.Name = "btnDiscordHelp";
-			this.btnDiscordHelp.Size = new System.Drawing.Size(75, 23);
-			this.btnDiscordHelp.TabIndex = 4;
-			this.btnDiscordHelp.Text = "Help";
-			this.btnDiscordHelp.UseVisualStyleBackColor = true;
-			this.btnDiscordHelp.Click += new System.EventHandler(this.btnDiscordHelp_Click);
-			// 
-			// gbDiscordAdmin
-			// 
-			this.gbDiscordAdmin.Controls.Add(this.tbDiscordAdmin);
-			this.gbDiscordAdmin.Enabled = false;
-			this.gbDiscordAdmin.Location = new System.Drawing.Point(20, 95);
-			this.gbDiscordAdmin.Name = "gbDiscordAdmin";
-			this.gbDiscordAdmin.Size = new System.Drawing.Size(273, 50);
-			this.gbDiscordAdmin.TabIndex = 5;
-			this.gbDiscordAdmin.TabStop = false;
-			this.gbDiscordAdmin.Text = "Admin";
-			// 
-			// tbDiscordAdmin
-			// 
-			this.tbDiscordAdmin.Location = new System.Drawing.Point(7, 20);
-			this.tbDiscordAdmin.Name = "tbDiscordAdmin";
-			this.tbDiscordAdmin.Size = new System.Drawing.Size(260, 20);
-			this.tbDiscordAdmin.TabIndex = 0;
-			// 
 			// FormSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -619,16 +619,16 @@
 			this.groupBox9.PerformLayout();
 			this.groupBox8.ResumeLayout(false);
 			this.groupBox8.PerformLayout();
-			this.tpAbout.ResumeLayout(false);
-			this.tpAbout.PerformLayout();
 			this.tpDiscord.ResumeLayout(false);
 			this.tpDiscord.PerformLayout();
-			this.gbDiscordToken.ResumeLayout(false);
-			this.gbDiscordToken.PerformLayout();
-			this.gbDiscordSettings.ResumeLayout(false);
-			this.gbDiscordSettings.PerformLayout();
 			this.gbDiscordAdmin.ResumeLayout(false);
 			this.gbDiscordAdmin.PerformLayout();
+			this.gbDiscordSettings.ResumeLayout(false);
+			this.gbDiscordSettings.PerformLayout();
+			this.gbDiscordToken.ResumeLayout(false);
+			this.gbDiscordToken.PerformLayout();
+			this.tpAbout.ResumeLayout(false);
+			this.tpAbout.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -678,7 +678,7 @@
 		private System.Windows.Forms.GroupBox gbDiscordSettings;
 		private System.Windows.Forms.CheckBox cbSteamToDiscord;
 		private System.Windows.Forms.CheckBox cbDiscordToSteam;
-		private System.Windows.Forms.CheckBox cbDiscordAllowCommands;
+		private System.Windows.Forms.CheckBox cbDiscordStateChanges;
 		private System.Windows.Forms.GroupBox gbDiscordAdmin;
 		private System.Windows.Forms.TextBox tbDiscordAdmin;
 	}

@@ -227,6 +227,7 @@ namespace KraxbotOSS
 			internal string Discord_Token;
 			internal string Discord_Admin;
 			internal bool   Discord_AllowCommands  = false;
+			internal bool   Discord_StateChanges   = true;
 			internal bool   Discord_DiscordToSteam = true;
 			internal bool   Discord_SteamToDiscord = true;
         }

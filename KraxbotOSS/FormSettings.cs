@@ -95,7 +95,7 @@ namespace KraxbotOSS
 			gbDiscordToken.Enabled = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = cbEnableDiscord.Checked = Form1.config.Discord_Enabled;
 			tbDiscordToken.Text            = Form1.config.Discord_Token;
 			tbDiscordAdmin.Text            = Form1.config.Discord_Admin;
-			cbDiscordAllowCommands.Checked = Form1.config.Discord_AllowCommands;
+			cbDiscordStateChanges.Checked = Form1.config.Discord_AllowCommands;
 			cbDiscordToSteam.Checked       = Form1.config.Discord_DiscordToSteam;
 			cbSteamToDiscord.Checked       = Form1.config.Discord_SteamToDiscord;
         }
@@ -195,7 +195,7 @@ namespace KraxbotOSS
 			Form1.config.Discord_Enabled        = cbEnableDiscord.Checked;
 			Form1.config.Discord_Token          = tbDiscordToken.Text;
 			Form1.config.Discord_Admin          = tbDiscordAdmin.Text;
-			Form1.config.Discord_AllowCommands  = cbDiscordAllowCommands.Checked;
+			Form1.config.Discord_StateChanges   = cbDiscordStateChanges.Checked;
 			Form1.config.Discord_DiscordToSteam = cbDiscordToSteam.Checked;
 			Form1.config.Discord_SteamToDiscord = cbSteamToDiscord.Checked;
 
@@ -224,7 +224,7 @@ namespace KraxbotOSS
 					Enabled        = Form1.config.Discord_Enabled,
 					Token          = Form1.config.Discord_Token,
 					Admin          = Form1.config.Discord_Admin,
-					AllowCommands  = Form1.config.Discord_AllowCommands,
+					StateChanges   = Form1.config.Discord_StateChanges,
 					DiscordToSteam = Form1.config.Discord_DiscordToSteam,
 					SteamToDiscord = Form1.config.Discord_SteamToDiscord
 				}
