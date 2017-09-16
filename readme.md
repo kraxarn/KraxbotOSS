@@ -3,7 +3,7 @@
 ![](https://vgy.me/uIzIiE.png)
 
 # About
-A Steam chat bot based off DASH-E 3.0, but uses a different programming language, so not really.
+A Steam chat bot based off KraxBot 3.0, but uses a different programming language, so not really.
 Why? To make it easier to run for other users and to provide a simple GUI.
 
 # Pre-Built Executables
