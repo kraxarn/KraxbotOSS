@@ -20,6 +20,6 @@ If you don't, you can download it [here](https://www.microsoft.com/en-us/downloa
 Check the wiki, Mac should be similar to Linux.
 
 # Versioning
-Like DASH-E, every 1.x update will bring new features and every 1.x.x update will either extend one of the current features or just be a bug fix.
+Like KraxBot, every 1.x update will bring new features and every 1.x.x update will either extend one of the current features or just be a bug fix.
 
 ![](http://orig11.deviantart.net/ffbe/f/2016/309/6/c/sombra_by_witchtaunter-danekeh.gif)
