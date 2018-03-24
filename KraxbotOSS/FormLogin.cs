@@ -43,7 +43,7 @@ namespace KraxbotOSS
             Username = tbUsername.Text;
 
             if (cbSaveLogin.Checked)
-                File.WriteAllText(Path.Combine(Form1.configPath, "user"), Username);
+                File.WriteAllText(Path.Combine(Form1.ConfigPath, "user"), Username);
 
             if (gbPassword.Text == "Password")
             {

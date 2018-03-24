@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.IO;
@@ -25,7 +20,7 @@ namespace KraxbotOSS
             InitializeComponent();
 
             // Get setttings
-            int index = 0;
+            int index;
             switch(Form1.config.Updates)
             {
                 case "None": index = 1; break;
@@ -199,14 +194,14 @@ namespace KraxbotOSS
 			Form1.config.Discord_DiscordToSteam = cbDiscordToSteam.Checked;
 			Form1.config.Discord_SteamToDiscord = cbSteamToDiscord.Checked;
 
-			JObject obj = JObject.FromObject(new
+			var obj = JObject.FromObject(new
             {
-                Updates       = Form1.config.Updates,
-                FriendRequest = Form1.config.FriendRequest,
-                ChatRequest   = Form1.config.ChatRequest,
-                LoginAs       = Form1.config.LoginAs,
-                Superadmin    = superadmin,
-                Chatrooms     = chatrooms,
+	            Form1.config.Updates,
+	            Form1.config.FriendRequest,
+	            Form1.config.ChatRequest,
+	            Form1.config.LoginAs,
+                Superadmin = superadmin,
+                Chatrooms  = chatrooms,
                 API = new
                 {
                     SteamWeb       = Form1.config.API_Steam,
@@ -245,10 +240,10 @@ namespace KraxbotOSS
         private void tpAbout_Enter(object sender, EventArgs e)
         {
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            DateTime build = new DateTime(2000, 1, 1)
+            var build = new DateTime(2000, 1, 1)
                 .AddDays(version.Build)
                 .AddSeconds(version.Revision * 2);
-            string buildDate = build.ToString();
+            var buildDate = build.ToString();
             if (!string.IsNullOrEmpty(buildDate))
                 lBuildDate.Text = "This version was built on \n" + buildDate;
         }
@@ -264,8 +259,8 @@ namespace KraxbotOSS
 
 		private void btnForgetLogin_Click(object sender, EventArgs e)
         {
-            File.Delete(Path.Combine(Form1.configPath, "loginkey"));
-            File.Delete(Path.Combine(Form1.configPath, "user"));
+            File.Delete(Path.Combine(Form1.ConfigPath, "loginkey"));
+            File.Delete(Path.Combine(Form1.ConfigPath, "user"));
         }
     }
 }
