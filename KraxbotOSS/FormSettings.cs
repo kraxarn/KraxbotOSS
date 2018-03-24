@@ -148,13 +148,13 @@ namespace KraxbotOSS
 
             // Autojoin chatrooms
             Form1.config.Chatrooms.Clear();
-            List<int> chatrooms = new List<int>();
+            var chatrooms = new List<int>();
             if (clChats.Enabled)
             {
-                for (int i = 0; i < clChats.Items.Count; i++)
+                for (var i = 0; i < clChats.Items.Count; i++)
                     if (clChats.GetItemChecked(i))
                     {
-                        string group = clChats.Items[i].ToString();
+                        var group = clChats.Items[i].ToString();
                         from = (group.LastIndexOf('(') + 1);
                         to   = (group.LastIndexOf(')'));
                         int groupID = int.Parse(group.Substring(from, to - from));
@@ -164,8 +164,8 @@ namespace KraxbotOSS
             }
 
             // Game to play
-            ulong gameID = Form1.config.GamePlayed_ID;
-            string gameExtraInfo = Form1.config.GamePlayed_ExtraInfo;
+            ulong gameID;
+            var gameExtraInfo = Form1.config.GamePlayed_ExtraInfo;
             if (cbGameType.Checked)
             {
                 gameID = 12350489788975939584;

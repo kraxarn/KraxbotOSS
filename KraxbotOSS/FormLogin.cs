@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.IO;
@@ -17,11 +10,11 @@ namespace KraxbotOSS
         public static string Username, Password, AuthCode, EncryptKey;
         public static bool AutoGenerateKey;
 
-        public FormLogin(string Argument = "None")
+        public FormLogin(string argument = "None")
         {
             InitializeComponent();
 
-            if (Argument == "NeedTwoFactor")
+            if (argument == "NeedTwoFactor")
             {
                 Console.WriteLine("Need two factor");
                 tbUsername.Text = Username;
@@ -29,7 +22,7 @@ namespace KraxbotOSS
                 cbSaveLogin.Enabled = false;
                 gbPassword.Text = "Mobile Authenticator Code";
             }
-            else if (Argument == "NeedGuard")
+            else if (argument == "NeedGuard")
             {
                 tbUsername.Text     = Username;
                 tbUsername.Enabled  = false;
@@ -53,7 +46,7 @@ namespace KraxbotOSS
             else if (gbPassword.Text == "Mobile Authenticator Code")
                 Form1.Login(Username, Password, cbSaveLogin.Checked, null, tbPassword.Text);
             else if (gbPassword.Text == "Steam Guard Code")
-                Form1.Login(Username, Password, cbSaveLogin.Checked, tbPassword.Text, null);
+                Form1.Login(Username, Password, cbSaveLogin.Checked, tbPassword.Text);
             Close();
         }
     }
