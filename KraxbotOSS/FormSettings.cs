@@ -30,7 +30,7 @@ namespace KraxbotOSS
                 case "None": index = 1; break;
                 default:     index = 0; break; // 0: All
             }
-            cbUpdates.SelectedIndex = index;
+	        cbUpdates.Checked = index == 0;
 
             switch(Form1.config.FriendRequest)
             {
@@ -116,15 +116,15 @@ namespace KraxbotOSS
             }
 
             // Set variables
-            int updates       = cbUpdates.SelectedIndex;
+	        var updates       = cbUpdates.Checked;
             int friendRequest = cbFriendRequest.SelectedIndex;
             int chatRequest   = cbChatRequest.SelectedIndex;
             int loginAs       = cbLoginAs.SelectedIndex;
 
             switch (updates)
             {
-                case 0: Form1.config.Updates = "All";  break;
-                case 1: Form1.config.Updates = "None"; break;
+                case true:  Form1.config.Updates = "All";  break;
+                case false: Form1.config.Updates = "None"; break;
             }
             switch (friendRequest)
             {

@@ -1,6 +1,6 @@
 ﻿namespace KraxbotOSS
 {
-    partial class FormSettings
+	partial class FormSettings
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.cbUpdates = new System.Windows.Forms.ComboBox();
+			this.cbUpdates = new System.Windows.Forms.CheckBox();
 			this.btnSave = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.cbFriends = new System.Windows.Forms.ComboBox();
@@ -106,19 +106,17 @@
 			this.groupBox1.Size = new System.Drawing.Size(180, 50);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Updates to Recieve";
+			this.groupBox1.Text = "Updates";
 			// 
 			// cbUpdates
 			// 
-			this.cbUpdates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cbUpdates.FormattingEnabled = true;
-			this.cbUpdates.Items.AddRange(new object[] {
-            "All",
-            "None"});
-			this.cbUpdates.Location = new System.Drawing.Point(6, 19);
+			this.cbUpdates.AutoSize = true;
+			this.cbUpdates.Location = new System.Drawing.Point(8, 20);
 			this.cbUpdates.Name = "cbUpdates";
-			this.cbUpdates.Size = new System.Drawing.Size(169, 21);
+			this.cbUpdates.Size = new System.Drawing.Size(107, 17);
 			this.cbUpdates.TabIndex = 0;
+			this.cbUpdates.Text = "Check on startup";
+			this.cbUpdates.UseVisualStyleBackColor = true;
 			// 
 			// btnSave
 			// 
@@ -610,6 +608,7 @@
 			this.Text = "Settings";
 			this.TopMost = true;
 			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
@@ -648,7 +647,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cbUpdates;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -694,5 +692,6 @@
 		private System.Windows.Forms.GroupBox gbDiscordAdmin;
 		private System.Windows.Forms.TextBox tbDiscordAdmin;
 		private System.Windows.Forms.Button btnCheckUpdate;
+		private System.Windows.Forms.CheckBox cbUpdates;
 	}
 }
