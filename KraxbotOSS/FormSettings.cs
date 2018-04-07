@@ -13,9 +13,9 @@ namespace KraxbotOSS
 {
     public partial class FormSettings : Form
     {
-        List<SteamID> friends, groups;
+        private readonly List<SteamID> friends, groups;
 
-	    private Form1 parent;
+	    private readonly Form1 parent;
 
         public FormSettings(Form1 form)
         {
@@ -57,9 +57,9 @@ namespace KraxbotOSS
 
             // Get all our friends and fill the list
             friends = Form1.GetFriends();
-            foreach (SteamID userID in friends)
+            foreach (var userID in friends)
             {
-                cbFriends.Items.Add(string.Format("{0} ({1})", Form1.GetFriendName(userID), userID.AccountID));
+                cbFriends.Items.Add($"{Form1.GetFriendName(userID)} ({userID.AccountID})");
                 if (userID.AccountID == Form1.config.Superadmin)
                     cbFriends.SelectedIndex = cbFriends.Items.Count - 1;
             }
@@ -71,11 +71,11 @@ namespace KraxbotOSS
             groups = Form1.GetGroups();
             if (groups.Count > 0)
             {
-                foreach (SteamID clanID in groups)
+                foreach (var clanID in groups)
                     if (Form1.config.Chatrooms.ToString().IndexOf(clanID.AccountID.ToString()) > -1)
-                        clChats.Items.Add(string.Format("{0} ({1})", Form1.GetGroupName(clanID), clanID.AccountID), true);
+                        clChats.Items.Add($"{Form1.GetGroupName(clanID)} ({clanID.AccountID})", true);
                     else
-                        clChats.Items.Add(string.Format("{0} ({1})", Form1.GetGroupName(clanID), clanID.AccountID));
+                        clChats.Items.Add($"{Form1.GetGroupName(clanID)} ({clanID.AccountID})");
             }
             else
                 clChats.Enabled = false;
@@ -91,12 +91,12 @@ namespace KraxbotOSS
                 tbGameInfo.Text = Form1.config.GamePlayed_ID.ToString();
 
 			// Discord
-			gbDiscordToken.Enabled = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = cbEnableDiscord.Checked = Form1.config.Discord_Enabled;
-			tbDiscordToken.Text            = Form1.config.Discord_Token;
-			tbDiscordAdmin.Text            = Form1.config.Discord_Admin;
-			cbDiscordStateChanges.Checked  = Form1.config.Discord_StateChanges;
-			cbDiscordToSteam.Checked       = Form1.config.Discord_DiscordToSteam;
-			cbSteamToDiscord.Checked       = Form1.config.Discord_SteamToDiscord;
+			gbDiscordToken.Enabled        = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = cbEnableDiscord.Checked = Form1.config.Discord_Enabled;
+			tbDiscordToken.Text           = Form1.config.Discord_Token;
+			tbDiscordAdmin.Text           = Form1.config.Discord_Admin;
+			cbDiscordStateChanges.Checked = Form1.config.Discord_StateChanges;
+			cbDiscordToSteam.Checked      = Form1.config.Discord_DiscordToSteam;
+			cbSteamToDiscord.Checked      = Form1.config.Discord_SteamToDiscord;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -105,7 +105,7 @@ namespace KraxbotOSS
             Form1.config.API_Steam = tbApiSteam.Text;
             Form1.config.API_Google = tbApiGoogle.Text;
             Form1.config.API_OpenWeather = tbApiWeather.Text;
-            if (String.IsNullOrEmpty(tbApiCleverbot.Text))
+            if (string.IsNullOrEmpty(tbApiCleverbot.Text))
                 Form1.config.API_CleverbotIO = null;
             else if (tbApiCleverbot.Text.Contains(';'))
                 Form1.config.API_CleverbotIO = tbApiCleverbot.Text;
@@ -117,9 +117,9 @@ namespace KraxbotOSS
 
             // Set variables
 	        var updates       = cbUpdates.Checked;
-            int friendRequest = cbFriendRequest.SelectedIndex;
-            int chatRequest   = cbChatRequest.SelectedIndex;
-            int loginAs       = cbLoginAs.SelectedIndex;
+            var friendRequest = cbFriendRequest.SelectedIndex;
+            var chatRequest   = cbChatRequest.SelectedIndex;
+            var loginAs       = cbLoginAs.SelectedIndex;
 
             switch (updates)
             {
@@ -141,11 +141,11 @@ namespace KraxbotOSS
 
             // Superadmin
             int from, to;
-            string superadmin = Form1.config.Superadmin.ToString();
+            var superadmin = Form1.config.Superadmin.ToString();
             if (cbFriends.Enabled && cbFriends.SelectedIndex > 0)
             {
-                from = (cbFriends.Text.LastIndexOf('(') + 1);
-                to   = (cbFriends.Text.LastIndexOf(')'));
+                from = cbFriends.Text.LastIndexOf('(') + 1;
+                to   = cbFriends.Text.LastIndexOf(')');
                 superadmin = cbFriends.Text.Substring(from, to - from);
                 Form1.config.Superadmin = friends.Single(s => s.AccountID.ToString() == superadmin).AccountID;
             }
@@ -161,7 +161,7 @@ namespace KraxbotOSS
                         var group = clChats.Items[i].ToString();
                         from = (group.LastIndexOf('(') + 1);
                         to   = (group.LastIndexOf(')'));
-                        int groupID = int.Parse(group.Substring(from, to - from));
+                        var groupID = int.Parse(group.Substring(from, to - from));
                         chatrooms.Add(groupID);
                         Form1.config.Chatrooms.Add(groupID);
                     }
