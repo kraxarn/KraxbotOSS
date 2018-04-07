@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.cbUpdates = new System.Windows.Forms.CheckBox();
 			this.btnSave = new System.Windows.Forms.Button();
@@ -587,9 +588,7 @@
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(245, 95);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "KraxbotOSS by KraXarN / Kraxie\r\nCopyright © CrowGames 2017\r\n\r\nThis software is op" +
-    "en source and will always be. If you decide to make your own software based off " +
-    "this, please don\'t remove this notice.";
+			this.label1.Text = resources.GetString("label1.Text");
 			// 
 			// FormSettings
 			// 
