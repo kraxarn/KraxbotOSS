@@ -74,6 +74,7 @@
 			this.lBuildDate = new System.Windows.Forms.Label();
 			this.btnForgetLogin = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
+			this.btnCheckUpdate = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -530,6 +531,7 @@
 			// 
 			// tpAbout
 			// 
+			this.tpAbout.Controls.Add(this.btnCheckUpdate);
 			this.tpAbout.Controls.Add(this.btnHomePage);
 			this.tpAbout.Controls.Add(this.lBuildDate);
 			this.tpAbout.Controls.Add(this.btnForgetLogin);
@@ -580,6 +582,16 @@
 			this.label1.Text = "KraxbotOSS by KraXarN / Kraxie\r\nCopyright © CrowGames 2017\r\n\r\nThis software is op" +
     "en source and will always be. If you decide to make your own software based off " +
     "this, please don\'t remove this notice.";
+			// 
+			// btnCheckUpdate
+			// 
+			this.btnCheckUpdate.Location = new System.Drawing.Point(10, 231);
+			this.btnCheckUpdate.Name = "btnCheckUpdate";
+			this.btnCheckUpdate.Size = new System.Drawing.Size(120, 23);
+			this.btnCheckUpdate.TabIndex = 5;
+			this.btnCheckUpdate.Text = "Check for updates";
+			this.btnCheckUpdate.UseVisualStyleBackColor = true;
+			this.btnCheckUpdate.Click += new System.EventHandler(this.btnCheckUpdate_Click);
 			// 
 			// FormSettings
 			// 
@@ -681,5 +693,6 @@
 		private System.Windows.Forms.CheckBox cbDiscordStateChanges;
 		private System.Windows.Forms.GroupBox gbDiscordAdmin;
 		private System.Windows.Forms.TextBox tbDiscordAdmin;
+		private System.Windows.Forms.Button btnCheckUpdate;
 	}
 }

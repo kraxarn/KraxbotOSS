@@ -1376,18 +1376,23 @@ namespace KraxbotOSS
 			}
 		}
 
-		private void CheckForUpdates()
+	    public bool CheckForUpdates()
         {
             var response = Get("https://api.github.com/repos/KraXarN/KraxbotOSS/releases");
-            if (string.IsNullOrEmpty(response)) return;
+            if (string.IsNullOrEmpty(response))
+	            return false;
             dynamic result = JsonConvert.DeserializeObject(response);
             string newVersion = result[0].tag_name;
             newVersion = newVersion.Substring(1);
+
             if (version != newVersion)
             {
                 if (MessageBox.Show($"Current version is {version} \nNew Version is {newVersion} \nDo you want to update now?", "New Update Found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     System.Diagnostics.Process.Start("https://github.com/KraXarN/KraxbotOSS/releases");
+	            return true;
             }
+
+	        return false;
         }
 
 	    private static string GetStringBetween(string token, string first, string second = null)
@@ -1414,7 +1419,7 @@ namespace KraxbotOSS
         {
             // Hide the main form and show the settings form
             //this.Hide();
-            Form settings = new FormSettings();
+            Form settings = new FormSettings(this);
             settings.ShowDialog(this);
         }
         private void btnLogin_Click(object sender, EventArgs e)

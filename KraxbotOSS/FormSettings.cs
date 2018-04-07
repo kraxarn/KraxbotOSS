@@ -15,9 +15,13 @@ namespace KraxbotOSS
     {
         List<SteamID> friends, groups;
 
-        public FormSettings()
+	    private Form1 parent;
+
+        public FormSettings(Form1 form)
         {
             InitializeComponent();
+
+	        parent = form;
 
             // Get setttings
             int index;
@@ -255,6 +259,22 @@ namespace KraxbotOSS
 		private void cbEnableDiscord_Click(object sender, EventArgs e)
 		{
 			gbDiscordToken.Enabled = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = cbEnableDiscord.Checked;
+		}
+
+		private void btnCheckUpdate_Click(object sender, EventArgs e)
+		{
+			// Update button
+			btnCheckUpdate.Enabled = false;
+			btnCheckUpdate.Text = "Checking...";
+
+			// Check for updates
+			if (!parent.CheckForUpdates())
+				MessageBox.Show("You're running the latest version!", "No New Update Found", MessageBoxButtons.OK,
+					MessageBoxIcon.Information);
+
+			// Restore button
+			btnCheckUpdate.Enabled = true;
+			btnCheckUpdate.Text = "Check for updates";
 		}
 
 		private void btnForgetLogin_Click(object sender, EventArgs e)
