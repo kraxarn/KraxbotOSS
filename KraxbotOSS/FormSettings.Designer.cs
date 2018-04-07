@@ -142,7 +142,7 @@
 			// 
 			this.cbFriends.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cbFriends.FormattingEnabled = true;
-			this.cbFriends.Location = new System.Drawing.Point(7, 20);
+			this.cbFriends.Location = new System.Drawing.Point(8, 20);
 			this.cbFriends.Name = "cbFriends";
 			this.cbFriends.Size = new System.Drawing.Size(167, 21);
 			this.cbFriends.TabIndex = 0;
@@ -164,7 +164,7 @@
 			this.cbFriendRequest.Items.AddRange(new object[] {
             "Accept All",
             "Ignore All"});
-			this.cbFriendRequest.Location = new System.Drawing.Point(7, 20);
+			this.cbFriendRequest.Location = new System.Drawing.Point(8, 20);
 			this.cbFriendRequest.Name = "cbFriendRequest";
 			this.cbFriendRequest.Size = new System.Drawing.Size(167, 21);
 			this.cbFriendRequest.TabIndex = 0;
@@ -172,9 +172,9 @@
 			// groupBox4
 			// 
 			this.groupBox4.Controls.Add(this.cbChatRequest);
-			this.groupBox4.Location = new System.Drawing.Point(5, 175);
+			this.groupBox4.Location = new System.Drawing.Point(6, 175);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(183, 50);
+			this.groupBox4.Size = new System.Drawing.Size(180, 50);
 			this.groupBox4.TabIndex = 4;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Chat requests";
@@ -204,7 +204,7 @@
             "Snooze",
             "Looking to Trade",
             "Looking to Play"});
-			this.cbLoginAs.Location = new System.Drawing.Point(7, 19);
+			this.cbLoginAs.Location = new System.Drawing.Point(8, 20);
 			this.cbLoginAs.Name = "cbLoginAs";
 			this.cbLoginAs.Size = new System.Drawing.Size(167, 21);
 			this.cbLoginAs.TabIndex = 5;
@@ -214,7 +214,7 @@
 			this.groupBox5.Controls.Add(this.cbLoginAs);
 			this.groupBox5.Location = new System.Drawing.Point(6, 231);
 			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(182, 50);
+			this.groupBox5.Size = new System.Drawing.Size(180, 50);
 			this.groupBox5.TabIndex = 6;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Login As";
@@ -363,7 +363,7 @@
 			this.groupBox7.Controls.Add(this.tbApiCleverbot);
 			this.groupBox7.Location = new System.Drawing.Point(4, 195);
 			this.groupBox7.Name = "groupBox7";
-			this.groupBox7.Size = new System.Drawing.Size(259, 55);
+			this.groupBox7.Size = new System.Drawing.Size(260, 55);
 			this.groupBox7.TabIndex = 3;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Cleverbot";
@@ -372,7 +372,7 @@
 			// 
 			this.tbApiCleverbot.Location = new System.Drawing.Point(7, 20);
 			this.tbApiCleverbot.Name = "tbApiCleverbot";
-			this.tbApiCleverbot.Size = new System.Drawing.Size(239, 20);
+			this.tbApiCleverbot.Size = new System.Drawing.Size(240, 20);
 			this.tbApiCleverbot.TabIndex = 0;
 			// 
 			// groupBox9
@@ -380,7 +380,7 @@
 			this.groupBox9.Controls.Add(this.tbApiGoogle);
 			this.groupBox9.Location = new System.Drawing.Point(4, 66);
 			this.groupBox9.Name = "groupBox9";
-			this.groupBox9.Size = new System.Drawing.Size(259, 55);
+			this.groupBox9.Size = new System.Drawing.Size(260, 55);
 			this.groupBox9.TabIndex = 1;
 			this.groupBox9.TabStop = false;
 			this.groupBox9.Text = "Google API";
@@ -397,7 +397,7 @@
 			this.groupBox8.Controls.Add(this.tbApiWeather);
 			this.groupBox8.Location = new System.Drawing.Point(4, 132);
 			this.groupBox8.Name = "groupBox8";
-			this.groupBox8.Size = new System.Drawing.Size(259, 55);
+			this.groupBox8.Size = new System.Drawing.Size(260, 55);
 			this.groupBox8.TabIndex = 2;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = "Open Weather Map";
@@ -406,7 +406,7 @@
 			// 
 			this.tbApiWeather.Location = new System.Drawing.Point(7, 20);
 			this.tbApiWeather.Name = "tbApiWeather";
-			this.tbApiWeather.Size = new System.Drawing.Size(239, 20);
+			this.tbApiWeather.Size = new System.Drawing.Size(240, 20);
 			this.tbApiWeather.TabIndex = 0;
 			// 
 			// tpDiscord
