@@ -233,15 +233,9 @@ namespace KraxbotOSS
             Close();
         }
 
-        private void cbGameType_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbGameType.Checked)
-                gbGame.Text = "App Name";
-            else
-                gbGame.Text = "App ID";
-        }
+		private void cbGameType_CheckedChanged(object sender, EventArgs e) => gbGame.Text = cbGameType.Checked ? "App Name" : "App ID";
 
-        private void tpAbout_Enter(object sender, EventArgs e)
+		private void tpAbout_Enter(object sender, EventArgs e)
         {
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             var build = new DateTime(2000, 1, 1)
