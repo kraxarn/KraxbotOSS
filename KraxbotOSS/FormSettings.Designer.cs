@@ -508,7 +508,7 @@
 			this.cbEnableDiscord.TabIndex = 1;
 			this.cbEnableDiscord.Text = "Enable Discord Support";
 			this.cbEnableDiscord.UseVisualStyleBackColor = true;
-			this.cbEnableDiscord.Click += new System.EventHandler(this.cbEnableDiscord_Click);
+			this.cbEnableDiscord.CheckedChanged += new System.EventHandler(this.cbEnableDiscord_CheckedChanged);
 			// 
 			// gbDiscordToken
 			// 

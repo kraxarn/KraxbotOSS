@@ -250,10 +250,7 @@ namespace KraxbotOSS
         private void btnMoreInfo_Click(object sender, EventArgs e)    => Process.Start("https://github.com/KraXarN/KraxbotOSS/wiki/API-Keys");
 		private void btnDiscordHelp_Click(object sender, EventArgs e) => Process.Start("https://github.com/kraxarn/KraxbotOSS/wiki/Discord");
 
-		private void cbEnableDiscord_Click(object sender, EventArgs e)
-		{
-			gbDiscordToken.Enabled = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = cbEnableDiscord.Checked;
-		}
+		private void cbEnableDiscord_CheckedChanged(object sender, EventArgs e) => gbDiscordToken.Enabled = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = cbEnableDiscord.Checked;
 
 		private void btnCheckUpdate_Click(object sender, EventArgs e)
 		{
@@ -276,5 +273,5 @@ namespace KraxbotOSS
             File.Delete(Path.Combine(Form1.ConfigPath, "loginkey"));
             File.Delete(Path.Combine(Form1.ConfigPath, "user"));
         }
-    }
+	}
 }
