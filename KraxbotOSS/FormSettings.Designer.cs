@@ -70,11 +70,11 @@
 			this.gbDiscordToken = new System.Windows.Forms.GroupBox();
 			this.tbDiscordToken = new System.Windows.Forms.TextBox();
 			this.tpAbout = new System.Windows.Forms.TabPage();
+			this.btnCheckUpdate = new System.Windows.Forms.Button();
 			this.btnHomePage = new System.Windows.Forms.Button();
 			this.lBuildDate = new System.Windows.Forms.Label();
 			this.btnForgetLogin = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
-			this.btnCheckUpdate = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -545,13 +545,23 @@
 			this.tpAbout.UseVisualStyleBackColor = true;
 			this.tpAbout.Enter += new System.EventHandler(this.tpAbout_Enter);
 			// 
+			// btnCheckUpdate
+			// 
+			this.btnCheckUpdate.Location = new System.Drawing.Point(10, 231);
+			this.btnCheckUpdate.Name = "btnCheckUpdate";
+			this.btnCheckUpdate.Size = new System.Drawing.Size(120, 23);
+			this.btnCheckUpdate.TabIndex = 5;
+			this.btnCheckUpdate.Text = "Check for updates";
+			this.btnCheckUpdate.UseVisualStyleBackColor = true;
+			this.btnCheckUpdate.Click += new System.EventHandler(this.btnCheckUpdate_Click);
+			// 
 			// btnHomePage
 			// 
 			this.btnHomePage.Location = new System.Drawing.Point(140, 260);
 			this.btnHomePage.Name = "btnHomePage";
 			this.btnHomePage.Size = new System.Drawing.Size(120, 25);
 			this.btnHomePage.TabIndex = 4;
-			this.btnHomePage.Text = "Project Page";
+			this.btnHomePage.Text = "Project page";
 			this.btnHomePage.UseVisualStyleBackColor = true;
 			this.btnHomePage.Click += new System.EventHandler(this.btnHomePage_Click);
 			// 
@@ -582,16 +592,6 @@
 			this.label1.Text = "KraxbotOSS by KraXarN / Kraxie\r\nCopyright © CrowGames 2017\r\n\r\nThis software is op" +
     "en source and will always be. If you decide to make your own software based off " +
     "this, please don\'t remove this notice.";
-			// 
-			// btnCheckUpdate
-			// 
-			this.btnCheckUpdate.Location = new System.Drawing.Point(10, 231);
-			this.btnCheckUpdate.Name = "btnCheckUpdate";
-			this.btnCheckUpdate.Size = new System.Drawing.Size(120, 23);
-			this.btnCheckUpdate.TabIndex = 5;
-			this.btnCheckUpdate.Text = "Check for updates";
-			this.btnCheckUpdate.UseVisualStyleBackColor = true;
-			this.btnCheckUpdate.Click += new System.EventHandler(this.btnCheckUpdate_Click);
 			// 
 			// FormSettings
 			// 
