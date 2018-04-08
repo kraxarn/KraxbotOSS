@@ -76,12 +76,13 @@ namespace KraxbotOSS
 				// Discord settings
 				if (json.Discord != null)
 				{
-					config.Discord_Enabled        = json.Discord.Enabled;
-					config.Discord_Token          = json.Discord.Token;
-					config.Discord_Admin          = json.Discord.Admin;
-					config.Discord_StateChanges   = json.Discord.StateChanges;
-					config.Discord_DiscordToSteam = json.Discord.DiscordToSteam;
-					config.Discord_SteamToDiscord = json.Discord.SteamToDiscord;
+					config.Discord_Enabled      = json.Discord.Enabled;
+					config.Discord_Token        = json.Discord.Token;
+					config.Discord_Admin        = json.Discord.Admin;
+					config.Discord_StateChanges = json.Discord.StateChanges;
+					config.Discord_Channel      = json.Discord.Channel;
+					config.Discord_Messages     = json.Discord.Messages;
+					config.Discord_Steam        = json.Discord.Steam;
 				}
             }
 
@@ -121,6 +122,13 @@ namespace KraxbotOSS
             // Connect
             log.AppendText("\nConnecting to Steam... ");
             client.Connect();
+
+			// Connect to Discord if enabled
+	        if (config.Discord_Enabled)
+	        {
+				log.AppendText("\nConnecing to Discord...");
+		        lDiscordStatus.Text = "Discord: Disconnected";
+	        }
 
             // Run main loop in a seperate thread
             Task.Run(() => { while (running) { manager.RunWaitCallbacks(TimeSpan.FromSeconds(1)); } });
@@ -239,10 +247,11 @@ namespace KraxbotOSS
 			internal bool   Discord_Enabled = false;
 			internal string Discord_Token;
 			internal string Discord_Admin;
-			internal bool   Discord_AllowCommands  = false;
-			internal bool   Discord_StateChanges   = true;
-			internal bool   Discord_DiscordToSteam = true;
-			internal bool   Discord_SteamToDiscord = true;
+			internal bool   Discord_AllowCommands = false;
+			internal bool   Discord_StateChanges  = true;
+	        internal string Discord_Channel;
+	        internal string Discord_Messages      = "Both";
+	        internal uint   Discord_Steam;
         }
 
         // -- Steam callbacks -- //

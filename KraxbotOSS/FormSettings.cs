@@ -91,13 +91,46 @@ namespace KraxbotOSS
                 tbGameInfo.Text = Form1.config.GamePlayed_ID.ToString();
 
 			// Discord
-			gbDiscordToken.Enabled        = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = cbEnableDiscord.Checked = Form1.config.Discord_Enabled;
+			gbDiscordToken.Enabled        = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = gbDiscordChannel.Enabled = gbDiscordMessages.Enabled = gbDiscordSteam.Enabled = cbEnableDiscord.Checked = Form1.config.Discord_Enabled;
 			tbDiscordToken.Text           = Form1.config.Discord_Token;
 			tbDiscordAdmin.Text           = Form1.config.Discord_Admin;
 			cbDiscordStateChanges.Checked = Form1.config.Discord_StateChanges;
-			cbDiscordToSteam.Checked      = Form1.config.Discord_DiscordToSteam;
-			cbSteamToDiscord.Checked      = Form1.config.Discord_SteamToDiscord;
-        }
+	        tbDiscordChannel.Text         = Form1.config.Discord_Channel;
+
+	        switch (Form1.config.Discord_Messages)
+	        {
+				case "DiscordToSteam": index = 1; break;
+				case "SteamToDiscord": index = 2; break;
+				case "Both":           index = 3; break;
+				default:               index = 0; break;
+	        }
+
+	        cbDiscordMessages.SelectedIndex = index;
+
+			if (groups.Count <= 0)
+				cbDiscordSteam.Enabled = false;
+			else
+			{
+				cbDiscordSteam.Enabled = true;
+
+				foreach (var group in groups)
+					cbDiscordSteam.Items.Add(Form1.GetGroupName(group));
+			}
+
+			// Try set the Steam chatroom
+	        if (Form1.config.Discord_Steam != 0)
+	        {
+		        if (TryGetGroupNameFromID(Form1.config.Discord_Steam, out var found))
+		        {
+			        for (var i = 0; i < cbDiscordSteam.Items.Count; i++)
+				        if ((string)cbDiscordSteam.Items[i] == found)
+					        cbDiscordSteam.SelectedIndex = i;
+		        }
+		        else
+					MessageBox.Show("There was an error getting the Steam chatroom", "Discord Warning", MessageBoxButtons.OK,
+						MessageBoxIcon.Warning);
+			}
+		}
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -115,7 +148,45 @@ namespace KraxbotOSS
                 Form1.config.API_CleverbotIO = null;
             }
 
-            // Set variables
+			// Check Discord stuff
+	        if (cbEnableDiscord.Checked)
+	        {
+		        var error = "";
+
+				// Check so they aren't empty
+		        if (string.IsNullOrEmpty(tbDiscordToken.Text))
+			        error = "Bot Token";
+				else if (string.IsNullOrEmpty(tbDiscordChannel.Text))
+			        error = "Channel";
+				else if (cbDiscordSteam.SelectedIndex == -1)
+			        error = "Steam Chatroom";
+				
+				// Display error if they are
+		        if (error != "")
+		        {
+			        MessageBox.Show($"{error} is required when using Discord", "Discord Error", MessageBoxButtons.OK,
+				        MessageBoxIcon.Error);
+			        return;
+		        }
+
+				// Check for common errors
+				if (!string.IsNullOrEmpty(tbDiscordAdmin.Text) && tbDiscordAdmin.Text[tbDiscordAdmin.TextLength - 5] != '#')
+		        {
+			        if (MessageBox.Show("Discord Admin should contain #, for example Example#1234", "Discord Warning", MessageBoxButtons.OKCancel,
+				        MessageBoxIcon.Warning) == DialogResult.Cancel)
+				        return;
+		        }
+
+		        if (tbDiscordChannel.Text.StartsWith("#"))
+		        {
+			        if (MessageBox.Show("Discord Channel should not start with #", "Discord Warning", MessageBoxButtons.OKCancel,
+				        MessageBoxIcon.Warning) == DialogResult.Cancel)
+						return;
+		        }
+	        }
+
+
+	        // Set variables
 	        var updates       = cbUpdates.Checked;
             var friendRequest = cbFriendRequest.SelectedIndex;
             var chatRequest   = cbChatRequest.SelectedIndex;
@@ -191,14 +262,31 @@ namespace KraxbotOSS
             Form1.PlayGame(gameID, gameExtraInfo);
 
 			// Discord
-			Form1.config.Discord_Enabled        = cbEnableDiscord.Checked;
-			Form1.config.Discord_Token          = tbDiscordToken.Text;
-			Form1.config.Discord_Admin          = tbDiscordAdmin.Text;
-			Form1.config.Discord_StateChanges   = cbDiscordStateChanges.Checked;
-			Form1.config.Discord_DiscordToSteam = cbDiscordToSteam.Checked;
-			Form1.config.Discord_SteamToDiscord = cbSteamToDiscord.Checked;
+			Form1.config.Discord_Enabled      = cbEnableDiscord.Checked;
+			Form1.config.Discord_Token        = tbDiscordToken.Text;
+			Form1.config.Discord_Admin        = tbDiscordAdmin.Text;
+			Form1.config.Discord_StateChanges = cbDiscordStateChanges.Checked;
+	        Form1.config.Discord_Channel      = tbDiscordChannel.Text;
 
-			var obj = JObject.FromObject(new
+	        switch (cbDiscordMessages.SelectedIndex)
+	        {
+				case 0: Form1.config.Discord_Messages = "None";           break;
+		        case 1: Form1.config.Discord_Messages = "DiscordToSteam"; break;
+		        case 2: Form1.config.Discord_Messages = "SteamToDiscord"; break;
+		        case 3: Form1.config.Discord_Messages = "Both";           break;
+			}
+
+			// Try find the chatroom we selected
+	        if (cbEnableDiscord.Checked)
+	        {
+		        if (TryGetGroupIDFromName(cbDiscordSteam.GetItemText(cbDiscordSteam.SelectedItem), out var found))
+			        Form1.config.Discord_Steam = found.AccountID;
+		        else
+			        MessageBox.Show("There was an error saving the Steam chatroom", "Discord Warning", MessageBoxButtons.OK,
+				        MessageBoxIcon.Warning);
+	        }
+
+	        var obj = JObject.FromObject(new
             {
 	            Form1.config.Updates,
 	            Form1.config.FriendRequest,
@@ -220,12 +308,13 @@ namespace KraxbotOSS
                 },
 				Discord = new
 				{
-					Enabled        = Form1.config.Discord_Enabled,
-					Token          = Form1.config.Discord_Token,
-					Admin          = Form1.config.Discord_Admin,
-					StateChanges   = Form1.config.Discord_StateChanges,
-					DiscordToSteam = Form1.config.Discord_DiscordToSteam,
-					SteamToDiscord = Form1.config.Discord_SteamToDiscord
+					Enabled      = Form1.config.Discord_Enabled,
+					Token        = Form1.config.Discord_Token,
+					Admin        = Form1.config.Discord_Admin,
+					StateChanges = Form1.config.Discord_StateChanges,
+					Messages     = Form1.config.Discord_Messages,
+					Channel      = Form1.config.Discord_Channel,
+					Steam        = Form1.config.Discord_Steam
 				}
             });
 
@@ -250,7 +339,7 @@ namespace KraxbotOSS
         private void btnMoreInfo_Click(object sender, EventArgs e)    => Process.Start("https://github.com/KraXarN/KraxbotOSS/wiki/API-Keys");
 		private void btnDiscordHelp_Click(object sender, EventArgs e) => Process.Start("https://github.com/kraxarn/KraxbotOSS/wiki/Discord");
 
-		private void cbEnableDiscord_CheckedChanged(object sender, EventArgs e) => gbDiscordToken.Enabled = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = cbEnableDiscord.Checked;
+		private void cbEnableDiscord_CheckedChanged(object sender, EventArgs e) => gbDiscordToken.Enabled = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = gbDiscordChannel.Enabled = gbDiscordMessages.Enabled = gbDiscordSteam.Enabled = cbEnableDiscord.Checked;
 
 		private void btnCheckUpdate_Click(object sender, EventArgs e)
 		{
@@ -273,5 +362,35 @@ namespace KraxbotOSS
             File.Delete(Path.Combine(Form1.ConfigPath, "loginkey"));
             File.Delete(Path.Combine(Form1.ConfigPath, "user"));
         }
+		
+	    private bool TryGetGroupIDFromName(string name, out SteamID groupID)
+	    {
+		    foreach (var group in groups)
+		    {
+			    if (Form1.GetGroupName(group) == name)
+			    {
+				    groupID = group;
+				    return true;
+			    }
+		    }
+
+			groupID = new SteamID();
+		    return false;
+	    }
+
+	    private bool TryGetGroupNameFromID(uint groupID, out string name)
+	    {
+		    foreach (var group in groups)
+		    {
+			    if (group.AccountID == groupID)
+			    {
+				    name = Form1.GetGroupName(group);
+				    return true;
+			    }
+		    }
+
+		    name = null;
+		    return false;
+	    }
 	}
 }
