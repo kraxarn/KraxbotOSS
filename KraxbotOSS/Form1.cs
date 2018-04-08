@@ -123,13 +123,6 @@ namespace KraxbotOSS
             log.AppendText("\nConnecting to Steam... ");
             client.Connect();
 
-			// Connect to Discord if enabled
-	        if (config.Discord_Enabled)
-	        {
-				log.AppendText("\nConnecing to Discord...");
-		        lDiscordStatus.Text = "Discord: Disconnected";
-	        }
-
             // Run main loop in a seperate thread
             Task.Run(() => { while (running) { manager.RunWaitCallbacks(TimeSpan.FromSeconds(1)); } });
         }
@@ -285,7 +278,7 @@ namespace KraxbotOSS
                     lNetwork.Text = "Network: Connected";
                 });
             }
-        }
+		}
         void OnDisconnected(SteamClient.DisconnectedCallback callback)
         {
             // TODO: Only show the message once
@@ -336,8 +329,18 @@ namespace KraxbotOSS
                 lStatus.Text = "State: Logged in";
             });
 
-            // To other stuff here after logging in (like joining chatrooms)
-        }
+	        // Connect to Discord if enabled
+	        if (config.Discord_Enabled)
+	        {
+		        Invoke((MethodInvoker)delegate
+		        {
+			        log.AppendText("\nConnecing to Discord...");
+			        lDiscordStatus.Text = "Discord: Disconnected";
+		        });
+	        }
+
+			// To other stuff here after logging in (like joining chatrooms)
+		}
         void OnLoginKey(SteamUser.LoginKeyCallback callback)
         {
             File.WriteAllText(Path.Combine(ConfigPath, "loginkey"), callback.LoginKey);
