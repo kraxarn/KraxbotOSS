@@ -59,7 +59,8 @@ namespace KraxbotOSS
 			client = new DiscordClient(new DiscordConfiguration
 			{
 				Token = cfg.Discord_Token,
-				TokenType = TokenType.Bot
+				TokenType = TokenType.Bot,
+				AutoReconnect = true
 			});
 
 			// Create listeners
