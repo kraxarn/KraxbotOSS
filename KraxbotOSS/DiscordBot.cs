@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DSharpPlus;
 using DSharpPlus.EventArgs;
+using SteamKit2;
 
 namespace KraxbotOSS
 {
@@ -23,6 +24,8 @@ namespace KraxbotOSS
 		private DiscordClient client;
 		private string name;
 
+		private SteamID steamChat;
+
 		public DiscordBot(Form1 form1)
 		{
 			// Form and config refs
@@ -32,6 +35,10 @@ namespace KraxbotOSS
 			// Discord
 			form.DiscordStatus = "Connecting";
 			Task.Run(() => Bot().ConfigureAwait(false).GetAwaiter().GetResult());
+
+			// Set the Steam chatroom to send messages to
+			if (cfg.Discord_Steam != 0)
+				steamChat = new SteamID(cfg.Discord_Steam);
 		}
 
 		public void Disconnect()
@@ -57,16 +64,48 @@ namespace KraxbotOSS
 			form.DiscordStatus = "Logged in";
 		}
 
-		private async Task OnMessageCreated(MessageCreateEventArgs args)
+		private Task OnMessageCreated(MessageCreateEventArgs args)
 		{
 			// Ignore messages from the bot
 			if (args.Author == client.CurrentUser)
-				return;
+				return Task.CompletedTask;
 
-			form.Log($"\n{args.Author.Username} ({args.Channel.Name}): {args.Message.Content}");
+			// Get whole username
+			var author = $"{args.Author.Username}#{args.Author.Discriminator}";
 
-			if (args.Message.Content.ToLower().StartsWith("ping"))
-				await args.Message.RespondAsync("pong");
+			// Log it
+			form.Log($"\n{author} ({args.Channel.Name}): {args.Message.Content}");
+
+			// Check if we should send it to Steam
+			if (ShouldSendToSteam())
+				Form1.SendChatMessage(steamChat, $"{args.Author.Username}: {args.Message.Content}");
+			
+			// Return
+			return Task.CompletedTask;
+		}
+
+		private bool ShouldSendToSteam()
+		{
+			switch (cfg.Discord_Messages)
+			{
+				case "DiscordToSteam":
+				case "Both":
+					return true;
+				default:
+					return false;
+			}
+		}
+
+		private bool ShouldSendToDiscord()
+		{
+			switch (cfg.Discord_Messages)
+			{
+				case "SteamToDiscord":
+				case "Both":
+					return true;
+				default:
+					return false;
+			}
 		}
 	}
 }

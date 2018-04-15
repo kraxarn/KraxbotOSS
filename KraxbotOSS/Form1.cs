@@ -1334,7 +1334,7 @@ namespace KraxbotOSS
             });
         }
 
-	    private static void SendChatMessage(SteamID chatRoomID, string message)
+	    public static void SendChatMessage(SteamID chatRoomID, string message)
         {
             friends.SendChatRoomMessage(chatRoomID, EChatEntryType.ChatMsg, message);
         }
