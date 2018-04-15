@@ -388,7 +388,7 @@ namespace KraxbotOSS
         }
         void OnChatInvite(SteamFriends.ChatInviteCallback callback)
         {
-            Log(string.Format("\nGot invite to {0} from {1}", callback.ChatRoomName, friends.GetFriendPersonaName(callback.PatronID)));
+            Log($"\nGot invite to {callback.ChatRoomName} from {friends.GetFriendPersonaName(callback.PatronID)}");
             
             if (config.ChatRequest == "AcceptAll")
                 friends.JoinChat(callback.ChatRoomID);
@@ -398,7 +398,7 @@ namespace KraxbotOSS
         void OnChatEnter(SteamFriends.ChatEnterCallback callback)
         {
             SteamFriends.ChatMemberInfo bot = callback.ChatMembers.Single(s => s.SteamID == client.SteamID);
-            Log(string.Format("\nJoined {0} as {1}", callback.ChatRoomName, bot.Details));
+            Log($"\nJoined {callback.ChatRoomName} as {bot.Details}");
 
             // Add to chatrooms list
             Invoke((MethodInvoker)delegate
@@ -533,12 +533,12 @@ namespace KraxbotOSS
             {
                 if (!string.IsNullOrEmpty(config.API_CleverbotIO))
                 {
-                    Log(string.Format("\n{0}: {1}", friends.GetFriendPersonaName(callback.Sender), message));
+                    Log($"\n{friends.GetFriendPersonaName(callback.Sender)}: {message}");
 
                     // Check if we have a Cleverbot session
                     if (!cb.Exists(x => x.SteamID == userID))
                     {
-                        Log(string.Format("\nCreated Cleverbot session for {0}", friends.GetFriendPersonaName(userID)));
+                        Log($"\nCreated Cleverbot session for {friends.GetFriendPersonaName(userID)}");
                         string[] apikey = config.API_CleverbotIO.Split(';');
                         cb.Add(new CleverbotUser()
                         {
@@ -605,7 +605,7 @@ namespace KraxbotOSS
                 if (chatter.LastMessage == message && chatter.LastTime + 3000 > now)
                 {
                     // Sent the same message within the same 3 seconds
-                    SendChatMessage(chatRoomID, string.Format("Please {0}, don't spam", name));
+                    SendChatMessage(chatRoomID, $"Please {name}, don't spam");
                     if (chatRoom.Spam == "Kick")
                         friends.KickChatMember(chatRoomID, userID);
                     else if (chatRoom.Spam == "Ban")
@@ -614,7 +614,7 @@ namespace KraxbotOSS
                 else if (chatter.LastTime + 500 > now)
                 {
                     // Sent a mesage within the same 0.5 seconds
-                    SendChatMessage(chatRoomID, string.Format("Please {0}, don't post too fast", name));
+                    SendChatMessage(chatRoomID, $"Please {name}, don't post too fast");
                     if (chatRoom.Spam == "Kick")
                         friends.KickChatMember(chatRoomID, userID);
                     else if (chatRoom.Spam == "Ban")
@@ -623,7 +623,7 @@ namespace KraxbotOSS
                 else if (message.Length > 400)
                 {
                     // Sent a message longer than 400 characters
-                    SendChatMessage(chatRoomID, string.Format("Please {0}, don't post too long messages", name));
+                    SendChatMessage(chatRoomID, $"Please {name}, don't post too long messages");
                     if (chatRoom.Spam == "Kick")
                         friends.KickChatMember(chatRoomID, userID);
                     else if (chatRoom.Spam == "Ban")
@@ -657,7 +657,7 @@ namespace KraxbotOSS
 						            if (string.IsNullOrEmpty(config.API_Google))
 						            {
 							            string video = title.Substring(0, title.LastIndexOf("- YouTube"));
-							            SendChatMessage(chatRoomID, string.Format("{0} posted a video: {1}", name, video));
+							            SendChatMessage(chatRoomID, $"{name} posted a video: {video}");
 						            }
 						            else
 						            {
@@ -729,7 +729,7 @@ namespace KraxbotOSS
             if (userID.AccountID == config.Superadmin)
             {
                 if (message == "!timestamp")
-                    SendChatMessage(chatRoomID, string.Format("Current timestamp: {0}", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString()));
+                    SendChatMessage(chatRoomID, $"Current timestamp: {DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()}");
                 else if (message.StartsWith("!permission"))
                     SendChatMessage(chatRoomID, CheckPermission(message.Split()[1], bot.Permission).ToString());
                 else if (message == "!info")
@@ -744,7 +744,7 @@ namespace KraxbotOSS
                     else arch = "x86";
 
                     // TODO: Maybe use WMI to get more info or find cross platform version of it
-                    SendChatMessage(chatRoomID, string.Format("\nOS: {0} {1} \nRuntime: {2} {3}", Environment.OSVersion.ToString(), arch, runtime, Environment.Version.ToString()));
+                    SendChatMessage(chatRoomID, $"\nOS: {Environment.OSVersion} {arch} \nRuntime: {runtime} {Environment.Version}");
                 }
             }
 
@@ -810,7 +810,7 @@ namespace KraxbotOSS
                             case "yt":      chatRoom.DelayYT      = delay; break;
                             default: return;
                         }
-                        SendChatMessage(chatRoomID, string.Format("Delay of {0} was set to {1} seconds", set[1], set[2]));
+                        SendChatMessage(chatRoomID, $"Delay of {set[1]} was set to {set[2]} seconds");
                         SaveSettings(chatRoom);
                     }
                     else
@@ -930,8 +930,8 @@ namespace KraxbotOSS
                             SendChatMessage(chatRoomID, "Poked myself, *poke*");
                         else
                         {
-                            SendMessage(results[0], string.Format("Hey you! {0} poked you in {1}", friends.GetFriendPersonaName(userID), chatRoom.ChatName));
-                            SendChatMessage(chatRoomID, string.Format("Poked {0}", friends.GetFriendPersonaName(results[0])));
+                            SendMessage(results[0], $"Hey you! {friends.GetFriendPersonaName(userID)} poked you in {chatRoom.ChatName}");
+                            SendChatMessage(chatRoomID, $"Poked {friends.GetFriendPersonaName(results[0])}");
                             chatRoom.LastPoke = userID;
                         }
                     }
@@ -942,11 +942,11 @@ namespace KraxbotOSS
                     {
                         List<UserInfo> users = new List<UserInfo>(chatRoom.Users);
                         users.Remove(users.Single(s => s.SteamID == client.SteamID));
-                        SendChatMessage(chatRoomID, string.Format("The winner is {0}!", friends.GetFriendPersonaName(users[new Random().Next(users.Count)].SteamID)));
+                        SendChatMessage(chatRoomID, $"The winner is {friends.GetFriendPersonaName(users[new Random().Next(users.Count)].SteamID)}!");
                         chatRoom.TimeoutRandom = timeout + chatRoom.DelayRandom;
                     }
                     else
-                        SendChatMessage(chatRoomID, string.Format("This command is disabled for {0}", FormatTime(chatRoom.TimeoutRandom)));
+                        SendChatMessage(chatRoomID, $"This command is disabled for {FormatTime(chatRoom.TimeoutRandom)}");
                 }
                 else if (message == "!games" && chatRoom.Games)
                 {
@@ -962,14 +962,14 @@ namespace KraxbotOSS
                             JArray array = result.response.games;
                             JArray games = new JArray(array.OrderByDescending(obj => obj["playtime_forever"]));
                             for (int i = 0; i <= 4; i++)
-                                SendChatMessage(chatRoomID, string.Format("{0}: {1} ({2} hours played)", i + 1, games[i]["name"], Math.Round((double)games[i]["playtime_forever"] / 60)));
+                                SendChatMessage(chatRoomID, $"{i + 1}: {games[i]["name"]} ({Math.Round((double) games[i]["playtime_forever"] / 60)} hours played)");
                         }
                         else
                             SendChatMessage(chatRoomID, "Error: No or invalid response from Steam");
                         chatRoom.TimeoutGames = timeout + chatRoom.DelayGames;
                     }
                     else
-                        SendChatMessage(chatRoomID, string.Format("This command is disabled for {0}", FormatTime(chatRoom.TimeoutGames - timeout)));
+                        SendChatMessage(chatRoomID, $"This command is disabled for {FormatTime(chatRoom.TimeoutGames - timeout)}");
                 }
                 else if (message == "!recents" && chatRoom.Games)
                 {
@@ -992,15 +992,15 @@ namespace KraxbotOSS
                             {
                                 int playtime = (int)Math.Round((double)games[i]["playtime_2weeks"] / 60);
                                 if (playtime == 1)
-                                    SendChatMessage(chatRoomID, string.Format("{0}: {1} (1 hour played recently)", i+1, games[i]["name"]));
+                                    SendChatMessage(chatRoomID, $"{i + 1}: {games[i]["name"]} (1 hour played recently)");
                                 else
-                                    SendChatMessage(chatRoomID, string.Format("{0}: {1} ({2} hours played recently)", i + 1, games[i]["name"], playtime));
+                                    SendChatMessage(chatRoomID, $"{i + 1}: {games[i]["name"]} ({playtime} hours played recently)");
                             }
                         }
                         chatRoom.TimeoutRecents = timeout + chatRoom.DelayRecents;
                     }
                     else
-                        SendChatMessage(chatRoomID, string.Format("This command is disabled for {0}", FormatTime(chatRoom.TimeoutRecents - timeout)));
+                        SendChatMessage(chatRoomID, $"This command is disabled for {FormatTime(chatRoom.TimeoutRecents - timeout)}");
                 }
                 else if (message.StartsWith("!define ") && chatRoom.Define)
                 {
@@ -1026,13 +1026,13 @@ namespace KraxbotOSS
                                 double thumbsUp = result.list[0].thumbs_up;
                                 double thumbsDown = result.list[0].thumbs_down;
                                 double thumbsTotal = thumbsUp + thumbsDown;
-                                SendChatMessage(chatRoomID, string.Format("Rating: {0}% positive ({1}/{2})", Math.Round((thumbsUp / thumbsTotal) * 100), thumbsUp, thumbsTotal));
+                                SendChatMessage(chatRoomID, $"Rating: {Math.Round(thumbsUp / thumbsTotal * 100)}% positive ({thumbsUp}/{thumbsTotal})");
                             }
                         }
                         chatRoom.TimeoutDefine = timeout + chatRoom.DelayDefine;
                     }
                     else
-                        SendChatMessage(chatRoomID, string.Format("This command is disabled for {0}", FormatTime(chatRoom.TimeoutDefine - timeout)));
+                        SendChatMessage(chatRoomID, $"This command is disabled for {FormatTime(chatRoom.TimeoutDefine - timeout)}");
                 }
                 else if (message.StartsWith("!yt ") && chatRoom.Search)
                 {
@@ -1059,7 +1059,7 @@ namespace KraxbotOSS
                         chatRoom.TimeoutYT = timeout + chatRoom.DelayYT;
                     }
                     else
-                        SendChatMessage(chatRoomID, string.Format("This command is disabled for {0}", FormatTime(chatRoom.TimeoutYT - timeout)));
+                        SendChatMessage(chatRoomID, $"This command is disabled for {FormatTime(chatRoom.TimeoutYT - timeout)}");
                 }
             }
 
@@ -1083,10 +1083,10 @@ namespace KraxbotOSS
                             DateTime date = new DateTime(1970, 1, 1, 0, 0, 0, 0);
                             date = date.AddSeconds(long.Parse(result.response.players[0].timecreated.ToString()));
                             DateTime curDate = DateTime.UtcNow;
-                            if ((curDate.Year - date.Year) == 1)
-                                SendChatMessage(chatRoomID, string.Format("{0}'s Steam birthday is {1}{2} of {3} (Account created {4} and 1 year old)", name, date.Day, GetDateSuffix(date.Day), date.ToString("MMMM"), date.Year));
+                            if (curDate.Year - date.Year == 1)
+                                SendChatMessage(chatRoomID, $"{name}'s Steam birthday is {date.Day}{GetDateSuffix(date.Day)} of {date:MMMM} (Account created {date.Year} and 1 year old)");
                             else
-                                SendChatMessage(chatRoomID, string.Format("{0}'s Steam birthday is {1}{2} of {3} (Account created {4} and {5} years old)", name, date.Day, GetDateSuffix(date.Day), date.ToString("MMMM"), date.Year, curDate.Year - date.Year));
+                                SendChatMessage(chatRoomID, $"{name}'s Steam birthday is {date.Day}{GetDateSuffix(date.Day)} of {date:MMMM} (Account created {date.Year} and {curDate.Year - date.Year} years old)");
                         }
                     }
                 }
@@ -1111,7 +1111,7 @@ namespace KraxbotOSS
                     if (members != 0)  users += (members  + " are users, " );
                     if (mods != 0)     users += (mods     + " are mods, "  );
                     if (officers != 0) users += (officers + " are admins, ");
-                    SendChatMessage(chatRoomID, string.Format("{0} people are in this chat, where {1} and {2}owner", chatRoom.Users.Count, users.Substring(0, users.Length - 2), owner));
+                    SendChatMessage(chatRoomID, $"{chatRoom.Users.Count} people are in this chat, where {users.Substring(0, users.Length - 2)} and {owner}owner");
                 }
                 else if (message == "!invited")
                     SendChatMessage(chatRoomID, chatRoom.InvitedName + " invited me to this chat");
@@ -1119,14 +1119,14 @@ namespace KraxbotOSS
                 {
                     string chatr = chatter.Rank.ToString();
                     if (string.IsNullOrEmpty(game))
-                        SendChatMessage(chatRoomID, string.Format("{0} ({1})", name, chatr));
+                        SendChatMessage(chatRoomID, $"{name} ({chatr})");
                     else
-                        SendChatMessage(chatRoomID, string.Format("{0} playing {1} ({2})", name, game, chatr));
+                        SendChatMessage(chatRoomID, $"{name} playing {game} ({chatr})");
                 }
                 else if (message == "!ver")
-                    SendChatMessage(chatRoomID, string.Format("KraxbotOSS {0} by Kraxie / KraXarN", version));
+                    SendChatMessage(chatRoomID, $"KraxbotOSS {version} by Kraxie / KraXarN");
                 else if (message == "!id")
-                    SendChatMessage(chatRoomID, string.Format("{0}'s SteamID is {1}", name, userID));
+                    SendChatMessage(chatRoomID, $"{name}'s SteamID is {userID}");
                 else if (message == "!chatid")
                     SendChatMessage(chatRoomID, "This chat's SteamID is " + chatRoomID);
                 else if (message.StartsWith("!8ball"))
@@ -1211,7 +1211,7 @@ namespace KraxbotOSS
                         else
                         {
                             DateTime date = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(long.Parse(result.dt.ToString()));
-                            SendChatMessage(chatRoomID, string.Format("The weather in {0} is {1}, {2}ºC with wind at {3} m/s and {4}% clouds (Updated {5}:{6})", result.name, result.weather[0].main, Math.Round(double.Parse(result.main.temp.ToString())), Math.Round(double.Parse(result.wind.speed.ToString())), result.clouds.all, date.Hour, date.Minute));
+                            SendChatMessage(chatRoomID, $"The weather in {result.name} is {result.weather[0].main}, {Math.Round(double.Parse(result.main.temp.ToString()))}ºC with wind at {Math.Round(double.Parse(result.wind.speed.ToString()))} m/s and {result.clouds.all}% clouds (Updated {date.Hour}:{date.Minute})");
                         }
                     }
                 }
