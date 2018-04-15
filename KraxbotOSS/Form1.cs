@@ -144,10 +144,9 @@ namespace KraxbotOSS
             client.Connect();
 
 			// Discord
+			// We connect after Steam connects
 	        if (config.Discord_Enabled)
-	        {
-				discordBot = new DiscordBot(this);
-	        }
+		        DiscordStatus = "Waiting";
 
             // Run main loop in a seperate thread
             Task.Run(() => { while (running) { manager.RunWaitCallbacks(TimeSpan.FromSeconds(1)); } });
@@ -388,7 +387,11 @@ namespace KraxbotOSS
 
             // Start game
             PlayGame(config.GamePlayed_ID, config.GamePlayed_ExtraInfo);
-        }
+
+	        // Discord
+	        if (config.Discord_Enabled)
+		        discordBot = new DiscordBot(this);
+		}
 
 	    private void OnFriendAdded(SteamFriends.FriendAddedCallback callback)
         {

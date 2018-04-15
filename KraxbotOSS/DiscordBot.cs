@@ -28,7 +28,13 @@ namespace KraxbotOSS
 
 			// Set the Steam chatroom to send messages to
 			if (cfg.Discord_Steam != 0)
-				steamChat = new SteamID(cfg.Discord_Steam);
+			{
+				foreach (var steamID in form.GetGroups())
+				{
+					if (cfg.Discord_Steam == steamID.AccountID)
+						steamChat = steamID;
+				}
+			}
 		}
 
 		public void Disconnect() => Task.Run(async () => await client.DisconnectAsync());
@@ -81,7 +87,7 @@ namespace KraxbotOSS
 			// Check if we should send it to Steam
 			if (ShouldSendToSteam())
 				form.SendChatMessage(steamChat, $"{args.Author.Username}: {args.Message.Content}");
-			
+
 			// Return
 			return Task.CompletedTask;
 		}
