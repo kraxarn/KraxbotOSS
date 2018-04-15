@@ -34,7 +34,27 @@ namespace KraxbotOSS
         static SteamUser       user;
         static SteamFriends    friends;
 
-        public Form1()
+		// Discord
+	    private DiscordBot discordBot;
+
+	    public string DiscordStatus
+	    {
+		    get => lDiscordStatus.Text.Substring(9);
+		    set
+		    {
+			    if (lDiscordStatus.InvokeRequired)
+			    {
+				    lDiscordStatus.Invoke(new MethodInvoker(delegate
+				    {
+					    lDiscordStatus.Text = $@"Discord: {value}";
+					}));
+			    }
+				else
+					lDiscordStatus.Text = $@"Discord: {value}";
+		    }
+	    }
+
+		public Form1()
         {
             InitializeComponent();
 
@@ -122,6 +142,12 @@ namespace KraxbotOSS
             // Connect
             log.AppendText("\nConnecting to Steam... ");
             client.Connect();
+
+			// Discord
+	        if (config.Discord_Enabled)
+	        {
+				discordBot = new DiscordBot(this);
+	        }
 
             // Run main loop in a seperate thread
             Task.Run(() => { while (running) { manager.RunWaitCallbacks(TimeSpan.FromSeconds(1)); } });
@@ -330,16 +356,6 @@ namespace KraxbotOSS
                 btnBotSettings.Enabled = true;
                 lStatus.Text = "State: Logged in";
             });
-
-	        // Connect to Discord if enabled
-	        if (config.Discord_Enabled)
-	        {
-		        Invoke((MethodInvoker)delegate
-		        {
-			        log.AppendText("\nConnecing to Discord...");
-			        lDiscordStatus.Text = "Discord: Disconnected";
-		        });
-	        }
 
 			// To other stuff here after logging in (like joining chatrooms)
 		}
@@ -1310,7 +1326,7 @@ namespace KraxbotOSS
 
 		#region Other stuff
 
-	    private void Log(string text)
+	    public void Log(string text)
         {
             Invoke((MethodInvoker)delegate
             {
@@ -1483,7 +1499,7 @@ namespace KraxbotOSS
 
 		#region Crash handler
 
-        private void OnThreadException(object sender, ThreadExceptionEventArgs e)
+		private void OnThreadException(object sender, ThreadExceptionEventArgs e)
         {
             DumpError(e.Exception);
             #if DEBUG
