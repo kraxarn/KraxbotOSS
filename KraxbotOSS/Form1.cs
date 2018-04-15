@@ -1493,8 +1493,8 @@ namespace KraxbotOSS
 	    private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             running = false;
-			discordBot.Disconnect();
-            Environment.Exit(Environment.ExitCode);
+	        discordBot?.Disconnect();
+	        Environment.Exit(Environment.ExitCode);
         }
         
 	    private void BtnBotSettings_Click(object sender, EventArgs e)
