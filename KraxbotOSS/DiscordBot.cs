@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DSharpPlus;
+using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using SteamKit2;
 
@@ -24,7 +25,8 @@ namespace KraxbotOSS
 		private DiscordClient client;
 		private string name;
 
-		private SteamID steamChat;
+		private readonly SteamID steamChat;
+		private DiscordChannel discordChannel;
 
 		public DiscordBot(Form1 form1)
 		{
@@ -46,6 +48,11 @@ namespace KraxbotOSS
 			Task.Run(async () => { await client.DisconnectAsync(); });
 		}
 
+		public void SendMessage(string message)
+		{
+			Task.Run(async () => { await client.SendMessageAsync(discordChannel, message); });
+		}
+
 		private async Task Bot()
 		{
 			// Create bot
@@ -62,6 +69,10 @@ namespace KraxbotOSS
 			await client.ConnectAsync();
 			name = client.CurrentUser.Username;
 			form.DiscordStatus = "Logged in";
+
+			// Find Discord channel
+			// Can this be set from constructor?
+			discordChannel = await client.GetChannelAsync(cfg.Discord_Channel);
 		}
 
 		private Task OnMessageCreated(MessageCreateEventArgs args)
@@ -96,13 +107,13 @@ namespace KraxbotOSS
 			}
 		}
 
-		private bool ShouldSendToDiscord()
+		public bool ShouldSendToDiscord(SteamID chatID)
 		{
 			switch (cfg.Discord_Messages)
 			{
 				case "SteamToDiscord":
 				case "Both":
-					return true;
+					return chatID == steamChat;
 				default:
 					return false;
 			}

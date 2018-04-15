@@ -268,7 +268,7 @@ namespace KraxbotOSS
 			internal string Discord_Admin;
 			internal bool   Discord_AllowCommands = false;
 			internal bool   Discord_StateChanges  = true;
-	        internal string Discord_Channel;
+	        internal ulong  Discord_Channel;
 	        internal string Discord_Messages      = "Both";
 	        internal uint   Discord_Steam;
         }
@@ -632,6 +632,10 @@ namespace KraxbotOSS
             }
             chatter.LastMessage = message;
             chatter.LastTime = now;
+
+			// Check if we should send it to Discord
+	        if (config.Discord_Enabled && discordBot.ShouldSendToDiscord(chatRoomID))
+				discordBot.SendMessage($"{name}: {message}");
 
             // Link resolving
             if (chatRoom.Links)

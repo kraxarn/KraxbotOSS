@@ -95,7 +95,7 @@ namespace KraxbotOSS
 			tbDiscordToken.Text           = Form1.config.Discord_Token;
 			tbDiscordAdmin.Text           = Form1.config.Discord_Admin;
 			cbDiscordStateChanges.Checked = Form1.config.Discord_StateChanges;
-	        tbDiscordChannel.Text         = Form1.config.Discord_Channel;
+	        tbDiscordChannel.Text         = $@"{Form1.config.Discord_Channel}";
 
 	        switch (Form1.config.Discord_Messages)
 	        {
@@ -266,9 +266,17 @@ namespace KraxbotOSS
 			Form1.config.Discord_Token        = tbDiscordToken.Text;
 			Form1.config.Discord_Admin        = tbDiscordAdmin.Text;
 			Form1.config.Discord_StateChanges = cbDiscordStateChanges.Checked;
-	        Form1.config.Discord_Channel      = tbDiscordChannel.Text;
 
-	        switch (cbDiscordMessages.SelectedIndex)
+	        if (ulong.TryParse(tbDiscordChannel.Text, out var channelID))
+		        Form1.config.Discord_Channel = channelID;
+	        else
+	        {
+		        MessageBox.Show("Discord channel was in an incorrect format", "Discord Error", MessageBoxButtons.OK,
+			        MessageBoxIcon.Error);
+		        return;
+	        }
+
+			switch (cbDiscordMessages.SelectedIndex)
 	        {
 				case 0: Form1.config.Discord_Messages = "None";           break;
 		        case 1: Form1.config.Discord_Messages = "DiscordToSteam"; break;
