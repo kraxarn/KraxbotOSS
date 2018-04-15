@@ -9,10 +9,9 @@ namespace KraxbotOSS
 {
 	public class DiscordBot
 	{
-		private Form1 form;
+		private readonly Form1 form;
 		private readonly Form1.Config cfg;
 		private DiscordClient client;
-		private string name;
 
 		private readonly SteamID steamChat;
 		private DiscordChannel discordChannel;
@@ -32,15 +31,9 @@ namespace KraxbotOSS
 				steamChat = new SteamID(cfg.Discord_Steam);
 		}
 
-		public void Disconnect()
-		{
-			Task.Run(async () => { await client.DisconnectAsync(); });
-		}
+		public void Disconnect() => Task.Run(async () => await client.DisconnectAsync());
 
-		public void SendMessage(string message)
-		{
-			Task.Run(async () => { await client.SendMessageAsync(discordChannel, message); });
-		}
+		public void SendMessage(string message) => Task.Run(async () => await client.SendMessageAsync(discordChannel, message));
 
 		private async Task Bot()
 		{
@@ -61,7 +54,6 @@ namespace KraxbotOSS
 
 			// Connect
 			await client.ConnectAsync();
-			name = client.CurrentUser.Username;
 
 			// Find Discord channel
 			// Can this be set from constructor?
