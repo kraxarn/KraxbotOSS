@@ -127,7 +127,7 @@ namespace KraxbotOSS
             Task.Run(() => { while (running) { manager.RunWaitCallbacks(TimeSpan.FromSeconds(1)); } });
         }
 
-        // -- Classes -- //
+        #region Classes
 
         // Chat settings
         public class Settings
@@ -247,7 +247,9 @@ namespace KraxbotOSS
 	        internal uint   Discord_Steam;
         }
 
-        // -- Steam callbacks -- //
+		#endregion
+
+		#region Steam callbacks
 
         void OnConnected(SteamClient.ConnectedCallback callback)
         {
@@ -1218,7 +1220,9 @@ namespace KraxbotOSS
             }
         }
 
-        // -- Steam functions -- //
+		#endregion
+
+        #region Steam functions
 
         public static void Login(string username, string password, bool rememberPassword, string authCode = null, string twoFactorCode = null)
         {
@@ -1302,7 +1306,9 @@ namespace KraxbotOSS
             client.Send(playGame);
         }
 
-        // -- Other stuffs -- //
+		#endregion
+
+		#region Other stuff
 
 	    private void Log(string text)
         {
@@ -1425,7 +1431,9 @@ namespace KraxbotOSS
             return sec < 10 ? $"{min}:0{sec}" : $"{min}:{sec}";
         }
 
-        // -- Buttons and ui stuff -- //
+		#endregion
+
+		#region GUI stuff
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
@@ -1471,7 +1479,9 @@ namespace KraxbotOSS
             chatroomInfo.ShowDialog(this);
         }
 
-        // -- Crash handler -- //
+		#endregion
+
+		#region Crash handler
 
         private void OnThreadException(object sender, ThreadExceptionEventArgs e)
         {
@@ -1496,5 +1506,7 @@ namespace KraxbotOSS
             string[] dump = { error.Message, error.StackTrace };
             File.WriteAllLines(Path.Combine(ConfigPath, "crash.log"), dump);
         }
+
+		#endregion
 	}
 }
