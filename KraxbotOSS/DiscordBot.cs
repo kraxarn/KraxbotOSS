@@ -1,23 +1,12 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
+using DSharpPlus.Net.WebSocket;
 using SteamKit2;
 
 namespace KraxbotOSS
 {
-	/*
-	 * NOTE
-	 *
-	 * This doesn't work that well
-	 * on Windows 7 and macOS/Linux due
-	 * to them not supported the
-	 * .NET WebSocket implementation.
-	 */
-
 	public class DiscordBot
 	{
 		private Form1 form;
@@ -62,6 +51,9 @@ namespace KraxbotOSS
 				TokenType = TokenType.Bot,
 				AutoReconnect = true
 			});
+
+			// Set web socket implementation
+			client.SetWebSocketClient<WebSocket4NetClient>();
 
 			// Create listeners
 			client.MessageCreated += OnMessageCreated;
