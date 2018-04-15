@@ -20,8 +20,8 @@ namespace KraxbotOSS
 	{
 		private Form1 form;
 		private readonly Form1.Config cfg;
-
 		private DiscordClient client;
+		private string name;
 
 		public DiscordBot(Form1 form1)
 		{
@@ -53,11 +53,16 @@ namespace KraxbotOSS
 
 			// Connect
 			await client.ConnectAsync();
+			name = client.CurrentUser.Username;
 			form.DiscordStatus = "Logged in";
 		}
 
 		private async Task OnMessageCreated(MessageCreateEventArgs args)
 		{
+			// Ignore messages from the bot
+			if (args.Author == client.CurrentUser)
+				return;
+
 			form.Log($"\n{args.Author.Username} ({args.Channel.Name}): {args.Message.Content}");
 
 			if (args.Message.Content.ToLower().StartsWith("ping"))
