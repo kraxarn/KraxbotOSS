@@ -64,6 +64,9 @@ namespace KraxbotOSS
 			// Find Discord channel
 			// Can this be set from constructor?
 			discordChannel = await client.GetChannelAsync(cfg.Discord_Channel);
+
+			// Wait
+			await Task.Delay(-1);
 		}
 
 		private Task ClientOnReady(ReadyEventArgs readyEventArgs)
