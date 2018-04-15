@@ -110,7 +110,7 @@ namespace KraxbotOSS
 			{
 				case "SteamToDiscord":
 				case "Both":
-					return chatID == steamChat;
+					return chatID.AccountID == steamChat.AccountID;
 				default:
 					return false;
 			}
