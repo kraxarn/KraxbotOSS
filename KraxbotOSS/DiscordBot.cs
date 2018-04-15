@@ -85,7 +85,7 @@ namespace KraxbotOSS
 			form.Log($"\n{author} ({args.Channel.Name}): {args.Message.Content}");
 
 			// Check if we should send it to Steam
-			if (ShouldSendToSteam())
+			if (ShouldSendToSteam() && discordChannel == args.Channel)
 				form.SendChatMessage(steamChat, $"{args.Author.Username}: {args.Message.Content}");
 
 			// Return
