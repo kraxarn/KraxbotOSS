@@ -169,19 +169,12 @@ namespace KraxbotOSS
 			        return;
 		        }
 
-				// Check for common errors
+				// Check for name error
 				if (!string.IsNullOrEmpty(tbDiscordAdmin.Text) && tbDiscordAdmin.Text[tbDiscordAdmin.TextLength - 5] != '#')
 		        {
 			        if (MessageBox.Show("Discord Admin should contain #, for example Example#1234", "Discord Warning", MessageBoxButtons.OKCancel,
 				        MessageBoxIcon.Warning) == DialogResult.Cancel)
 				        return;
-		        }
-
-		        if (tbDiscordChannel.Text.StartsWith("#"))
-		        {
-			        if (MessageBox.Show("Discord Channel should not start with #", "Discord Warning", MessageBoxButtons.OKCancel,
-				        MessageBoxIcon.Warning) == DialogResult.Cancel)
-						return;
 		        }
 	        }
 
