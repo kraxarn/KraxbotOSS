@@ -80,7 +80,7 @@ namespace KraxbotOSS
 
 			// Check if we should send it to Steam
 			if (ShouldSendToSteam())
-				Form1.SendChatMessage(steamChat, $"{args.Author.Username}: {args.Message.Content}");
+				form.SendChatMessage(steamChat, $"{args.Author.Username}: {args.Message.Content}");
 			
 			// Return
 			return Task.CompletedTask;

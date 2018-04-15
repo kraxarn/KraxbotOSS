@@ -29,10 +29,10 @@ namespace KraxbotOSS
 	    private bool running;
 
 		// Steam variables
-		static SteamClient     client;
-        static CallbackManager manager;
-        static SteamUser       user;
-        static SteamFriends    friends;
+		private SteamClient     client;
+        private CallbackManager manager;
+        private SteamUser       user;
+        private SteamFriends    friends;
 
 		// Discord
 	    private DiscordBot discordBot;
@@ -277,7 +277,7 @@ namespace KraxbotOSS
 
 		#region Steam callbacks
 
-        void OnConnected(SteamClient.ConnectedCallback callback)
+	    private void OnConnected(SteamClient.ConnectedCallback callback)
         {
             // TODO: Handle this better or something
             if (callback.Result != EResult.OK)
@@ -294,7 +294,7 @@ namespace KraxbotOSS
                 {
                     lNetwork.Text = "Network: Connected";
                 });
-                string[] user = File.ReadAllLines(Path.Combine(ConfigPath, "user"));
+                var user = File.ReadAllLines(Path.Combine(ConfigPath, "user"));
                 FormLogin.Username = user[0];
                 Login(user[0]);
             }
@@ -307,7 +307,8 @@ namespace KraxbotOSS
                 });
             }
 		}
-        void OnDisconnected(SteamClient.DisconnectedCallback callback)
+
+	    private void OnDisconnected(SteamClient.DisconnectedCallback callback)
         {
             // TODO: Only show the message once
             Log("\nDisconnected, attempting to reconnect... ");
@@ -317,37 +318,41 @@ namespace KraxbotOSS
             });
             client.Connect();
         }
-        void OnLoggedOn(SteamUser.LoggedOnCallback callback)
+
+	    private void OnLoggedOn(SteamUser.LoggedOnCallback callback)
         {
             if (callback.Result != EResult.OK)
             {
-                if (callback.Result == EResult.AccountLogonDenied)
-                {
-                    Invoke((MethodInvoker)delegate
-                    {
-                        FormLogin login = new FormLogin("NeedGuard");
-                        // If we use ShowDialog here, we get disconencted and can't login
-                        login.Show(this);
-                    });
-                }
-                else if (callback.Result == EResult.AccountLoginDeniedNeedTwoFactor)
-                {
-                    Invoke((MethodInvoker)delegate
-                    {
-                        FormLogin login = new FormLogin("NeedTwoFactor");
-                        // If we use ShowDialog here, we get disconencted and can't login
-                        login.Show(this);
-                    });
-                }
-                else if (callback.Result == EResult.InvalidPassword && string.IsNullOrEmpty(FormLogin.Password))
-                {
-                    File.Delete(Path.Combine(ConfigPath, "loginkey"));
-                    File.Delete(Path.Combine(ConfigPath, "user"));
-                    MessageBox.Show("Your saved login seems to be invalid, so it was removed.\nTry logging in again.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (callback.Result != EResult.TryAnotherCM)
-                    MessageBox.Show("Unable to login to Steam: " + callback.Result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+	            switch (callback.Result)
+	            {
+		            case EResult.AccountLogonDenied:
+			            Invoke((MethodInvoker)delegate
+			            {
+				            var login = new FormLogin(this, "NeedGuard");
+				            // If we use ShowDialog here, we get disconencted and can't login
+				            login.Show(this);
+			            });
+			            break;
+		            case EResult.AccountLoginDeniedNeedTwoFactor:
+			            Invoke((MethodInvoker)delegate
+			            {
+				            var login = new FormLogin(this, "NeedTwoFactor");
+				            // If we use ShowDialog here, we get disconencted and can't login
+				            login.Show(this);
+			            });
+			            break;
+		            case EResult.InvalidPassword when string.IsNullOrEmpty(FormLogin.Password):
+			            File.Delete(Path.Combine(ConfigPath, "loginkey"));
+			            File.Delete(Path.Combine(ConfigPath, "user"));
+			            MessageBox.Show("Your saved login seems to be invalid, so it was removed.\nTry logging in again.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			            break;
+		            default:
+			            if (callback.Result != EResult.TryAnotherCM)
+				            MessageBox.Show("Unable to login to Steam: " + callback.Result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			            break;
+	            }
+
+	            return;
             }
             Log("\nLogged in");
             Invoke((MethodInvoker)delegate
@@ -359,16 +364,19 @@ namespace KraxbotOSS
 
 			// To other stuff here after logging in (like joining chatrooms)
 		}
-        void OnLoginKey(SteamUser.LoginKeyCallback callback)
+
+	    private void OnLoginKey(SteamUser.LoginKeyCallback callback)
         {
             File.WriteAllText(Path.Combine(ConfigPath, "loginkey"), callback.LoginKey);
             user.AcceptNewLoginKey(callback);
         }
-        void OnAccountInfo(SteamUser.AccountInfoCallback callback)
+
+	    private void OnAccountInfo(SteamUser.AccountInfoCallback callback)
         {
             friends.SetPersonaState(config.LoginAs);
         }
-        void OnFriendsList(SteamFriends.FriendsListCallback callback)
+
+	    private void OnFriendsList(SteamFriends.FriendsListCallback callback)
         {
             // Join chatrooms
             if (config.Chatrooms != null)
@@ -381,23 +389,29 @@ namespace KraxbotOSS
             // Start game
             PlayGame(config.GamePlayed_ID, config.GamePlayed_ExtraInfo);
         }
-        void OnFriendAdded(SteamFriends.FriendAddedCallback callback)
+
+	    private void OnFriendAdded(SteamFriends.FriendAddedCallback callback)
         {
             if (config.FriendRequest == "AcceptAll")
                 Log(callback.PersonaName + " is now my friend");
         }
-        void OnChatInvite(SteamFriends.ChatInviteCallback callback)
+
+	    private void OnChatInvite(SteamFriends.ChatInviteCallback callback)
         {
-            Log($"\nGot invite to {callback.ChatRoomName} from {friends.GetFriendPersonaName(callback.PatronID)}");
-            
-            if (config.ChatRequest == "AcceptAll")
-                friends.JoinChat(callback.ChatRoomID);
-            else if (config.ChatRequest == "SuperadminOnly" && callback.InvitedID.AccountID == config.Superadmin)
-                friends.JoinChat(callback.ChatRoomID);
+	        Log($"\nGot invite to {callback.ChatRoomName} from {friends.GetFriendPersonaName(callback.PatronID)}");
+
+	        switch (config.ChatRequest)
+	        {
+		        case "AcceptAll":
+		        case "SuperadminOnly" when callback.InvitedID.AccountID == config.Superadmin:
+					friends.JoinChat(callback.ChatRoomID);
+			        break;
+	        }
         }
-        void OnChatEnter(SteamFriends.ChatEnterCallback callback)
+
+	    private void OnChatEnter(SteamFriends.ChatEnterCallback callback)
         {
-            SteamFriends.ChatMemberInfo bot = callback.ChatMembers.Single(s => s.SteamID == client.SteamID);
+            var bot = callback.ChatMembers.Single(s => s.SteamID == client.SteamID);
             Log($"\nJoined {callback.ChatRoomName} as {bot.Details}");
 
             // Add to chatrooms list
@@ -407,7 +421,7 @@ namespace KraxbotOSS
             });
 
             // Create settings if needed
-            if (File.Exists(Path.Combine(ConfigPath, "chatrooms", callback.ChatID.ConvertToUInt64().ToString() + ".json")))
+            if (File.Exists(Path.Combine(ConfigPath, "chatrooms", callback.ChatID.ConvertToUInt64() + ".json")))
                 LoadSettings(callback.ChatID);
             else
                 CreateSettings(callback.ChatID, callback.ChatRoomName, callback.FriendID.AccountID, friends.GetFriendPersonaName(callback.FriendID));
@@ -415,9 +429,10 @@ namespace KraxbotOSS
 
             // Add all current users to the Users list
             chatRoom.Users.Clear();
-            foreach (SteamFriends.ChatMemberInfo member in callback.ChatMembers)
+            foreach (var member in callback.ChatMembers)
             {
-                chatRoom.Users.Add(new UserInfo() {
+                chatRoom.Users.Add(new UserInfo
+                {
                     SteamID = member.SteamID,
                     Rank = member.Details,
                     Permission = member.Permissions
@@ -431,7 +446,8 @@ namespace KraxbotOSS
             // Then save settings
             SaveSettings(chatRoom);
         }
-        void OnChatMemberInfo(SteamFriends.ChatMemberInfoCallback callback)
+
+	    private void OnChatMemberInfo(SteamFriends.ChatMemberInfoCallback callback)
         {
             if (callback.Type == EChatInfoType.StateChange)
             {
@@ -447,7 +463,7 @@ namespace KraxbotOSS
                 // Add or remove user from Users list
                 if (state == EChatMemberStateChange.Entered)
                 {
-                    chatRoom.Users.Add(new UserInfo()
+                    chatRoom.Users.Add(new UserInfo
                     {
                         SteamID    = callback.StateChangeInfo.MemberInfo.SteamID,
                         Permission = callback.StateChangeInfo.MemberInfo.Permissions,
@@ -492,11 +508,13 @@ namespace KraxbotOSS
                 }
             }
         }
-        void OnLoggedOff(SteamUser.LoggedOffCallback callback)
+
+	    private void OnLoggedOff(SteamUser.LoggedOffCallback callback)
         {
             Log("\nLogged out");
         }
-        void OnMachineAuth(SteamUser.UpdateMachineAuthCallback callback)
+
+	    private void OnMachineAuth(SteamUser.UpdateMachineAuthCallback callback)
         {
             // Writes sentry file
             int fileSize;
@@ -525,10 +543,11 @@ namespace KraxbotOSS
                 SentryFileHash = sentryHash
             });
         }
-        void OnFriendMsg(SteamFriends.FriendMsgCallback callback)
+
+	    private void OnFriendMsg(SteamFriends.FriendMsgCallback callback)
         {
-            string message = callback.Message;
-            SteamID userID = callback.Sender;
+            var message = callback.Message;
+            var userID = callback.Sender;
             if (!string.IsNullOrEmpty(message.Trim()))
             {
                 if (!string.IsNullOrEmpty(config.API_CleverbotIO))
@@ -539,7 +558,7 @@ namespace KraxbotOSS
                     if (!cb.Exists(x => x.SteamID == userID))
                     {
                         Log($"\nCreated Cleverbot session for {friends.GetFriendPersonaName(userID)}");
-                        string[] apikey = config.API_CleverbotIO.Split(';');
+                        var apikey = config.API_CleverbotIO.Split(';');
                         cb.Add(new CleverbotUser()
                         {
                             SteamID = userID,
@@ -547,15 +566,20 @@ namespace KraxbotOSS
                         });
                     }
                     // Use Cleverbot
-                    CleverbotSession session = cb.Single(s => s.SteamID == userID).Session;
-                    try
-                    { SendMessage(userID, session.Send(message)); }
-                    catch (Exception e)
-                    { Log("\n" + e.Message); }
+                    var session = cb.Single(s => s.SteamID == userID).Session;
+	                try
+	                {
+		                SendMessage(userID, session.Send(message));
+	                }
+	                catch (Exception e)
+	                {
+		                Log("\n" + e.Message);
+	                }
                 }
             }
         }
-        void OnChatMsg(SteamFriends.ChatMsgCallback callback)
+
+	    private void OnChatMsg(SteamFriends.ChatMsgCallback callback)
         {
             // TODO: Log this different than friend messages
             // TODO: Does this assume we are friends with the user?
@@ -693,7 +717,7 @@ namespace KraxbotOSS
                 {
                     Log($"\nCreated Cleverbot session for {chatRoom.ChatName}");
                     var apikey = config.API_CleverbotIO.Split(';');
-                    cb.Add(new CleverbotUser()
+                    cb.Add(new CleverbotUser
                     {
                         SteamID = chatRoomID,
                         Session = CleverbotSession.NewSession(apikey[0], apikey[1])
@@ -701,10 +725,14 @@ namespace KraxbotOSS
                 }
                 // Use Cleverbot
                 var session = cb.Single(s => s.SteamID == chatRoomID).Session;
-                try
-                { SendChatMessage(chatRoomID, session.Send(message)); }
-                catch (Exception e)
-                { Log("\n" + e.Message); }
+	            try
+	            {
+		            SendChatMessage(chatRoomID, session.Send(message));
+	            }
+	            catch (Exception e)
+	            {
+		            Log("\n" + e.Message);
+	            }
             }
 
             // Always on commands
@@ -735,13 +763,9 @@ namespace KraxbotOSS
                 else if (message == "!info")
                 {
                     // Get if we are using Mono
-                    string runtime;
-                    if (Type.GetType("Mono.Runtime") != null) runtime = "Mono";
-                    else runtime = ".NET";
+	                var runtime = Type.GetType("Mono.Runtime") != null ? "Mono" : ".NET";
                     // Get if system is 32 or 64 bit
-                    string arch;
-                    if (Environment.Is64BitOperatingSystem) arch = "x64";
-                    else arch = "x86";
+	                var arch = Environment.Is64BitOperatingSystem ? "x64" : "x86";
 
                     // TODO: Maybe use WMI to get more info or find cross platform version of it
                     SendChatMessage(chatRoomID, $"\nOS: {Environment.OSVersion} {arch} \nRuntime: {runtime} {Environment.Version}");
@@ -762,8 +786,8 @@ namespace KraxbotOSS
                 }
                 else if (message.StartsWith("!toggle "))
                 {
-                    bool state = false;
-                    string toggle = message.Split(' ')[1];
+                    bool state;
+                    var toggle = message.Split(' ')[1];
                     switch (toggle.ToLower())
                     {
                         case "cleverbot": chatRoom.Cleverbot = state = !chatRoom.Cleverbot; break;
@@ -797,7 +821,7 @@ namespace KraxbotOSS
                 }
                 else if (message.StartsWith("!setdelay "))
                 {
-                    string[] set = message.Split(' ');
+                    var set = message.Split(' ');
                     if (int.TryParse(set[2], out int delay))
                     {
                         switch(set[1])
@@ -876,13 +900,12 @@ namespace KraxbotOSS
                         case "add":
                             // Add rule
                             chatRoom.SetRules.Add(message.Substring(10));
-                            if (chatRoom.Rules) SendChatMessage(chatRoomID, "Rule added");
-                            else SendChatMessage(chatRoomID, "Rule added, but rules are disabled");
-                            break;
+	                        SendChatMessage(chatRoomID, chatRoom.Rules ? "Rule added" : "Rule added, but rules are disabled");
+	                        break;
                         case "remove":
                             // Remove rule
-                            string search = message.Substring(13).ToLower();
-                            List<string> results = chatRoom.SetRules.FindAll(s => s.ToLower().Contains(search));
+                            var search = message.Substring(13).ToLower();
+                            var results = chatRoom.SetRules.FindAll(s => s.ToLower().Contains(search));
                             if (results.Count == 0)
                                 SendChatMessage(chatRoomID, "No rule matching your search was found");
                             else if (results.Count > 1)
@@ -914,8 +937,8 @@ namespace KraxbotOSS
                 {
                     if (isMod || chatRoom.AllPoke)
                     {
-                        string search = message.Substring(6);
-                        List<SteamID> results = new List<SteamID>();
+                        var search = message.Substring(6);
+                        var results = new List<SteamID>();
                         foreach (UserInfo user in chatRoom.Users)
                             if (friends.GetFriendPersonaName(user.SteamID).ToLower().IndexOf(search.ToLower()) > -1)
                                 results.Add(user.SteamID);
@@ -940,7 +963,7 @@ namespace KraxbotOSS
                 {
                     if (isMod || chatRoom.TimeoutRandom < timeout)
                     {
-                        List<UserInfo> users = new List<UserInfo>(chatRoom.Users);
+                        var users = new List<UserInfo>(chatRoom.Users);
                         users.Remove(users.Single(s => s.SteamID == client.SteamID));
                         SendChatMessage(chatRoomID, $"The winner is {friends.GetFriendPersonaName(users[new Random().Next(users.Count)].SteamID)}!");
                         chatRoom.TimeoutRandom = timeout + chatRoom.DelayRandom;
@@ -954,14 +977,14 @@ namespace KraxbotOSS
                         SendChatMessage(chatRoomID, "Steam API isn't set up properly to use this command");
                     else if (isMod || chatRoom.TimeoutGames < timeout)
                     {
-                        string response = Get("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + config.API_Steam + "&include_appinfo=1&include_played_free_games=1&steamid=" + userID.ConvertToUInt64());
+                        var response = Get("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + config.API_Steam + "&include_appinfo=1&include_played_free_games=1&steamid=" + userID.ConvertToUInt64());
                         if (!string.IsNullOrEmpty(response))
                         {
                             dynamic result = JsonConvert.DeserializeObject(response);
                             SendChatMessage(chatRoomID, string.Format("You have {0} games", result.response.game_count));
                             JArray array = result.response.games;
-                            JArray games = new JArray(array.OrderByDescending(obj => obj["playtime_forever"]));
-                            for (int i = 0; i <= 4; i++)
+                            var games = new JArray(array.OrderByDescending(obj => obj["playtime_forever"]));
+                            for (var i = 0; i <= 4; i++)
                                 SendChatMessage(chatRoomID, $"{i + 1}: {games[i]["name"]} ({Math.Round((double) games[i]["playtime_forever"] / 60)} hours played)");
                         }
                         else
@@ -985,16 +1008,17 @@ namespace KraxbotOSS
                             dynamic result = JsonConvert.DeserializeObject(response);
                             SendChatMessage(chatRoomID, string.Format("You have played {0} games recently", result.response.total_count));
                             JArray array = result.response.games;
-                            JArray games = new JArray(array.OrderByDescending(obj => obj["playtime_2weeks"]));
-                            int total = 5;
-                            if (games.Count < 5) total = games.Count;
-                            for (int i = 0; i < total; i++)
+                            var games = new JArray(array.OrderByDescending(obj => obj["playtime_2weeks"]));
+                            var total = 5;
+                            if (games.Count < 5)
+	                            total = games.Count;
+                            for (var i = 0; i < total; i++)
                             {
-                                int playtime = (int)Math.Round((double)games[i]["playtime_2weeks"] / 60);
-                                if (playtime == 1)
-                                    SendChatMessage(chatRoomID, $"{i + 1}: {games[i]["name"]} (1 hour played recently)");
-                                else
-                                    SendChatMessage(chatRoomID, $"{i + 1}: {games[i]["name"]} ({playtime} hours played recently)");
+	                            var playtime = (int)Math.Round((double)games[i]["playtime_2weeks"] / 60);
+	                            SendChatMessage(chatRoomID,
+		                            playtime == 1
+			                            ? $"{i + 1}: {games[i]["name"]} (1 hour played recently)"
+			                            : $"{i + 1}: {games[i]["name"]} ({playtime} hours played recently)");
                             }
                         }
                         chatRoom.TimeoutRecents = timeout + chatRoom.DelayRecents;
@@ -1014,18 +1038,18 @@ namespace KraxbotOSS
                         {
                             string def = result.list[0].definition;
                             def = def.Replace("\n", " ");
-                            if (def.Length < 500)
-                                SendChatMessage(chatRoomID, string.Format("{1}", result.list[0].word, def));
-                            else
-                                SendChatMessage(chatRoomID, string.Format("{1}...", result.list[0].word, def.Substring(0, 500)));
-                            if (isMod)
+	                        SendChatMessage(chatRoomID,
+		                        def.Length < 500
+			                        ? def
+			                        : $"{def.Substring(0, 500)}...");
+	                        if (isMod)
                             {
                                 if (result.list[0].example != null)
                                     SendChatMessage(chatRoomID, string.Format("Example: \n{0}", result.list[0].example));
 
-                                double thumbsUp = result.list[0].thumbs_up;
-                                double thumbsDown = result.list[0].thumbs_down;
-                                double thumbsTotal = thumbsUp + thumbsDown;
+                                double thumbsUp    = result.list[0].thumbs_up;
+                                double thumbsDown  = result.list[0].thumbs_down;
+                                var    thumbsTotal = thumbsUp + thumbsDown;
                                 SendChatMessage(chatRoomID, $"Rating: {Math.Round(thumbsUp / thumbsTotal * 100)}% positive ({thumbsUp}/{thumbsTotal})");
                             }
                         }
@@ -1048,9 +1072,9 @@ namespace KraxbotOSS
                             else
                             {
                                 string results = null;
-                                int limit = 1;
+                                var limit = 1;
                                 if (isMod) limit = 3;
-                                for (int i = 0; i < limit; i++)
+                                for (var i = 0; i < limit; i++)
                                     if (!string.IsNullOrEmpty(result.items[i].ToString()))
                                         results += string.Format("\n{0} ({1}): https://youtu.be/{2}", result.items[i].snippet.title, result.items[i].snippet.channelTitle, result.items[i].id.videoId);
                                 SendChatMessage(chatRoomID, "Results: " + results);
@@ -1074,30 +1098,30 @@ namespace KraxbotOSS
                         SendChatMessage(chatRoomID, "Steam API isn't set up properly to use this command");
                     else
                     {
-                        string response = Get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + config.API_Steam + "&steamids=" + userID.ConvertToUInt64());
+                        var response = Get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + config.API_Steam + "&steamids=" + userID.ConvertToUInt64());
                         if (string.IsNullOrEmpty(response))
                             SendChatMessage(chatRoomID, "Error: No or invalid response from Steam");
                         else
                         {
                             dynamic result = JsonConvert.DeserializeObject(response);
-                            DateTime date = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+                            var date = new DateTime(1970, 1, 1, 0, 0, 0, 0);
                             date = date.AddSeconds(long.Parse(result.response.players[0].timecreated.ToString()));
-                            DateTime curDate = DateTime.UtcNow;
-                            if (curDate.Year - date.Year == 1)
-                                SendChatMessage(chatRoomID, $"{name}'s Steam birthday is {date.Day}{GetDateSuffix(date.Day)} of {date:MMMM} (Account created {date.Year} and 1 year old)");
-                            else
-                                SendChatMessage(chatRoomID, $"{name}'s Steam birthday is {date.Day}{GetDateSuffix(date.Day)} of {date:MMMM} (Account created {date.Year} and {curDate.Year - date.Year} years old)");
+                            var curDate = DateTime.UtcNow;
+	                        SendChatMessage(chatRoomID,
+		                        curDate.Year - date.Year == 1
+			                        ? $"{name}'s Steam birthday is {date.Day}{GetDateSuffix(date.Day)} of {date:MMMM} (Account created {date.Year} and 1 year old)"
+			                        : $"{name}'s Steam birthday is {date.Day}{GetDateSuffix(date.Day)} of {date:MMMM} (Account created {date.Year} and {curDate.Year - date.Year} years old)");
                         }
                     }
                 }
                 else if (message == "!users")
                 {
-                    int nobodies, members, mods, officers;
-                    nobodies = members = mods = officers = 0;
-                    string owner = "no ";
-                    foreach (UserInfo user in chatRoom.Users)
+                    int members, mods, officers;
+                    var nobodies = members = mods = officers = 0;
+                    var owner = "no ";
+                    foreach (var u in chatRoom.Users)
                     {
-                        switch (user.Rank)
+                        switch (u.Rank)
                         {
                             case EClanPermission.Nobody:    nobodies++;   break;
                             case EClanPermission.Member:    members++;    break;
@@ -1107,24 +1131,21 @@ namespace KraxbotOSS
                         }
                     }
                     string users = null;
-                    if (nobodies != 0) users += (nobodies + " are guests, ");
-                    if (members != 0)  users += (members  + " are users, " );
-                    if (mods != 0)     users += (mods     + " are mods, "  );
-                    if (officers != 0) users += (officers + " are admins, ");
+                    if (nobodies != 0) users += nobodies + " are guests, ";
+                    if (members != 0)  users += members  + " are users, ";
+                    if (mods != 0)     users += mods     + " are mods, ";
+                    if (officers != 0) users += officers + " are admins, ";
                     SendChatMessage(chatRoomID, $"{chatRoom.Users.Count} people are in this chat, where {users.Substring(0, users.Length - 2)} and {owner}owner");
                 }
                 else if (message == "!invited")
                     SendChatMessage(chatRoomID, chatRoom.InvitedName + " invited me to this chat");
                 else if (message == "!name")
                 {
-                    string chatr = chatter.Rank.ToString();
-                    if (string.IsNullOrEmpty(game))
-                        SendChatMessage(chatRoomID, $"{name} ({chatr})");
-                    else
-                        SendChatMessage(chatRoomID, $"{name} playing {game} ({chatr})");
+	                var chatr = chatter.Rank.ToString();
+	                SendChatMessage(chatRoomID, string.IsNullOrEmpty(game) ? $"{name} ({chatr})" : $"{name} playing {game} ({chatr})");
                 }
                 else if (message == "!ver")
-                    SendChatMessage(chatRoomID, $"KraxbotOSS {version} by Kraxie / KraXarN");
+                    SendChatMessage(chatRoomID, $"KraxbotOSS {version} by Kraxie / kraxarn");
                 else if (message == "!id")
                     SendChatMessage(chatRoomID, $"{name}'s SteamID is {userID}");
                 else if (message == "!chatid")
@@ -1145,14 +1166,11 @@ namespace KraxbotOSS
                     SendChatMessage(chatRoomID, "Current time is " + DateTime.Now.ToShortTimeString());
                 else if (message.StartsWith("!roll"))
                 {
-                    #pragma warning disable IDE0018
-                    int max = 100;
-                    #pragma warning restore IDE0018
-                    int.TryParse(message.Split(' ')[1], out max);
+                    int.TryParse(message.Split(' ')[1], out var max);
                     SendChatMessage(chatRoomID, "Your number is " + new Random().Next(0, max));
                 }
                 else if (message.StartsWith("!math "))
-                    SendChatMessage(chatRoomID, "= " + new DataTable().Compute(message.Substring(6), null).ToString());
+                    SendChatMessage(chatRoomID, "= " + new DataTable().Compute(message.Substring(6), null));
                 else if (message.StartsWith("!players "))
                 {
                     // TODO: Collect all results in a list and choose the value with most players
@@ -1171,13 +1189,13 @@ namespace KraxbotOSS
                             {
                                 gameName = value.name;
                                 playerCount = JsonConvert.DeserializeObject(Get("http://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=" + value.appid)).response.player_count;
-                                if (playerCount > 0) break;
+                                if (playerCount > 0)
+	                                break;
                             }
                         }
-                        if (string.IsNullOrEmpty(gameName))
-                            SendChatMessage(chatRoomID, "No results found");
-                        else
-                            SendChatMessage(chatRoomID, $"There are currently {playerCount} people playing {gameName}");
+
+	                    SendChatMessage(chatRoomID,
+		                    string.IsNullOrEmpty(gameName) ? "No results found" : $"There are currently {playerCount} people playing {gameName}");
                     }
                 }
                 else if (message == "!players")
@@ -1187,13 +1205,13 @@ namespace KraxbotOSS
                         SendChatMessage(chatRoomID, "You need to either play a game or specify a game to check players");
                     else
                     {
-                        string response = Get("http://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=" + appID);
+                        var response = Get("http://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=" + appID);
                         if (string.IsNullOrEmpty(response))
                             SendChatMessage(chatRoomID, "Error: No or invalid response from Steam");
                         else
                         {
                             dynamic result = JsonConvert.DeserializeObject(response);
-                            SendChatMessage(chatRoomID, string.Format("There are currently {0} people playing {1}", result.response.player_count, game));
+                            SendChatMessage(chatRoomID, $"There are currently {result.response.player_count} people playing {game}");
                         }
                     }
 
@@ -1217,11 +1235,9 @@ namespace KraxbotOSS
                 }
                 else if (message.StartsWith("!convert "))
                 {
-                    dynamic result = JsonConvert.DeserializeObject(Get("http://api.duckduckgo.com/?format=json&q=" + message.Substring(9)));
-                    if (string.IsNullOrEmpty(result.Answer.ToString()))
-                        SendChatMessage(chatRoomID, "No answer found");
-                    else
-                        SendChatMessage(chatRoomID, result.Answer.ToString());
+	                dynamic result = JsonConvert.DeserializeObject(Get("http://api.duckduckgo.com/?format=json&q=" + message.Substring(9)));
+	                SendChatMessage(chatRoomID,
+		                string.IsNullOrEmpty(result.Answer.ToString()) ? "No answer found" : (string) result.Answer.ToString());
                 }
                 else if (message == "!rules" && chatRoom.Rules)
                 {
@@ -1244,7 +1260,7 @@ namespace KraxbotOSS
 
         #region Steam functions
 
-        public static void Login(string username, string password, bool rememberPassword, string authCode = null, string twoFactorCode = null)
+        public void Login(string username, string password, bool rememberPassword, string authCode = null, string twoFactorCode = null)
         {
             var isUsernameNull = string.IsNullOrEmpty(username);
             var isPasswordNull = string.IsNullOrEmpty(password);
@@ -1266,7 +1282,8 @@ namespace KraxbotOSS
                 TwoFactorCode = twoFactorCode
             });
         }
-        public static void Login(string username)
+        
+	    public void Login(string username)
         {
             // Use sentry hash if we have one
             byte[] sentryHash = null;
@@ -1286,35 +1303,34 @@ namespace KraxbotOSS
                 SentryFileHash = sentryHash
             });
         }
-        public static void UpdateBotSetttings(string name, EPersonaState state)
+        
+	    public void UpdateBotSetttings(string name, EPersonaState state)
         {
             friends.SetPersonaName(name);
             friends.SetPersonaState(state);
         }
-
-        public static List<SteamID> GetGroups()
+        
+	    public List<SteamID> GetGroups()
         {
             var groups = new List<SteamID>();
             for (var i = 0; i < friends.GetClanCount(); i++)
                 groups.Add(friends.GetClanByIndex(i));
             return groups;
         }
-        public static List<SteamID> GetFriends()
+        
+	    public List<SteamID> GetFriends()
         {
             var friend = new List<SteamID>();
             for (var i = 0; i < friends.GetFriendCount(); i++)
                 friend.Add(friends.GetFriendByIndex(i));
             return friend;
         }
-        public static string GetFriendName(SteamID userID)
-        {
-            return friends.GetFriendPersonaName(userID);
-        }
-        public static string GetGroupName(SteamID clanID)
-        {
-            return friends.GetClanName(clanID);
-        }
-        public static void PlayGame(ulong gameID, string gameExtraInfo)
+		
+	    public string GetFriendName(SteamID userID) => friends.GetFriendPersonaName(userID);
+
+		public string GetGroupName(SteamID clanID) => friends.GetClanName(clanID);
+
+		public void PlayGame(ulong gameID, string gameExtraInfo)
         {
             var playGame = new ClientMsgProtobuf<CMsgClientGamesPlayed>(EMsg.ClientGamesPlayed);
             playGame.Body.games_played.Add(new CMsgClientGamesPlayed.GamePlayed
@@ -1338,17 +1354,13 @@ namespace KraxbotOSS
             });
         }
 
-	    public static void SendChatMessage(SteamID chatRoomID, string message)
-        {
-            friends.SendChatRoomMessage(chatRoomID, EChatEntryType.ChatMsg, message);
-        }
+		public void SendChatMessage(SteamID chatRoomID, string message) 
+			=> friends.SendChatRoomMessage(chatRoomID, EChatEntryType.ChatMsg, message);
 
-	    private static void SendMessage(SteamID userID, string message)
-        {
-            friends.SendChatMessage(userID, EChatEntryType.ChatMsg, message);
-        }
+		private void SendMessage(SteamID userID, string message) 
+			=> friends.SendChatMessage(userID, EChatEntryType.ChatMsg, message);
 
-	    public void CreateSettings(SteamID ChatRoomID, string ChatRoomName, SteamID InvitedID, string InvitedName)
+		public void CreateSettings(SteamID ChatRoomID, string ChatRoomName, SteamID InvitedID, string InvitedName)
         {
             cr.Add(new Settings() {
                 ChatID = ChatRoomID,
@@ -1387,11 +1399,11 @@ namespace KraxbotOSS
 		private static string Get(string url)
         {
             // TODO: Check if better way to do this
-            using (var client = new WebClient())
+            using (var webClient = new WebClient())
             {
                 try {
-                    client.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:54.0) Gecko/20100101 Firefox/54.0");
-                    return client.DownloadString(url);
+                    webClient.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:54.0) Gecko/20100101 Firefox/54.0");
+                    return webClient.DownloadString(url);
                 } catch (WebException e) {
                     Console.WriteLine(e.Message);
                     return null;
@@ -1444,10 +1456,11 @@ namespace KraxbotOSS
 
 	        return token.Substring(from);
         }
-        string FormatTime(int seconds)
+        
+	    private static string FormatTime(int seconds)
         {
-            var min = (int)(Math.Floor(seconds / 60.0));
-            var sec = (seconds - (min * 60));
+            var min = (int)Math.Floor(seconds / 60.0);
+            var sec = seconds - min * 60;
             return sec < 10 ? $"{min}:0{sec}" : $"{min}:{sec}";
         }
 
@@ -1455,48 +1468,49 @@ namespace KraxbotOSS
 
 		#region GUI stuff
 
-        private void btnSettings_Click(object sender, EventArgs e)
+        private void BtnSettings_Click(object sender, EventArgs e)
         {
             // Hide the main form and show the settings form
-            //this.Hide();
             Form settings = new FormSettings(this);
             settings.ShowDialog(this);
         }
-        private void btnLogin_Click(object sender, EventArgs e)
+        
+	    private void BtnLogin_Click(object sender, EventArgs e)
         {
             if (File.Exists(Path.Combine(ConfigPath, "user")))
             {
-                var user = File.ReadAllLines(Path.Combine(ConfigPath, "user"));
-                FormLogin.Username = user[0];
-                Login(user[0]);
+                var username = File.ReadAllLines(Path.Combine(ConfigPath, "user"));
+                FormLogin.Username = username[0];
+                Login(username[0]);
             }
             else
             {
-                Form login = new FormLogin();
+                Form login = new FormLogin(this);
                 login.ShowDialog(this);
             }
         }
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        
+	    private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             running = false;
 			discordBot.Disconnect();
             Environment.Exit(Environment.ExitCode);
         }
-        private void btnBotSettings_Click(object sender, EventArgs e)
+        
+	    private void BtnBotSettings_Click(object sender, EventArgs e)
         {
-            Form botSettings = new FormBotSettings()
+            Form botSettings = new FormBotSettings(this)
             {
                 Tag = friends.GetPersonaName() + (int)friends.GetPersonaState()
             };
             botSettings.ShowDialog(this);
         }
-        private void lbChatrooms_SelectedIndexChanged(object sender, EventArgs e)
+
+		private void LbChatrooms_SelectedIndexChanged(object sender, EventArgs e) => btnChatroomInfo.Enabled = true;
+
+		private void BtnChatroomInfo_Click(object sender, EventArgs e)
         {
-            btnChatroomInfo.Enabled = true;
-        }
-        private void btnChatroomInfo_Click(object sender, EventArgs e)
-        {
-            Form chatroomInfo = new FormChatroomInfo(cr.Single(s => s.ChatName == lbChatrooms.Items[lbChatrooms.SelectedIndex].ToString()));
+            Form chatroomInfo = new FormChatroomInfo(cr.Single(s => s.ChatName == lbChatrooms.Items[lbChatrooms.SelectedIndex].ToString()), this);
             chatroomInfo.ShowDialog(this);
         }
 
@@ -1513,7 +1527,8 @@ namespace KraxbotOSS
             #endif
             Close();
         }
-        private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+
+        private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             var ex = (Exception)e.ExceptionObject;
             DumpError(ex);
@@ -1522,9 +1537,14 @@ namespace KraxbotOSS
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Unhandled Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             #endif
         }
-        private void DumpError(Exception error)
+        
+	    private static void DumpError(Exception error)
         {
-            string[] dump = { error.Message, error.StackTrace };
+            string[] dump =
+            {
+	            error.Message, error.StackTrace
+            };
+
             File.WriteAllLines(Path.Combine(ConfigPath, "crash.log"), dump);
         }
 

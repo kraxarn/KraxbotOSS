@@ -7,12 +7,14 @@ namespace KraxbotOSS
 {
     public partial class FormLogin : Form
     {
-        public static string Username, Password, AuthCode, EncryptKey;
-        public static bool AutoGenerateKey;
+        public static string Username, Password;
+	    private readonly Form1 form;
 
-        public FormLogin(string argument = "None")
+        public FormLogin(Form1 form1, string argument = "None")
         {
             InitializeComponent();
+
+	        form = form1;
 
             if (argument == "NeedTwoFactor")
             {
@@ -38,15 +40,19 @@ namespace KraxbotOSS
             if (cbSaveLogin.Checked)
                 File.WriteAllText(Path.Combine(Form1.ConfigPath, "user"), Username);
 
-            if (gbPassword.Text == "Password")
+            switch (gbPassword.Text)
             {
-                Password = tbPassword.Text;
-                Form1.Login(Username, Password, cbSaveLogin.Checked);
+	            case "Password":
+		            Password = tbPassword.Text;
+		            form.Login(Username, Password, cbSaveLogin.Checked);
+		            break;
+	            case "Mobile Authenticator Code":
+		            form.Login(Username, Password, cbSaveLogin.Checked, null, tbPassword.Text);
+		            break;
+	            case "Steam Guard Code":
+		            form.Login(Username, Password, cbSaveLogin.Checked, tbPassword.Text);
+		            break;
             }
-            else if (gbPassword.Text == "Mobile Authenticator Code")
-                Form1.Login(Username, Password, cbSaveLogin.Checked, null, tbPassword.Text);
-            else if (gbPassword.Text == "Steam Guard Code")
-                Form1.Login(Username, Password, cbSaveLogin.Checked, tbPassword.Text);
             Close();
         }
     }

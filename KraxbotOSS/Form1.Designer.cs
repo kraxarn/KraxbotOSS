@@ -63,7 +63,7 @@
 			this.lbChatrooms.Name = "lbChatrooms";
 			this.lbChatrooms.Size = new System.Drawing.Size(170, 264);
 			this.lbChatrooms.TabIndex = 0;
-			this.lbChatrooms.SelectedIndexChanged += new System.EventHandler(this.lbChatrooms_SelectedIndexChanged);
+			this.lbChatrooms.SelectedIndexChanged += new System.EventHandler(this.LbChatrooms_SelectedIndexChanged);
 			// 
 			// groupBox2
 			// 
@@ -104,7 +104,7 @@
 			this.btnChatroomInfo.TabIndex = 2;
 			this.btnChatroomInfo.Text = "Chatroom Info";
 			this.btnChatroomInfo.UseVisualStyleBackColor = true;
-			this.btnChatroomInfo.Click += new System.EventHandler(this.btnChatroomInfo_Click);
+			this.btnChatroomInfo.Click += new System.EventHandler(this.BtnChatroomInfo_Click);
 			// 
 			// btnSettings
 			// 
@@ -114,7 +114,7 @@
 			this.btnSettings.TabIndex = 4;
 			this.btnSettings.Text = "Settings";
 			this.btnSettings.UseVisualStyleBackColor = true;
-			this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+			this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
 			// 
 			// btnBotSettings
 			// 
@@ -125,7 +125,7 @@
 			this.btnBotSettings.TabIndex = 5;
 			this.btnBotSettings.Text = "Bot Settings";
 			this.btnBotSettings.UseVisualStyleBackColor = true;
-			this.btnBotSettings.Click += new System.EventHandler(this.btnBotSettings_Click);
+			this.btnBotSettings.Click += new System.EventHandler(this.BtnBotSettings_Click);
 			// 
 			// btnLogin
 			// 
@@ -136,7 +136,7 @@
 			this.btnLogin.TabIndex = 6;
 			this.btnLogin.Text = "Log in";
 			this.btnLogin.UseVisualStyleBackColor = true;
-			this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+			this.btnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
 			// 
 			// groupBox3
 			// 

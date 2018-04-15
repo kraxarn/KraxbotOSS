@@ -4,10 +4,10 @@ namespace KraxbotOSS
 {
     public partial class FormChatroomInfo : Form
     {
-        public FormChatroomInfo(Form1.Settings settings)
+        public FormChatroomInfo(Form1.Settings settings, Form1 form)
         {
             InitializeComponent();
-            
+
             Text = settings.ChatName;
 
             Set(lInvitedName, settings.InvitedName);
@@ -36,28 +36,23 @@ namespace KraxbotOSS
             Set(lDelaySearch,  settings.DelaySearch);
             Set(lYtDelay,      settings.DelayYT);
 
-            foreach (Form1.UserInfo userID in settings.Users)
+            foreach (var userID in settings.Users)
             {
-                string[] add = { Form1.GetFriendName(userID.SteamID), userID.SteamID.AccountID.ToString(), userID.Rank.ToString() };
+                string[] add =
+                {
+	                form.GetFriendName(userID.SteamID), userID.SteamID.AccountID.ToString(), userID.Rank.ToString()
+                };
                 lvUsers.Items.Add(new ListViewItem(add));
             }
             foreach (ColumnHeader header in lvUsers.Columns)
                 header.Width = -1;
         }
 
-        void Set(Label label, string setting)
-        {
-            label.Text = setting;
-        }
-        void Set(Label label, bool setting)
-        {
-            if (setting) label.Text = "Enabled";
-            else label.Text = "Disabled";
-        }
-        void Set(Label label, int delay)
-        {
-            // Assume it's for delays
-            label.Text = delay + " s";
-        }
+		private static void Set(Control label, string setting) => label.Text = setting;
+
+		private static void Set(Control label, bool setting) => label.Text = setting ? "Enabled" : "Disabled";
+
+		// Assume it's for delays
+		private static void Set(Control label, int delay) => label.Text = $"{delay} s";
     }
 }

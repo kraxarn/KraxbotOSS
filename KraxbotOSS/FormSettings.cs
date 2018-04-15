@@ -56,10 +56,10 @@ namespace KraxbotOSS
             tbApiCleverbot.Text = Form1.config.API_CleverbotIO;
 
             // Get all our friends and fill the list
-            friends = Form1.GetFriends();
+            friends = form.GetFriends();
             foreach (var userID in friends)
             {
-                cbFriends.Items.Add($"{Form1.GetFriendName(userID)} ({userID.AccountID})");
+                cbFriends.Items.Add($"{form.GetFriendName(userID)} ({userID.AccountID})");
                 if (userID.AccountID == Form1.config.Superadmin)
                     cbFriends.SelectedIndex = cbFriends.Items.Count - 1;
             }
@@ -68,14 +68,14 @@ namespace KraxbotOSS
                 cbFriends.Enabled = false;
 
             // Get all known chatrooms
-            groups = Form1.GetGroups();
+            groups = form.GetGroups();
             if (groups.Count > 0)
             {
                 foreach (var clanID in groups)
                     if (Form1.config.Chatrooms.ToString().IndexOf(clanID.AccountID.ToString()) > -1)
-                        clChats.Items.Add($"{Form1.GetGroupName(clanID)} ({clanID.AccountID})", true);
+                        clChats.Items.Add($"{form.GetGroupName(clanID)} ({clanID.AccountID})", true);
                     else
-                        clChats.Items.Add($"{Form1.GetGroupName(clanID)} ({clanID.AccountID})");
+                        clChats.Items.Add($"{form.GetGroupName(clanID)} ({clanID.AccountID})");
             }
             else
                 clChats.Enabled = false;
@@ -114,7 +114,7 @@ namespace KraxbotOSS
 				cbDiscordSteam.Enabled = true;
 
 				foreach (var group in groups)
-					cbDiscordSteam.Items.Add(Form1.GetGroupName(group));
+					cbDiscordSteam.Items.Add(form.GetGroupName(group));
 			}
 
 			// Try set the Steam chatroom
@@ -252,7 +252,7 @@ namespace KraxbotOSS
             Form1.config.GamePlayed_ExtraInfo = gameExtraInfo;
 
             // Start game
-            Form1.PlayGame(gameID, gameExtraInfo);
+            parent.PlayGame(gameID, gameExtraInfo);
 
 			// Discord
 			Form1.config.Discord_Enabled      = cbEnableDiscord.Checked;
@@ -368,7 +368,7 @@ namespace KraxbotOSS
 	    {
 		    foreach (var group in groups)
 		    {
-			    if (Form1.GetGroupName(group) == name)
+			    if (parent.GetGroupName(group) == name)
 			    {
 				    groupID = group;
 				    return true;
@@ -385,7 +385,7 @@ namespace KraxbotOSS
 		    {
 			    if (group.AccountID == groupID)
 			    {
-				    name = Form1.GetGroupName(group);
+				    name = parent.GetGroupName(group);
 				    return true;
 			    }
 		    }
