@@ -64,15 +64,21 @@ namespace KraxbotOSS
 
 			// Create listeners
 			client.MessageCreated += OnMessageCreated;
+			client.Ready += ClientOnReady;
 
 			// Connect
 			await client.ConnectAsync();
 			name = client.CurrentUser.Username;
-			form.DiscordStatus = "Logged in";
 
 			// Find Discord channel
 			// Can this be set from constructor?
 			discordChannel = await client.GetChannelAsync(cfg.Discord_Channel);
+		}
+
+		private Task ClientOnReady(ReadyEventArgs readyEventArgs)
+		{
+			form.DiscordStatus = "Logged in";
+			return Task.CompletedTask;
 		}
 
 		private Task OnMessageCreated(MessageCreateEventArgs args)
