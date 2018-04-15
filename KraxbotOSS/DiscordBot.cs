@@ -34,6 +34,11 @@ namespace KraxbotOSS
 			Task.Run(() => Bot().ConfigureAwait(false).GetAwaiter().GetResult());
 		}
 
+		public void Disconnect()
+		{
+			Task.Run(async () => { await client.DisconnectAsync(); });
+		}
+
 		private async Task Bot()
 		{
 			// Create bot
