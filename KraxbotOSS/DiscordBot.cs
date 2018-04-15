@@ -37,7 +37,7 @@ namespace KraxbotOSS
 			}
 		}
 
-		public void Disconnect() => Task.Run(async () => await client.DisconnectAsync());
+		public void Disconnect() => Task.Run(async () => await client.DisconnectAsync()).Wait();
 
 		public void SendMessage(string message) => Task.Run(async () => await client.SendMessageAsync(discordChannel, message));
 
