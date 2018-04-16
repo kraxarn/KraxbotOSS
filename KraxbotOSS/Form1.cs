@@ -111,7 +111,7 @@ namespace KraxbotOSS
                 CheckForUpdates();
 
             // Welcome the user :)
-            log.AppendText("Welcome to KraxBot " + version);
+            log.AppendText("Welcome to KraxbotOSS " + version);
 
             // Steam stuff
             // Create client and callback manager to route callbacks to functions
