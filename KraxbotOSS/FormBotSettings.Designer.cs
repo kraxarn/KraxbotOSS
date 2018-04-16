@@ -75,8 +75,7 @@
             "Away",
             "Snooze",
             "Looking to Trade",
-            "Looking to Play",
-            "Max"});
+            "Looking to Play"});
             this.cbState.Location = new System.Drawing.Point(7, 20);
             this.cbState.Name = "cbState";
             this.cbState.Size = new System.Drawing.Size(149, 21);
