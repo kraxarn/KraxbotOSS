@@ -32,15 +32,14 @@
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.lbChatrooms = new System.Windows.Forms.ListBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.lStatus = new System.Windows.Forms.Label();
-			this.lNetwork = new System.Windows.Forms.Label();
+			this.lDiscordStatus = new System.Windows.Forms.Label();
+			this.lSteamStatus = new System.Windows.Forms.Label();
 			this.btnChatroomInfo = new System.Windows.Forms.Button();
 			this.btnSettings = new System.Windows.Forms.Button();
 			this.btnBotSettings = new System.Windows.Forms.Button();
 			this.btnLogin = new System.Windows.Forms.Button();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.log = new System.Windows.Forms.RichTextBox();
-			this.lDiscordStatus = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -68,37 +67,36 @@
 			// groupBox2
 			// 
 			this.groupBox2.Controls.Add(this.lDiscordStatus);
-			this.groupBox2.Controls.Add(this.lStatus);
-			this.groupBox2.Controls.Add(this.lNetwork);
+			this.groupBox2.Controls.Add(this.lSteamStatus);
 			this.groupBox2.Location = new System.Drawing.Point(203, 12);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(150, 90);
+			this.groupBox2.Size = new System.Drawing.Size(150, 65);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Status";
 			// 
-			// lStatus
+			// lDiscordStatus
 			// 
-			this.lStatus.AutoSize = true;
-			this.lStatus.Location = new System.Drawing.Point(8, 40);
-			this.lStatus.Name = "lStatus";
-			this.lStatus.Size = new System.Drawing.Size(97, 13);
-			this.lStatus.TabIndex = 1;
-			this.lStatus.Text = "Status: Logged out";
+			this.lDiscordStatus.AutoSize = true;
+			this.lDiscordStatus.Location = new System.Drawing.Point(8, 40);
+			this.lDiscordStatus.Name = "lDiscordStatus";
+			this.lDiscordStatus.Size = new System.Drawing.Size(90, 13);
+			this.lDiscordStatus.TabIndex = 2;
+			this.lDiscordStatus.Text = "Discord: Disabled";
 			// 
-			// lNetwork
+			// lSteamStatus
 			// 
-			this.lNetwork.AutoSize = true;
-			this.lNetwork.Location = new System.Drawing.Point(8, 20);
-			this.lNetwork.Name = "lNetwork";
-			this.lNetwork.Size = new System.Drawing.Size(119, 13);
-			this.lNetwork.TabIndex = 0;
-			this.lNetwork.Text = "Network: Disconnected";
+			this.lSteamStatus.AutoSize = true;
+			this.lSteamStatus.Location = new System.Drawing.Point(8, 20);
+			this.lSteamStatus.Name = "lSteamStatus";
+			this.lSteamStatus.Size = new System.Drawing.Size(109, 13);
+			this.lSteamStatus.TabIndex = 0;
+			this.lSteamStatus.Text = "Steam: Disconnected";
 			// 
 			// btnChatroomInfo
 			// 
 			this.btnChatroomInfo.Enabled = false;
-			this.btnChatroomInfo.Location = new System.Drawing.Point(203, 108);
+			this.btnChatroomInfo.Location = new System.Drawing.Point(203, 83);
 			this.btnChatroomInfo.Name = "btnChatroomInfo";
 			this.btnChatroomInfo.Size = new System.Drawing.Size(150, 23);
 			this.btnChatroomInfo.TabIndex = 2;
@@ -130,7 +128,7 @@
 			// btnLogin
 			// 
 			this.btnLogin.Enabled = false;
-			this.btnLogin.Location = new System.Drawing.Point(203, 137);
+			this.btnLogin.Location = new System.Drawing.Point(203, 112);
 			this.btnLogin.Name = "btnLogin";
 			this.btnLogin.Size = new System.Drawing.Size(150, 23);
 			this.btnLogin.TabIndex = 6;
@@ -158,15 +156,6 @@
 			this.log.Size = new System.Drawing.Size(188, 270);
 			this.log.TabIndex = 0;
 			this.log.Text = "";
-			// 
-			// lDiscordStatus
-			// 
-			this.lDiscordStatus.AutoSize = true;
-			this.lDiscordStatus.Location = new System.Drawing.Point(8, 62);
-			this.lDiscordStatus.Name = "lDiscordStatus";
-			this.lDiscordStatus.Size = new System.Drawing.Size(90, 13);
-			this.lDiscordStatus.TabIndex = 2;
-			this.lDiscordStatus.Text = "Discord: Disabled";
 			// 
 			// Form1
 			// 
@@ -201,8 +190,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListBox lbChatrooms;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label lNetwork;
-        private System.Windows.Forms.Label lStatus;
+        private System.Windows.Forms.Label lSteamStatus;
         private System.Windows.Forms.Button btnChatroomInfo;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnBotSettings;

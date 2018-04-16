@@ -291,7 +291,7 @@ namespace KraxbotOSS
             {
                 Invoke((MethodInvoker)delegate
                 {
-                    lNetwork.Text = "Network: Connected";
+                    lSteamStatus.Text = "Steam: Connected";
                 });
                 var user = File.ReadAllLines(Path.Combine(ConfigPath, "user"));
                 FormLogin.Username = user[0];
@@ -302,7 +302,7 @@ namespace KraxbotOSS
                 Invoke((MethodInvoker)delegate
                 {
                     btnLogin.Enabled = true;
-                    lNetwork.Text = "Network: Connected";
+                    lSteamStatus.Text = "Steam: Connected";
                 });
             }
 		}
@@ -313,7 +313,7 @@ namespace KraxbotOSS
             Log("\nDisconnected, attempting to reconnect... ");
             Invoke((MethodInvoker)delegate
             {
-                lNetwork.Text = "Network: Disconnected";
+                lSteamStatus.Text = "Steam: Reconnecting";
             });
             client.Connect();
         }
@@ -358,7 +358,7 @@ namespace KraxbotOSS
             {
                 btnLogin.Hide();
                 btnBotSettings.Enabled = true;
-                lStatus.Text = "State: Logged in";
+                lSteamStatus.Text = "Steam: Logged in";
             });
 
 			// To other stuff here after logging in (like joining chatrooms)
