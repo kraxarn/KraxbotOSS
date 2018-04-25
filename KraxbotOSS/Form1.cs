@@ -1503,6 +1503,10 @@ namespace KraxbotOSS
             // Hide the main form and show the settings form
             Form settings = new FormSettings(this);
             settings.ShowDialog(this);
+
+			// See if we enabled Discord
+			if (config.Discord_Enabled && discordBot == null)
+				discordBot = new DiscordBot(this);
         }
         
 	    private void BtnLogin_Click(object sender, EventArgs e)
