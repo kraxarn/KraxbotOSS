@@ -509,6 +509,33 @@ namespace KraxbotOSS
                             break;
                     }
                 }
+
+				// Send to Discord if needed
+	            if (config.Discord_Enabled && discordBot.ShouldSendToDiscord(chatRoomID))
+	            {
+		            switch (state)
+		            {
+						case EChatMemberStateChange.Entered:
+							discordBot.SendMessage($"{name} entered Steam");
+							break;
+
+						case EChatMemberStateChange.Left:
+							discordBot.SendMessage($"{name} left Steam");
+							break;
+
+						case EChatMemberStateChange.Disconnected:
+							discordBot.SendMessage($"{name} disconnected from Steam");
+							break;
+
+						case EChatMemberStateChange.Kicked:
+							discordBot.SendMessage($"{name} got kicked from Steam");
+							break;
+
+						case EChatMemberStateChange.Banned:
+							discordBot.SendMessage($"{name} got banned from Steam");
+							break;
+		            }
+	            }
             }
         }
 
