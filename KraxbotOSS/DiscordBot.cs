@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
@@ -81,15 +82,37 @@ namespace KraxbotOSS
 			if (args.Author == client.CurrentUser)
 				return Task.CompletedTask;
 
+			// Get message
+			var message = args.Message.Content;
+
+			// Convert emojis
+			var msg = message.Split(' ');
+			for (var i = 0; i < msg.Length; i++)
+			{
+				// Do some checks to see if it's an emoji
+				if (!msg[i].StartsWith("<:") || !msg[i].EndsWith(">"))
+					continue;
+				if (msg[i].Count(c => c == ':') != 2)
+					continue;
+				if (msg[i].Substring(msg[i].LastIndexOf(':')).Length != 20)
+					continue;
+
+				// Cut away just the name of the emoji
+				msg[i] = msg[i].Substring(1, msg[i].LastIndexOf(':'));
+			}
+
+			// Save the new message to message
+			message = string.Join(" ", msg);
+
 			// Get whole username
 			var author = $"{args.Author.Username}#{args.Author.Discriminator}";
 
 			// Log it
-			form.Log($"\n{author} ({args.Channel.Name}): {args.Message.Content}");
+			form.Log($"\n{author} ({args.Channel.Name}): {message}");
 
 			// Check if we should send it to Steam
 			if (ShouldSendToSteam(args.Channel))
-				form.SendChatMessage(steamChat, $"{args.Author.Username}: {args.Message.Content}");
+				form.SendChatMessage(steamChat, $"{args.Author.Username}: {message}");
 
 			// Return
 			return Task.CompletedTask;
