@@ -59,7 +59,7 @@ namespace KraxbotOSS
             InitializeComponent();
 
 			// Vars
-	        version = "1.0.4";
+	        version = "1.1.0";
 	        cr      = new List<Settings>();
 	        config  = new Config();
 	        cb      = new List<CleverbotUser>();
