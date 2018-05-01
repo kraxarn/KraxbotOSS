@@ -6,6 +6,19 @@
 A Steam chat bot based off KraxBot 3.0, but uses a different programming language, so not really.
 Why? To make it easier to run for other users and to provide a simple GUI.
 
+# Features
+
+The bot has a lot of different features! Here are some of them:
+
+* Sending messages between a Discord channel and a Steam chatroom
+* Spam protection
+* Link resolving for YouTube, Steam etc.
+* Cleverbot (With Cleverbot.IO)
+* Rules
+* Keeping different settings for different chatrooms
+* Runs on Windows, Linux and macOS
+* And more!
+
 # Pre-Built Executables
 Check the releases page. Currently, some manual steps are required to run it on Linux and macOS. If enough people are intrested in running it on those systems, I might make special executables for them.
 
