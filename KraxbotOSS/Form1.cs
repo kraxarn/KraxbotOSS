@@ -22,8 +22,8 @@ namespace KraxbotOSS
 	    private readonly string version;
         public  static   string ConfigPath;
         public  static   Config config;
-
-	    private readonly List<Settings>      cr;
+		
+	    private readonly Dictionary<SteamID, Settings> chatrooms;
 		private readonly List<CleverbotUser> cb;
 
 	    private bool running;
@@ -59,10 +59,10 @@ namespace KraxbotOSS
             InitializeComponent();
 
 			// Vars
-	        version = "1.1.0";
-	        cr      = new List<Settings>();
-	        config  = new Config();
-	        cb      = new List<CleverbotUser>();
+	        version   = "1.1.0";
+	        chatrooms = new Dictionary<SteamID, Settings>();
+	        config    = new Config();
+	        cb        = new List<CleverbotUser>();
 
 			// Crash handler
 			Application.ThreadException                += OnThreadException;
@@ -428,7 +428,7 @@ namespace KraxbotOSS
                 LoadSettings(callback.ChatID);
             else
                 CreateSettings(callback.ChatID, callback.ChatRoomName, callback.FriendID.AccountID, friends.GetFriendPersonaName(callback.FriendID));
-            Settings chatRoom = cr.Single(s => s.ChatID == callback.ChatID);
+	        var chatRoom = chatrooms[callback.ChatID];
 
             // Add all current users to the Users list
             chatRoom.Users.Clear();
@@ -455,7 +455,7 @@ namespace KraxbotOSS
             if (callback.Type == EChatInfoType.StateChange)
             {
                 // Vars
-                var chatRoom   = cr.Single(s => s.ChatID == callback.ChatRoomID);
+                var chatRoom   = chatrooms[callback.ChatRoomID];
                 var chatRoomID = callback.ChatRoomID;
                 var state      = callback.StateChangeInfo.StateChange;
                 var name       = friends.GetFriendPersonaName(callback.StateChangeInfo.ChatterActedOn);
@@ -499,7 +499,7 @@ namespace KraxbotOSS
                         case EChatMemberStateChange.Kicked:
                         case EChatMemberStateChange.Left:
                             SaveSettings(chatRoom);
-                            cr.Remove(cr.Single(s => s.ChatID == callback.ChatRoomID));
+	                        chatrooms.Remove(callback.ChatRoomID);
                             Invoke((MethodInvoker)delegate
                             {
                                 lbChatrooms.Items.Remove(chatRoom.ChatName);
@@ -619,7 +619,7 @@ namespace KraxbotOSS
             var message    = callback.Message;
             var userID     = callback.ChatterID;
             var chatRoomID = callback.ChatRoomID;
-            var chatRoom   = cr.Single(s => s.ChatID == chatRoomID);
+            var chatRoom   = chatrooms[chatRoomID];
             var chatter    = chatRoom.Users.Single(s => s.SteamID == userID);
             var bot        = chatRoom.Users.Single(s => s.SteamID == client.SteamID);
             var now        = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -772,7 +772,7 @@ namespace KraxbotOSS
                 {
                     Log($"\nLeft {chatRoom.ChatName} with request from {name}");
                     SaveSettings(chatRoom);
-                    cr.Remove(cr.Single(s => s.ChatID == callback.ChatRoomID));
+	                chatrooms.Remove(callback.ChatRoomID);
                     Invoke((MethodInvoker)delegate
                     {
                         lbChatrooms.Items.Remove(chatRoom.ChatName);
@@ -1392,7 +1392,8 @@ namespace KraxbotOSS
 
 		public void CreateSettings(SteamID ChatRoomID, string ChatRoomName, SteamID InvitedID, string InvitedName)
         {
-            cr.Add(new Settings() {
+            chatrooms.Add(ChatRoomID, new Settings
+            {
                 ChatID = ChatRoomID,
                 ChatName = ChatRoomName,
                 InvitedID = InvitedID,
@@ -1409,7 +1410,8 @@ namespace KraxbotOSS
 	    private void LoadSettings(SteamID chatRoomID)
         {
             var file = File.ReadAllText(Path.Combine(ConfigPath, "chatrooms", chatRoomID.ConvertToUInt64() + ".json"));
-            cr.Add(JsonConvert.DeserializeObject<Settings>(file));
+	        var settings = JsonConvert.DeserializeObject<Settings>(file);
+			chatrooms.Add(settings.ChatID, settings);
         }
 
 	    private static bool CheckPermission(string check, EChatPermission permission)
@@ -1544,7 +1546,7 @@ namespace KraxbotOSS
 
 		private void BtnChatroomInfo_Click(object sender, EventArgs e)
         {
-            Form chatroomInfo = new FormChatroomInfo(cr.Single(s => s.ChatName == lbChatrooms.Items[lbChatrooms.SelectedIndex].ToString()), this);
+            Form chatroomInfo = new FormChatroomInfo(chatrooms.Single(s => s.Value.ChatName == lbChatrooms.Items[lbChatrooms.SelectedIndex].ToString()).Value, this);
             chatroomInfo.ShowDialog(this);
         }
 
