@@ -1390,13 +1390,13 @@ namespace KraxbotOSS
 		private void SendMessage(SteamID userID, string message) 
 			=> friends.SendChatMessage(userID, EChatEntryType.ChatMsg, message);
 
-		public void CreateSettings(SteamID ChatRoomID, string ChatRoomName, SteamID InvitedID, string InvitedName)
+		public void CreateSettings(SteamID chatroomID, string chatroomName, SteamID invitedID, string InvitedName)
         {
-            chatrooms[ChatRoomID] = new Settings
+            chatrooms[chatroomID] = new Settings
             {
-                ChatID = ChatRoomID,
-                ChatName = ChatRoomName,
-                InvitedID = InvitedID,
+                ChatID      = chatroomID,
+                ChatName    = chatroomName,
+                InvitedID   = invitedID,
                 InvitedName = InvitedName
             };
         }
