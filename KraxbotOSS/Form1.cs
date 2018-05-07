@@ -1392,13 +1392,13 @@ namespace KraxbotOSS
 
 		public void CreateSettings(SteamID ChatRoomID, string ChatRoomName, SteamID InvitedID, string InvitedName)
         {
-            chatrooms.Add(ChatRoomID, new Settings
+            chatrooms[ChatRoomID] = new Settings
             {
                 ChatID = ChatRoomID,
                 ChatName = ChatRoomName,
                 InvitedID = InvitedID,
                 InvitedName = InvitedName
-            });
+            };
         }
 
 	    private static void SaveSettings(Settings setting)
@@ -1411,7 +1411,7 @@ namespace KraxbotOSS
         {
             var file = File.ReadAllText(Path.Combine(ConfigPath, "chatrooms", chatRoomID.ConvertToUInt64() + ".json"));
 	        var settings = JsonConvert.DeserializeObject<Settings>(file);
-			chatrooms.Add(settings.ChatID, settings);
+			chatrooms[settings.ChatID] = settings;
         }
 
 	    private static bool CheckPermission(string check, EChatPermission permission)
