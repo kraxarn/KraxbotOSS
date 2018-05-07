@@ -454,6 +454,10 @@ namespace KraxbotOSS
         {
             if (callback.Type == EChatInfoType.StateChange)
             {
+				// If chatrooms doesn't contain the settings, we already left the chat
+	            if (!chatrooms.ContainsKey(callback.ChatRoomID))
+		            return;
+
                 // Vars
                 var chatRoom   = chatrooms[callback.ChatRoomID];
                 var chatRoomID = callback.ChatRoomID;
