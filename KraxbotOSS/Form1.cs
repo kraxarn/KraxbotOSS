@@ -157,8 +157,8 @@ namespace KraxbotOSS
         // Chat settings
         public class Settings
         {
-            public List<UserInfo> Users = new List<UserInfo>();
-            public List<String> SetRules = new List<String>();
+            public readonly List<UserInfo> Users    = new List<UserInfo>();
+            public readonly List<string>   SetRules = new List<string>();
 
             public int     Version     = 1;
             public string  ChatName    = "NoName";
@@ -705,7 +705,7 @@ namespace KraxbotOSS
 						            // Youtube
 						            if (string.IsNullOrEmpty(config.API_Google))
 						            {
-							            string video = title.Substring(0, title.LastIndexOf("- YouTube"));
+							            var video = title.Substring(0, title.LastIndexOf("- YouTube"));
 							            SendChatMessage(chatRoomID, $"{name} posted a video: {video}");
 						            }
 						            else
