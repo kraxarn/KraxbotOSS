@@ -1,6 +1,6 @@
 ![Kraxbot: Open Source](https://vgy.me/ZA2UEo.png)
 
-![](https://vgy.me/uIzIiE.png)
+![](https://vgy.me/5OSfs8.png)
 
 # About
 A Steam chat bot based off KraxBot 3.0, but uses a different programming language, so not really.
