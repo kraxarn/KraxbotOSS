@@ -108,7 +108,7 @@ namespace KraxbotOSS
 
             // Check for updates
             if (config.Updates != "None")
-                CheckForUpdates();
+                Task.Run(() => CheckForUpdates());
 
             // Welcome the user :)
             log.AppendText("Welcome to KraxbotOSS " + version);
@@ -1450,25 +1450,27 @@ namespace KraxbotOSS
 		}
 
 	    public bool CheckForUpdates()
-        {
-            var response = Get("https://api.github.com/repos/KraXarN/KraxbotOSS/releases");
-            if (string.IsNullOrEmpty(response))
-	            return false;
-            dynamic result = JsonConvert.DeserializeObject(response);
-            string newVersion = result[0].tag_name;
-            newVersion = newVersion.Substring(1);
+	    {
+		    var response = Get("https://api.github.com/repos/KraXarN/KraxbotOSS/releases");
+		    if (string.IsNullOrEmpty(response))
+			    return false;
+		    dynamic result = JsonConvert.DeserializeObject(response);
+		    string newVersion = result[0].tag_name;
+		    newVersion = newVersion.Substring(1);
 
-            if (version != newVersion)
-            {
-                if (MessageBox.Show($"Current version is {version} \nNew Version is {newVersion} \nDo you want to update now?", "New Update Found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    System.Diagnostics.Process.Start("https://github.com/KraXarN/KraxbotOSS/releases");
-	            return true;
-            }
+		    if (version != newVersion)
+		    {
+			    Invoke(new MethodInvoker(delegate { 
+					if (MessageBox.Show($"Current version is {version} \nNew Version is {newVersion} \nDo you want to update now?", "New Update Found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+						System.Diagnostics.Process.Start("https://github.com/KraXarN/KraxbotOSS/releases");
+			    }));
+				return true;
+			}
 
-	        return false;
-        }
+		    return false;
+	    }
 
-	    private static string GetStringBetween(string token, string first, string second = null)
+		private static string GetStringBetween(string token, string first, string second = null)
         {
             var from = token.IndexOf(first) + first.Length;
             if (!string.IsNullOrEmpty(second))
