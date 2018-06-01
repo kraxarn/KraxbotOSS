@@ -29,10 +29,9 @@ namespace KraxbotOSS
 	    private bool running;
 
 		// Steam variables
-		private SteamClient     client;
-        private CallbackManager manager;
-        private SteamUser       user;
-        private SteamFriends    friends;
+		private readonly SteamClient  client;
+	    private readonly SteamUser    user;
+        private readonly SteamFriends friends;
 
 		// Discord
 	    private DiscordBot discordBot;
@@ -56,7 +55,7 @@ namespace KraxbotOSS
 
 		public Form1()
         {
-            InitializeComponent();
+	        InitializeComponent();
 
 			// Vars
 	        version   = "1.1.0";
@@ -115,8 +114,8 @@ namespace KraxbotOSS
 
             // Steam stuff
             // Create client and callback manager to route callbacks to functions
-            client  = new SteamClient();
-            manager = new CallbackManager(client);
+            client      = new SteamClient();
+            var manager = new CallbackManager(client);
             // Get the user handler, which is used for logging in
             user    = client.GetHandler<SteamUser>();
             friends = client.GetHandler<SteamFriends>();
