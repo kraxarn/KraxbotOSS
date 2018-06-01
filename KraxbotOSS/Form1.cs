@@ -58,7 +58,7 @@ namespace KraxbotOSS
 	        InitializeComponent();
 
 			// Vars
-	        version   = "1.1.0";
+	        version   = "1.1.1";
 	        chatrooms = new Dictionary<SteamID, Settings>();
 	        config    = new Config();
 	        cleverbotSessions = new Dictionary<SteamID, CleverbotSession>();
