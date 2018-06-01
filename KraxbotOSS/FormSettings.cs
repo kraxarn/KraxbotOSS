@@ -375,7 +375,7 @@ namespace KraxbotOSS
 			    }
 		    }
 
-			groupID = new SteamID();
+			groupID = default(SteamID);
 		    return false;
 	    }
 
