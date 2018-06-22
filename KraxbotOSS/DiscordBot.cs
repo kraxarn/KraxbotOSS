@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
+using DSharpPlus.Exceptions;
 using DSharpPlus.Net.WebSocket;
 using SteamKit2;
 
@@ -32,6 +33,12 @@ namespace KraxbotOSS
 				try
 				{
 					Bot().ConfigureAwait(false).GetAwaiter().GetResult();
+				}
+				catch (NotFoundException e)
+				{
+					MessageBox.Show($"Failed to join Discord channel. Check so the correct channel ID is set in settings and try again. Error code: {e.Message}",
+						"Discord channel not found",
+						MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
 				catch (Exception e)
 				{
