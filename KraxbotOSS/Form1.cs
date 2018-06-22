@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using System.Threading;
 using Cleverbot.Net;
 using System.Net;
+using DSharpPlus.Exceptions;
 
 namespace KraxbotOSS
 {
@@ -384,7 +385,10 @@ namespace KraxbotOSS
 
 	        // Discord
 	        if (config.Discord_Enabled)
+	        {
 		        discordBot = new DiscordBot(this);
+		        discordBot.Error += DiscordError;
+			}
 		}
 
 	    private void OnFriendAdded(SteamFriends.FriendAddedCallback callback)
@@ -1500,9 +1504,34 @@ namespace KraxbotOSS
 
 			// See if we enabled Discord
 			if (config.Discord_Enabled && discordBot == null)
+			{
 				discordBot = new DiscordBot(this);
-        }
-        
+				discordBot.Error += DiscordError;
+			}
+		}
+
+	    private void DiscordError(Exception e)
+	    {
+		    DiscordStatus = e.Message;
+
+			if (e is NotFoundException)
+		    {
+			    MessageBox.Show($"Failed to join Discord channel. Check so the correct channel ID is set in settings and try again. Error code: {e.Message}",
+				    "Discord channel not found",
+				    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+		    }
+		    else
+		    {
+			    MessageBox.Show($"{e.GetType().FullName}\n{e.Message}\n\n{e.StackTrace}",
+				    "Failed to connect to Discord",
+				    MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+
+		    discordBot?.Disconnect();
+		    discordBot = null;
+		    DiscordStatus = "Disabled";
+	    }
+
 	    private void BtnLogin_Click(object sender, EventArgs e)
         {
             if (File.Exists(Path.Combine(ConfigPath, "user")))

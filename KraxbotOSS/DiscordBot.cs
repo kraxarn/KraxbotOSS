@@ -20,6 +20,10 @@ namespace KraxbotOSS
 		private readonly SteamID steamChat;
 		private DiscordChannel discordChannel;
 
+		public delegate void OnErrorEvent(Exception e);
+
+		public OnErrorEvent Error;
+
 		public DiscordBot(Form1 form1)
 		{
 			// Form and config refs
@@ -34,17 +38,9 @@ namespace KraxbotOSS
 				{
 					Bot().ConfigureAwait(false).GetAwaiter().GetResult();
 				}
-				catch (NotFoundException e)
-				{
-					MessageBox.Show($"Failed to join Discord channel. Check so the correct channel ID is set in settings and try again. Error code: {e.Message}",
-						"Discord channel not found",
-						MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				}
 				catch (Exception e)
 				{
-					MessageBox.Show($"{e.GetType().FullName}\n{e.Message}\n\n{e.StackTrace}",
-						"Failed to connect to Discord",
-						MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Error?.Invoke(e);
 				}
 			});
 
