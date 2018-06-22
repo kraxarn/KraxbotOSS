@@ -156,7 +156,7 @@ namespace KraxbotOSS
 				// Check so they aren't empty
 		        if (string.IsNullOrEmpty(tbDiscordToken.Text))
 			        error = "Bot Token";
-				else if (string.IsNullOrEmpty(tbDiscordChannel.Text))
+				else if (string.IsNullOrEmpty(tbDiscordChannel.Text) || tbDiscordChannel.Text == "0")
 			        error = "Channel";
 				else if (cbDiscordSteam.SelectedIndex == -1)
 			        error = "Steam Chatroom";
