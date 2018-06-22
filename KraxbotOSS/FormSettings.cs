@@ -161,7 +161,7 @@ namespace KraxbotOSS
 				else if (cbDiscordSteam.SelectedIndex == -1)
 			        error = "Steam Chatroom";
 				
-				// Display error if they are
+				// Display error if there were any
 		        if (error != "")
 		        {
 			        MessageBox.Show($"{error} is required when using Discord", "Discord Error", MessageBoxButtons.OK,
