@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
@@ -25,7 +27,19 @@ namespace KraxbotOSS
 
 			// Discord
 			form.DiscordStatus = "Connecting";
-			Task.Run(() => Bot().ConfigureAwait(false).GetAwaiter().GetResult());
+			Task.Run(() =>
+			{
+				try
+				{
+					Bot().ConfigureAwait(false).GetAwaiter().GetResult();
+				}
+				catch (Exception e)
+				{
+					MessageBox.Show($"{e.GetType().FullName}\n{e.Message}\n\n{e.StackTrace}",
+						"Failed to connect to Discord",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			});
 
 			// Set the Steam chatroom to send messages to
 			if (cfg.Discord_Steam != 0)
