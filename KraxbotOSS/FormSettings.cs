@@ -97,7 +97,7 @@ namespace KraxbotOSS
 			cbDiscordStateChanges.Checked = Form1.config.Discord_StateChanges;
 
 	        var channel = Form1.config.Discord_Channel;
-	        tbDiscordChannel.Text = channel == 0 ? null : $@"{Form1.config.Discord_Channel}";
+	        tbDiscordChannel.Text = channel == 0 ? null : $"{channel}";
 
 			switch (Form1.config.Discord_Messages)
 	        {
