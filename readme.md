@@ -26,8 +26,8 @@ Check the releases page. Currently, some manual steps are required to run it on 
 Clone it and open `KraxBotOSS.sln` in your favourite IDE and hit build. Recommended is Visual Studio 2017.
 
 # Running on Windows
-Just open `KraxbotOSS.exe`. If that doesn't work, make sure you have .NET 4.6.2 installed,
-If you don't, you can download it [here](https://www.microsoft.com/en-us/download/details.aspx?id=53345)
+Just open `KraxbotOSS.exe`. If that doesn't work, make sure you have .NET 4.7.2 installed,
+If you don't, you can download it [here](https://www.microsoft.com/net/download/thank-you/net472)
 
 # Running on Linux/Mac
 Check the wiki, Mac should be similar to Linux.
