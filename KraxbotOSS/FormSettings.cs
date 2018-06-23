@@ -95,9 +95,11 @@ namespace KraxbotOSS
 			tbDiscordToken.Text           = Form1.config.Discord_Token;
 			tbDiscordAdmin.Text           = Form1.config.Discord_Admin;
 			cbDiscordStateChanges.Checked = Form1.config.Discord_StateChanges;
-	        tbDiscordChannel.Text         = $@"{Form1.config.Discord_Channel}";
 
-	        switch (Form1.config.Discord_Messages)
+	        var channel = Form1.config.Discord_Channel;
+	        tbDiscordChannel.Text = channel == 0 ? null : $@"{Form1.config.Discord_Channel}";
+
+			switch (Form1.config.Discord_Messages)
 	        {
 				case "DiscordToSteam": index = 1; break;
 				case "SteamToDiscord": index = 2; break;
