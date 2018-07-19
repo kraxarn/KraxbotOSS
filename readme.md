@@ -6,6 +6,9 @@
 A Steam chat bot based off KraxBot 3.0, but uses a different programming language, so not really.
 Why? To make it easier to run for other users and to provide a simple GUI.
 
+# About this branch
+This branch (`winform-newui`) is currently used to try out some new user interface designs to make the app more pleasing to look at while still using Windows Forms.
+
 # Features
 
 The bot has a lot of different features! Here are some of them:
