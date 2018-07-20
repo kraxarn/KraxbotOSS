@@ -1454,18 +1454,18 @@ namespace KraxbotOSS
 
 	    public bool CheckForUpdates()
 	    {
-		    var response = Get("https://api.github.com/repos/KraXarN/KraxbotOSS/releases");
+		    var response = Get("https://api.github.com/repos/KraXarN/KraxbotOSS/releases/latest");
 		    if (string.IsNullOrEmpty(response))
 			    return false;
 		    dynamic result = JsonConvert.DeserializeObject(response);
-		    string newVersion = result[0].tag_name;
+		    string newVersion = result.tag_name;
 		    newVersion = newVersion.Substring(1);
 
 		    if (version != newVersion)
 		    {
 			    Invoke(new MethodInvoker(delegate { 
 					if (MessageBox.Show($"Current version is {version} \nNew Version is {newVersion} \nDo you want to update now?", "New Update Found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-						System.Diagnostics.Process.Start("https://github.com/KraXarN/KraxbotOSS/releases");
+						System.Diagnostics.Process.Start("https://github.com/KraXarN/KraxbotOSS/releases/latest");
 			    }));
 				return true;
 			}
