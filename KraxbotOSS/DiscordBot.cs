@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
-using DSharpPlus.Exceptions;
 using DSharpPlus.Net.WebSocket;
 using SteamKit2;
 
