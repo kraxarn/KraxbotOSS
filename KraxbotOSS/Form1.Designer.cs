@@ -31,51 +31,37 @@ namespace KraxbotOSS
         private void InitializeComponent()
         {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.lbChatrooms = new System.Windows.Forms.ListBox();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.listChatrooms = new MaterialSkin.Controls.MaterialListView();
 			this.lDiscordStatus = new MaterialSkin.Controls.MaterialLabel();
 			this.lSteamStatus = new MaterialSkin.Controls.MaterialLabel();
 			this.btnChatroomInfo = new MaterialSkin.Controls.MaterialFlatButton();
 			this.btnSettings = new MaterialSkin.Controls.MaterialFlatButton();
 			this.btnBotSettings = new MaterialSkin.Controls.MaterialFlatButton();
 			this.btnLogin = new MaterialSkin.Controls.MaterialFlatButton();
-			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.log = new System.Windows.Forms.RichTextBox();
-			this.groupBox1.SuspendLayout();
-			this.groupBox2.SuspendLayout();
-			this.groupBox3.SuspendLayout();
+			this.dividerLeft = new MaterialSkin.Controls.MaterialDivider();
+			this.labelChatrooms = new MaterialSkin.Controls.MaterialLabel();
+			this.labelStatus = new MaterialSkin.Controls.MaterialLabel();
+			this.labelLog = new MaterialSkin.Controls.MaterialLabel();
 			this.SuspendLayout();
 			// 
-			// groupBox1
+			// listChatrooms
 			// 
-			this.groupBox1.Controls.Add(this.lbChatrooms);
-			this.groupBox1.Location = new System.Drawing.Point(12, 70);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(185, 295);
-			this.groupBox1.TabIndex = 0;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Chatrooms";
-			// 
-			// lbChatrooms
-			// 
-			this.lbChatrooms.FormattingEnabled = true;
-			this.lbChatrooms.Location = new System.Drawing.Point(7, 20);
-			this.lbChatrooms.Name = "lbChatrooms";
-			this.lbChatrooms.Size = new System.Drawing.Size(170, 264);
-			this.lbChatrooms.TabIndex = 0;
-			this.lbChatrooms.SelectedIndexChanged += new System.EventHandler(this.LbChatrooms_SelectedIndexChanged);
-			// 
-			// groupBox2
-			// 
-			this.groupBox2.Controls.Add(this.lDiscordStatus);
-			this.groupBox2.Controls.Add(this.lSteamStatus);
-			this.groupBox2.Location = new System.Drawing.Point(203, 70);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(169, 71);
-			this.groupBox2.TabIndex = 1;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "Status";
+			this.listChatrooms.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.listChatrooms.Depth = 0;
+			this.listChatrooms.Font = new System.Drawing.Font("Roboto", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+			this.listChatrooms.FullRowSelect = true;
+			this.listChatrooms.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+			this.listChatrooms.Location = new System.Drawing.Point(12, 97);
+			this.listChatrooms.MouseLocation = new System.Drawing.Point(-1, -1);
+			this.listChatrooms.MouseState = MaterialSkin.MouseState.OUT;
+			this.listChatrooms.Name = "listChatrooms";
+			this.listChatrooms.OwnerDraw = true;
+			this.listChatrooms.Size = new System.Drawing.Size(170, 264);
+			this.listChatrooms.TabIndex = 0;
+			this.listChatrooms.UseCompatibleStateImageBehavior = false;
+			this.listChatrooms.View = System.Windows.Forms.View.Details;
+			this.listChatrooms.SelectedIndexChanged += new System.EventHandler(this.LbChatrooms_SelectedIndexChanged);
 			// 
 			// lDiscordStatus
 			// 
@@ -83,7 +69,7 @@ namespace KraxbotOSS
 			this.lDiscordStatus.Depth = 0;
 			this.lDiscordStatus.Font = new System.Drawing.Font("Roboto", 11F);
 			this.lDiscordStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-			this.lDiscordStatus.Location = new System.Drawing.Point(8, 39);
+			this.lDiscordStatus.Location = new System.Drawing.Point(188, 114);
 			this.lDiscordStatus.MouseState = MaterialSkin.MouseState.HOVER;
 			this.lDiscordStatus.Name = "lDiscordStatus";
 			this.lDiscordStatus.Size = new System.Drawing.Size(127, 19);
@@ -96,7 +82,7 @@ namespace KraxbotOSS
 			this.lSteamStatus.Depth = 0;
 			this.lSteamStatus.Font = new System.Drawing.Font("Roboto", 11F);
 			this.lSteamStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-			this.lSteamStatus.Location = new System.Drawing.Point(8, 20);
+			this.lSteamStatus.Location = new System.Drawing.Point(188, 95);
 			this.lSteamStatus.MouseState = MaterialSkin.MouseState.HOVER;
 			this.lSteamStatus.Name = "lSteamStatus";
 			this.lSteamStatus.Size = new System.Drawing.Size(152, 19);
@@ -110,7 +96,7 @@ namespace KraxbotOSS
 			this.btnChatroomInfo.Depth = 0;
 			this.btnChatroomInfo.Enabled = false;
 			this.btnChatroomInfo.Icon = null;
-			this.btnChatroomInfo.Location = new System.Drawing.Point(203, 150);
+			this.btnChatroomInfo.Location = new System.Drawing.Point(189, 142);
 			this.btnChatroomInfo.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
 			this.btnChatroomInfo.MouseState = MaterialSkin.MouseState.HOVER;
 			this.btnChatroomInfo.Name = "btnChatroomInfo";
@@ -127,7 +113,7 @@ namespace KraxbotOSS
 			this.btnSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.btnSettings.Depth = 0;
 			this.btnSettings.Icon = null;
-			this.btnSettings.Location = new System.Drawing.Point(204, 329);
+			this.btnSettings.Location = new System.Drawing.Point(189, 325);
 			this.btnSettings.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
 			this.btnSettings.MouseState = MaterialSkin.MouseState.HOVER;
 			this.btnSettings.Name = "btnSettings";
@@ -145,7 +131,7 @@ namespace KraxbotOSS
 			this.btnBotSettings.Depth = 0;
 			this.btnBotSettings.Enabled = false;
 			this.btnBotSettings.Icon = null;
-			this.btnBotSettings.Location = new System.Drawing.Point(204, 293);
+			this.btnBotSettings.Location = new System.Drawing.Point(189, 289);
 			this.btnBotSettings.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
 			this.btnBotSettings.MouseState = MaterialSkin.MouseState.HOVER;
 			this.btnBotSettings.Name = "btnBotSettings";
@@ -163,7 +149,7 @@ namespace KraxbotOSS
 			this.btnLogin.Depth = 0;
 			this.btnLogin.Enabled = false;
 			this.btnLogin.Icon = null;
-			this.btnLogin.Location = new System.Drawing.Point(203, 186);
+			this.btnLogin.Location = new System.Drawing.Point(189, 178);
 			this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
 			this.btnLogin.MouseState = MaterialSkin.MouseState.HOVER;
 			this.btnLogin.Name = "btnLogin";
@@ -174,39 +160,82 @@ namespace KraxbotOSS
 			this.btnLogin.UseVisualStyleBackColor = true;
 			this.btnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
 			// 
-			// groupBox3
-			// 
-			this.groupBox3.Controls.Add(this.log);
-			this.groupBox3.Location = new System.Drawing.Point(378, 70);
-			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(200, 295);
-			this.groupBox3.TabIndex = 7;
-			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Log";
-			// 
 			// log
 			// 
 			this.log.BackColor = System.Drawing.SystemColors.Control;
 			this.log.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.log.Location = new System.Drawing.Point(6, 19);
+			this.log.Location = new System.Drawing.Point(361, 95);
 			this.log.Name = "log";
 			this.log.ReadOnly = true;
 			this.log.Size = new System.Drawing.Size(188, 270);
 			this.log.TabIndex = 0;
 			this.log.Text = "";
 			// 
+			// dividerLeft
+			// 
+			this.dividerLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+			this.dividerLeft.Depth = 0;
+			this.dividerLeft.Location = new System.Drawing.Point(0, 0);
+			this.dividerLeft.MouseState = MaterialSkin.MouseState.HOVER;
+			this.dividerLeft.Name = "dividerLeft";
+			this.dividerLeft.Size = new System.Drawing.Size(0, 1);
+			this.dividerLeft.TabIndex = 0;
+			// 
+			// labelChatrooms
+			// 
+			this.labelChatrooms.AutoSize = true;
+			this.labelChatrooms.Depth = 0;
+			this.labelChatrooms.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Bold);
+			this.labelChatrooms.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+			this.labelChatrooms.Location = new System.Drawing.Point(12, 70);
+			this.labelChatrooms.MouseState = MaterialSkin.MouseState.HOVER;
+			this.labelChatrooms.Name = "labelChatrooms";
+			this.labelChatrooms.Size = new System.Drawing.Size(102, 25);
+			this.labelChatrooms.TabIndex = 8;
+			this.labelChatrooms.Text = "Chatrooms";
+			// 
+			// labelStatus
+			// 
+			this.labelStatus.AutoSize = true;
+			this.labelStatus.Depth = 0;
+			this.labelStatus.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Bold);
+			this.labelStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+			this.labelStatus.Location = new System.Drawing.Point(188, 70);
+			this.labelStatus.MouseState = MaterialSkin.MouseState.HOVER;
+			this.labelStatus.Name = "labelStatus";
+			this.labelStatus.Size = new System.Drawing.Size(64, 25);
+			this.labelStatus.TabIndex = 9;
+			this.labelStatus.Text = "Status";
+			// 
+			// labelLog
+			// 
+			this.labelLog.AutoSize = true;
+			this.labelLog.Depth = 0;
+			this.labelLog.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Bold);
+			this.labelLog.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+			this.labelLog.Location = new System.Drawing.Point(361, 70);
+			this.labelLog.MouseState = MaterialSkin.MouseState.HOVER;
+			this.labelLog.Name = "labelLog";
+			this.labelLog.Size = new System.Drawing.Size(43, 25);
+			this.labelLog.TabIndex = 10;
+			this.labelLog.Text = "Log";
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(591, 374);
-			this.Controls.Add(this.groupBox3);
+			this.ClientSize = new System.Drawing.Size(561, 374);
+			this.Controls.Add(this.log);
+			this.Controls.Add(this.labelLog);
+			this.Controls.Add(this.lDiscordStatus);
+			this.Controls.Add(this.labelStatus);
+			this.Controls.Add(this.lSteamStatus);
+			this.Controls.Add(this.listChatrooms);
+			this.Controls.Add(this.labelChatrooms);
 			this.Controls.Add(this.btnLogin);
 			this.Controls.Add(this.btnBotSettings);
 			this.Controls.Add(this.btnSettings);
 			this.Controls.Add(this.btnChatroomInfo);
-			this.Controls.Add(this.groupBox2);
-			this.Controls.Add(this.groupBox1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.Name = "Form1";
@@ -214,21 +243,13 @@ namespace KraxbotOSS
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Kraxbot: Open Source";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-			this.groupBox1.ResumeLayout(false);
-			this.groupBox2.ResumeLayout(false);
-			this.groupBox2.PerformLayout();
-			this.groupBox3.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox lbChatrooms;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private MaterialListView listChatrooms;
         private System.Windows.Forms.RichTextBox log;
 		private MaterialFlatButton btnChatroomInfo;
 		private MaterialFlatButton btnSettings;
@@ -236,6 +257,10 @@ namespace KraxbotOSS
 		private MaterialFlatButton btnLogin;
 		private MaterialLabel lSteamStatus;
 		private MaterialLabel lDiscordStatus;
+	    private MaterialDivider dividerLeft;
+		private MaterialLabel labelChatrooms;
+		private MaterialLabel labelStatus;
+		private MaterialLabel labelLog;
 		//private System.Windows.Forms.RichTextBox log;
 	}
 }

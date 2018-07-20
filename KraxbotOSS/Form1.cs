@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -426,7 +427,7 @@ namespace KraxbotOSS
             // Add to chatrooms list
             Invoke((MethodInvoker)delegate
             {
-                lbChatrooms.Items.Add(callback.ChatRoomName);
+                listChatrooms.Items.Add(callback.ChatRoomName);
             });
 
             // Create settings if needed
@@ -512,8 +513,8 @@ namespace KraxbotOSS
 	                        chatrooms.Remove(callback.ChatRoomID);
                             Invoke((MethodInvoker)delegate
                             {
-                                lbChatrooms.Items.Remove(chatRoom.ChatName);
-                                if (lbChatrooms.Items.Count == 0)
+                                listChatrooms.Items.RemoveByKey(chatRoom.ChatName);
+                                if (listChatrooms.Items.Count == 0)
                                     btnChatroomInfo.Enabled = false;
                             });
                             break;
@@ -777,8 +778,8 @@ namespace KraxbotOSS
 	                chatrooms.Remove(callback.ChatRoomID);
                     Invoke((MethodInvoker)delegate
                     {
-                        lbChatrooms.Items.Remove(chatRoom.ChatName);
-                        if (lbChatrooms.Items.Count == 0)
+                        listChatrooms.Items.RemoveByKey(chatRoom.ChatName);
+                        if (listChatrooms.Items.Count == 0)
                             btnChatroomInfo.Enabled = false;
                     });
                     friends.LeaveChat(chatRoomID);
@@ -1575,11 +1576,21 @@ namespace KraxbotOSS
 
 		private void BtnChatroomInfo_Click(object sender, EventArgs e)
         {
-            Form chatroomInfo = new FormChatroomInfo(chatrooms.Single(s => s.Value.ChatName == lbChatrooms.Items[lbChatrooms.SelectedIndex].ToString()).Value, this);
+            Form chatroomInfo = new FormChatroomInfo(chatrooms.Single(s => s.Value.ChatName == listChatrooms.Items[listChatrooms.SelectedIndices[0]].ToString()).Value, this);
             chatroomInfo.ShowDialog(this);
         }
 
-		#endregion
+	    protected override void OnShown(EventArgs e)
+	    {
+		    labelChatrooms.Font = labelStatus.Font = labelLog.Font = new Font("Roboto", 14, FontStyle.Bold);
+
+		    log.Font = new Font("Roboto", 8);
+		    log.BackColor = BackColor;
+
+		    base.OnShown(e);
+	    }
+
+	    #endregion
 
 		#region Crash handler
 
