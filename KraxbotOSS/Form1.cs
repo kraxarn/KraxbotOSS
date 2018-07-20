@@ -14,10 +14,12 @@ using System.Threading;
 using Cleverbot.Net;
 using System.Net;
 using DSharpPlus.Exceptions;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace KraxbotOSS
 {
-    public partial class Form1 : Form
+    public partial class Form1 : MaterialForm
     {
         // Some variables
 	    private readonly string version;
@@ -57,6 +59,12 @@ namespace KraxbotOSS
 		public Form1()
         {
 	        InitializeComponent();
+
+			// Material skin
+	        var skin = MaterialSkinManager.Instance;
+			skin.AddFormToManage(this);
+	        skin.Theme = MaterialSkinManager.Themes.DARK;
+			skin.ColorScheme = new ColorScheme(Primary.Indigo500, Primary.Indigo700, Primary.Indigo100, Accent.Blue200, TextShade.WHITE);
 
 			// Vars
 	        version   = "1.1.2";
