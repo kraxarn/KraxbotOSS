@@ -8,10 +8,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SteamKit2;
 using System.Diagnostics;
+using MaterialSkin.Controls;
 
 namespace KraxbotOSS
 {
-    public partial class FormSettings : Form
+    public partial class FormSettings : MaterialForm
     {
         private readonly List<SteamID> friends, groups;
 
@@ -20,6 +21,8 @@ namespace KraxbotOSS
         public FormSettings(Form1 form)
         {
             InitializeComponent();
+
+			Tools.SetMaterialSkin(this);
 
 	        parent = form;
 
@@ -134,7 +137,14 @@ namespace KraxbotOSS
 			}
 		}
 
-        private void btnSave_Click(object sender, EventArgs e)
+	    protected override void OnShown(EventArgs e)
+	    {
+		    clChats.BackColor = BackColor;
+
+		    base.OnShown(e);
+	    }
+
+	    private void btnSave_Click(object sender, EventArgs e)
         {
             // API Keys
             Form1.config.API_Steam = tbApiSteam.Text;
