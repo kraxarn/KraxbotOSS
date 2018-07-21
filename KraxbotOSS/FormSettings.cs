@@ -341,6 +341,7 @@ namespace KraxbotOSS
         private void btnHomePage_Click(object sender, EventArgs e)    => Process.Start("https://github.com/KraXarN/KraxbotOSS");
         private void btnMoreInfo_Click(object sender, EventArgs e)    => Process.Start("https://github.com/KraXarN/KraxbotOSS/wiki/API-Keys");
 		private void btnDiscordHelp_Click(object sender, EventArgs e) => Process.Start("https://github.com/kraxarn/KraxbotOSS/wiki/Discord");
+	    private void btnConfigDir_Click(object sender, EventArgs e)   => Process.Start(Form1.ConfigPath);
 
 		private void cbEnableDiscord_CheckedChanged(object sender, EventArgs e) => gbDiscordToken.Enabled = gbDiscordAdmin.Enabled = gbDiscordSettings.Enabled = gbDiscordChannel.Enabled = gbDiscordMessages.Enabled = gbDiscordSteam.Enabled = cbEnableDiscord.Checked;
 
@@ -381,7 +382,7 @@ namespace KraxbotOSS
 		    return false;
 	    }
 
-	    private bool TryGetGroupNameFromID(uint groupID, out string name)
+		private bool TryGetGroupNameFromID(uint groupID, out string name)
 	    {
 		    foreach (var group in groups)
 		    {
