@@ -15,7 +15,14 @@ namespace KraxbotOSS
 	        form = form1;
         }
 
-        private void FormBotSettings_Shown(object sender, EventArgs e)
+	    protected override void OnShown(EventArgs e)
+	    {
+		    cbState.BackColor = BackColor;
+
+			base.OnShown(e);
+	    }
+
+	    private void FormBotSettings_Shown(object sender, EventArgs e)
         {
             var tag = Tag.ToString();
             // We assume that state is the last character (and it's an int)

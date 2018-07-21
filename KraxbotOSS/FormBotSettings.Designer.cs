@@ -79,6 +79,7 @@ namespace KraxbotOSS
 			// cbState
 			// 
 			this.cbState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbState.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cbState.FormattingEnabled = true;
 			this.cbState.Items.AddRange(new object[] {
             "Offline",
@@ -90,7 +91,7 @@ namespace KraxbotOSS
             "Looking to Play"});
 			this.cbState.Location = new System.Drawing.Point(7, 20);
 			this.cbState.Name = "cbState";
-			this.cbState.Size = new System.Drawing.Size(149, 21);
+			this.cbState.Size = new System.Drawing.Size(149, 22);
 			this.cbState.TabIndex = 0;
 			// 
 			// btnApply
