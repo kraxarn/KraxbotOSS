@@ -2,10 +2,11 @@
 using System.Windows.Forms;
 
 using System.IO;
+using MaterialSkin.Controls;
 
 namespace KraxbotOSS
 {
-    public partial class FormLogin : Form
+    public partial class FormLogin : MaterialForm
     {
         public static string Username, Password;
 	    private readonly Form1 form;
@@ -13,6 +14,8 @@ namespace KraxbotOSS
         public FormLogin(Form1 form1, string argument = "None")
         {
             InitializeComponent();
+
+			Tools.SetMaterialSkin(this);
 
 	        form = form1;
 
