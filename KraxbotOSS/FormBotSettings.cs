@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Windows.Forms;
+using MaterialSkin.Controls;
 
 namespace KraxbotOSS
 {
-    public partial class FormBotSettings : Form
+    public partial class FormBotSettings : MaterialForm
     {
 	    private readonly Form1 form;
 
         public FormBotSettings(Form1 form1)
         {
             InitializeComponent();
+			Tools.SetMaterialSkin(this);
 	        form = form1;
         }
 
