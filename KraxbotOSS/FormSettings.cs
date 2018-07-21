@@ -60,8 +60,8 @@ namespace KraxbotOSS
             foreach (var userID in friends)
             {
                 cbFriends.Items.Add($"{form.GetFriendName(userID)} ({userID.AccountID})");
-                if (userID.AccountID == Form1.config.Superadmin)
-                    cbFriends.SelectedIndex = cbFriends.Items.Count - 1;
+	            if (userID.AccountID == Form1.config.Superadmin)
+		            cbFriends.SelectedIndex = cbFriends.Items.Count - 1;
             }
 
             if (cbFriends.Items.Count == 0)
@@ -208,7 +208,7 @@ namespace KraxbotOSS
             // Superadmin
             int from, to;
             var superadmin = Form1.config.Superadmin.ToString();
-            if (cbFriends.Enabled && cbFriends.SelectedIndex > 0)
+            if (cbFriends.Enabled && cbFriends.SelectedIndex >= 0)
             {
                 from = cbFriends.Text.LastIndexOf('(') + 1;
                 to   = cbFriends.Text.LastIndexOf(')');
