@@ -75,12 +75,13 @@
 			this.gbDiscordToken = new System.Windows.Forms.GroupBox();
 			this.tbDiscordToken = new System.Windows.Forms.TextBox();
 			this.tpAbout = new System.Windows.Forms.TabPage();
+			this.btnConfigDir = new System.Windows.Forms.Button();
 			this.btnCheckUpdate = new System.Windows.Forms.Button();
 			this.btnHomePage = new System.Windows.Forms.Button();
 			this.lBuildDate = new System.Windows.Forms.Label();
 			this.btnForgetLogin = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
-			this.btnConfigDir = new System.Windows.Forms.Button();
+			this.cbBeta = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -575,6 +576,7 @@
 			// 
 			// tpAbout
 			// 
+			this.tpAbout.Controls.Add(this.cbBeta);
 			this.tpAbout.Controls.Add(this.btnConfigDir);
 			this.tpAbout.Controls.Add(this.btnCheckUpdate);
 			this.tpAbout.Controls.Add(this.btnHomePage);
@@ -589,6 +591,16 @@
 			this.tpAbout.Text = "About";
 			this.tpAbout.UseVisualStyleBackColor = true;
 			this.tpAbout.Enter += new System.EventHandler(this.tpAbout_Enter);
+			// 
+			// btnConfigDir
+			// 
+			this.btnConfigDir.Location = new System.Drawing.Point(140, 231);
+			this.btnConfigDir.Name = "btnConfigDir";
+			this.btnConfigDir.Size = new System.Drawing.Size(120, 25);
+			this.btnConfigDir.TabIndex = 6;
+			this.btnConfigDir.Text = "Config directory";
+			this.btnConfigDir.UseVisualStyleBackColor = true;
+			this.btnConfigDir.Click += new System.EventHandler(this.btnConfigDir_Click);
 			// 
 			// btnCheckUpdate
 			// 
@@ -636,15 +648,15 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = resources.GetString("label1.Text");
 			// 
-			// btnConfigDir
+			// cbBeta
 			// 
-			this.btnConfigDir.Location = new System.Drawing.Point(140, 231);
-			this.btnConfigDir.Name = "btnConfigDir";
-			this.btnConfigDir.Size = new System.Drawing.Size(120, 25);
-			this.btnConfigDir.TabIndex = 6;
-			this.btnConfigDir.Text = "Config directory";
-			this.btnConfigDir.UseVisualStyleBackColor = true;
-			this.btnConfigDir.Click += new System.EventHandler(this.btnConfigDir_Click);
+			this.cbBeta.AutoSize = true;
+			this.cbBeta.Location = new System.Drawing.Point(10, 208);
+			this.cbBeta.Name = "cbBeta";
+			this.cbBeta.Size = new System.Drawing.Size(93, 17);
+			this.cbBeta.TabIndex = 7;
+			this.cbBeta.Text = "Opt in for beta";
+			this.cbBeta.UseVisualStyleBackColor = true;
 			// 
 			// FormSettings
 			// 
@@ -757,5 +769,6 @@
 		private System.Windows.Forms.GroupBox gbDiscordSteam;
 		private System.Windows.Forms.ComboBox cbDiscordSteam;
 		private System.Windows.Forms.Button btnConfigDir;
+		private System.Windows.Forms.CheckBox cbBeta;
 	}
 }
