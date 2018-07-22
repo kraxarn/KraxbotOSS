@@ -1454,23 +1454,36 @@ namespace KraxbotOSS
 
 	    public bool CheckForUpdates()
 	    {
-		    var response = Get("https://api.github.com/repos/KraXarN/KraxbotOSS/releases/latest");
-		    if (string.IsNullOrEmpty(response))
+		    if (!TryGetLatestVersion(config.Updates == "Beta", out var newVersion))
 			    return false;
-		    dynamic result = JsonConvert.DeserializeObject(response);
-		    string newVersion = result.tag_name;
-		    newVersion = newVersion.Substring(1);
 
 		    if (version != newVersion)
 		    {
-			    Invoke(new MethodInvoker(delegate { 
-					if (MessageBox.Show($"Current version is {version} \nNew Version is {newVersion} \nDo you want to update now?", "New Update Found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-						System.Diagnostics.Process.Start("https://github.com/KraXarN/KraxbotOSS/releases/latest");
+			    Invoke(new MethodInvoker(delegate {
+				    if (MessageBox.Show($"Current version is {version} \nNew Version is {newVersion} \nDo you want to update now?", "New Update Found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+					    System.Diagnostics.Process.Start("https://github.com/KraXarN/KraxbotOSS/releases");
 			    }));
-				return true;
-			}
+			    return true;
+		    }
 
 		    return false;
+		}
+
+	    private bool TryGetLatestVersion(bool beta, out string ver)	
+	    {
+		    var response = Get($"https://api.github.com/repos/KraXarN/KraxbotOSS/releases{(beta ? "" : "/latest")}");
+
+		    if (string.IsNullOrEmpty(response))
+		    {
+			    ver = null;
+				return false;
+			}
+
+		    dynamic result = JsonConvert.DeserializeObject(response);
+
+			ver = ((string) (beta ? result[0].tag_name : result.tag_name)).Substring(1);
+
+			return true;
 	    }
 
 		private static string GetStringBetween(string token, string first, string second = null)
