@@ -262,9 +262,10 @@ namespace KraxbotOSS
 			Form1.config.Discord_Admin        = tbDiscordAdmin.Text;
 			Form1.config.Discord_StateChanges = cbDiscordStateChanges.Checked;
 
+			// Try to get Discord channel and show error if enabled
 	        if (ulong.TryParse(tbDiscordChannel.Text, out var channelID))
 		        Form1.config.Discord_Channel = channelID;
-	        else
+	        else if (cbEnableDiscord.Checked)
 	        {
 		        MessageBox.Show("Discord channel was in an incorrect format", "Discord Error", MessageBoxButtons.OK,
 			        MessageBoxIcon.Error);
