@@ -560,7 +560,8 @@ namespace KraxbotOSS
                 using (var sha = new System.Security.Cryptography.SHA1CryptoServiceProvider())
                     sentryHash = sha.ComputeHash(fs);
             }
-            // Inform Steam what we're accepting this sentry file
+
+            // Tell Steam we're accepting the sentry file
             user.SendMachineAuthResponse(new SteamUser.MachineAuthDetails
             {
                 JobID = callback.JobID,
