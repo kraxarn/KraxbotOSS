@@ -7,7 +7,7 @@ A Steam chat bot based off KraxBot 3.0, but uses a different programming languag
 Why? To make it easier to run for other users and to provide a simple GUI.
 
 # State of the Project
-The application hasn't worked since July 2018, but it's not dead, yet. This project relies on the SteamKit library, which does not yet properly support the new chat until the [2.4 update](https://github.com/SteamRE/SteamKit/projects/3) releases. After that releases (or a beta version testing support for the new chat), an update will shortly follow adding support for the new chat. Please give the project a watch if you want to get notified when this update gets released! Thanks and stay tuned!
+The application hasn't worked since July 2018, but it's not dead, yet. This project relies on the SteamKit library, which does not yet properly support the new chat until the [2.5 update](https://github.com/SteamRE/SteamKit/projects/4) releases. After that releases (or a beta version testing support for the new chat), an update will shortly follow adding support for the new chat. Please give the project a watch if you want to get notified when this update gets released! Thanks and stay tuned!
 
 # Features
 The bot has a lot of different features! Here are some of them:
